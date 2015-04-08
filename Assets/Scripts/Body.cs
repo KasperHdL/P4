@@ -3,12 +3,12 @@ using System.Collections;
 
 public class Body : MonoBehaviour {
 
-	public Vector3 startVelocity = Vector3.zero;
+	public Vector3 startVelocity;
 
 	public Vector3[] positions;
 	public Vector3[] velocities;
 
-	public int mass = 1;
+	public float mass = 1;
 	public float radius;
 
 
@@ -19,9 +19,11 @@ public class Body : MonoBehaviour {
 	//lines
 	Transform[] dots;
 
+	public Color color;
+
 	public void construct(){construct(mass,radius,transform.position,startVelocity);}
 
-	public void construct(int mass, float radius, Vector3 position, Vector3 velocity){
+	public void construct(float mass, float radius, Vector3 position, Vector3 velocity){
 		this.mass = mass;
 		this.radius = radius;
 
@@ -35,13 +37,16 @@ public class Body : MonoBehaviour {
 		this.velocities[0] = velocity;
 
 		transform.position = position;
-
-		dots = new Transform[positions.Length/Settings.DOT_OFFSET];
+		GetComponent<Renderer>().material.color = color;
+		dots = new Transform[(Settings.DOT_OFFSET == 0)?0:Settings.BODY_POSITION_LENGTH/Settings.DOT_OFFSET];
 		for(int i = 0;i<dots.Length;i++){
 			GameObject g = Instantiate(dotPrefab,positions[i*Settings.DOT_OFFSET],Quaternion.identity) as GameObject;
 			g.transform.parent = GravitySystem.DOT_CONTAINER;
 			dots[i] = g.transform;
+
+			g.GetComponent<Renderer>().material.color = color;
 		}
+
 
 	}
 

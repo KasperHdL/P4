@@ -68,8 +68,10 @@ public class GravitySystem : MonoBehaviour {
 
 				}
 
-				Vector3 prevVel = bodies[i].velocities[bodies[i].velocities.Length-1];
-				Vector3 prevPos = bodies[i].positions[bodies[i].positions.Length-1];
+				Vector3 prevVel = bodies[i].velocities[f-1];
+				Vector3 prevPos = bodies[i].positions[f-1];
+
+				Debug.Log(prevVel);
 
 				Vector3 vel = prevVel + acc;
 				Vector3 pos = prevPos + vel;
@@ -117,12 +119,15 @@ public class GravitySystem : MonoBehaviour {
 		Vector3 delta = effector.positions[index-1] - effected.positions[index-1];
 
 		float distance = delta.magnitude;
-		if(distance == 0)return Vector3.zero;
+
+		if(distance == 0)
+			return Vector3.zero;
+
 		Vector3 unitVector = delta.normalized;
 
-		Vector3 force = Settings.GRAVITATIONAL_CONSTANT * ((effected.mass * effector.mass) / distance) * unitVector;
-
-		return force / effected.mass;
+		float force = Settings.GRAVITATIONAL_CONSTANT * ((effected.mass * effector.mass) / distance);
+		Vector3 forceVector = delta.normalized * force;
+		return forceVector / effected.mass;
 	}
 
 }
