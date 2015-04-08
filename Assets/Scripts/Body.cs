@@ -3,19 +3,25 @@ using System.Collections;
 
 public class Body : MonoBehaviour {
 
+	public Vector3 startVelocity = Vector3.zero;
+
 	public Vector3[] positions;
 	public Vector3[] velocities;
 
-	public float mass;
+	public int mass = 1;
 	public float radius;
 
 
 	public GameObject dotPrefab;
 
+	public bool freezePosition = false;
+
 	//lines
 	Transform[] dots;
 
-	public void construct(float mass, float radius, Vector3 position, Vector3 velocity){
+	public void construct(){construct(mass,radius,transform.position,startVelocity);}
+
+	public void construct(int mass, float radius, Vector3 position, Vector3 velocity){
 		this.mass = mass;
 		this.radius = radius;
 
@@ -25,7 +31,6 @@ public class Body : MonoBehaviour {
 		positions = new Vector3[Settings.BODY_POSITION_LENGTH];
 		velocities = new Vector3[Settings.BODY_POSITION_LENGTH];
 
-
 		this.positions[0] = position;
 		this.velocities[0] = velocity;
 
@@ -34,7 +39,7 @@ public class Body : MonoBehaviour {
 		dots = new Transform[positions.Length/Settings.DOT_OFFSET];
 		for(int i = 0;i<dots.Length;i++){
 			GameObject g = Instantiate(dotPrefab,positions[i*Settings.DOT_OFFSET],Quaternion.identity) as GameObject;
-			g.transform.parent = GravityClass.DOT_CONTAINER;
+			g.transform.parent = GravitySystem.DOT_CONTAINER;
 			dots[i] = g.transform;
 		}
 
@@ -54,7 +59,7 @@ public class Body : MonoBehaviour {
 		//update lines
 		//TODO add velocity rotation perhaps?
 		for(int i = 0;i<dots.Length;i++){
-			//lineObjects[i/lineOffset].rotation = Quaternion.Euler(0,Mathf.Atan2(vel.x,vel.z)/Mathf.PI * 180,0);
+//			dots[i].rotation = Quaternion.Euler(0,Mathf.Atan2(velocities[i * Settings.DOT_OFFSET].x,velocities[i * Settings.DOT_OFFSET].x.z)/Mathf.PI * 180,0);
 			dots[i].position = positions[i * Settings.DOT_OFFSET];
 		}
 	}
