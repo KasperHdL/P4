@@ -178,7 +178,7 @@ MonoBehaviour:
   target: {fileID: 749161226}
   offset: 4000
   scrollSpeed: 20
-  dragSpeed: 15
+  dragSpeed: 50
 --- !u!1 &749161225
 GameObject:
   m_PrefabParentObject: {fileID: 144072, guid: f9fbb1cee0963874ba305120a2100246, type: 2}
@@ -278,7 +278,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 461020, guid: f9fbb1cee0963874ba305120a2100246, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 461020, guid: f9fbb1cee0963874ba305120a2100246, type: 2}
       propertyPath: m_LocalRotation.z
@@ -286,7 +286,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 461020, guid: f9fbb1cee0963874ba305120a2100246, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -1.62920685e-07
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 461020, guid: f9fbb1cee0963874ba305120a2100246, type: 2}
       propertyPath: m_RootOrder
@@ -442,6 +442,10 @@ Prefab:
       propertyPath: randomStartVelocity.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11477112, guid: f9fbb1cee0963874ba305120a2100246, type: 2}
+      propertyPath: rotSpeed
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f9fbb1cee0963874ba305120a2100246, type: 2}
   m_IsPrefabParent: 0
@@ -500,13 +504,13 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bbf17669ede21cf429f07d3e7d653482, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 1c2b8227dfe30c2468bbfaf976ddf6f2, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: .200000003
   MinDistance: 1
   MaxDistance: 5000
@@ -544,7 +548,7 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

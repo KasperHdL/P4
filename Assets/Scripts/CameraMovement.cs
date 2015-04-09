@@ -18,7 +18,7 @@ public class CameraMovement : MonoBehaviour {
 		if(target == null)
 			Debug.LogError("Camera target is not set!");
 
-		direction = Vector3.forward*3 + Vector3.up;
+		direction = -Vector3.forward*3 + Vector3.up;
 		transform.rotation = Quaternion.LookRotation(-direction);
 		transform.position = target.position + direction * offset;
 
@@ -45,6 +45,9 @@ public class CameraMovement : MonoBehaviour {
 				Vector3 to = startDragPos - mousePosition;
 				to *= dragSpeed;
 				to += delta;
+
+				to.x = 0;
+				delta.x = 0;
 
 
 				direction = Vector3.RotateTowards(delta,to,Time.deltaTime,0f);

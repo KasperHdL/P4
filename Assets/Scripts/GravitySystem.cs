@@ -81,13 +81,17 @@ public class GravitySystem : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
-		if(inited)
+if(inited)
 			updateBodies();
-
 
 			//updateChildren();
 	}
+
+
+	void FixedUpdate(){
+
+	}
+
 
 	public void updateBodies(){
 		for(int i = 0;i<bodies.Length;i++){

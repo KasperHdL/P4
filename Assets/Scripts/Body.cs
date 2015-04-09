@@ -66,11 +66,11 @@ public class Body : MonoBehaviour {
 
 	public void cyclePosition(Vector3 position, Vector3 velocity){
 		//move body
-		transform.position = positions[1];
-		transform.position = Vector3.Lerp(transform.position,positions[1],Time.deltaTime);
+		//transform.position = positions[1];
+		transform.position = Vector3.Lerp(transform.position,positions[1],1-Time.deltaTime);
 
 		rot += Time.deltaTime * rotSpeed;
-		transform.rotation = Quaternion.Euler(20,rot,0);
+		transform.rotation = Quaternion.Euler(0,rot,0);
 
 		//shift array
 		shiftPositions();
