@@ -7,8 +7,8 @@ public class CameraMovement : MonoBehaviour {
 	public float offset;
 	public float scrollSpeed = 20f;
 
-	public bool mouseDrag = false;
-	public Vector3 startDragPos = Vector3.zero;
+	private bool mouseDrag = false;
+	private Vector3 startDragPos = Vector3.zero;
 
 	public float dragSpeed = 1f;
 
@@ -18,7 +18,7 @@ public class CameraMovement : MonoBehaviour {
 		if(target == null)
 			Debug.LogError("Camera target is not set!");
 
-		direction = Vector3.forward;
+		direction = Vector3.forward*3 + Vector3.up;
 		transform.rotation = Quaternion.LookRotation(-direction);
 		transform.position = target.position + direction * offset;
 
@@ -41,7 +41,7 @@ public class CameraMovement : MonoBehaviour {
 			if(Input.GetMouseButtonUp(0))
 				mouseDrag = false;
 			else{
-				Vector3 mousePosition = new Vector3(-Input.mousePosition.x,Input.mousePosition.y,0);;
+				Vector3 mousePosition = new Vector3(0,Input.mousePosition.y,0);;
 				Vector3 to = startDragPos - mousePosition;
 				to *= dragSpeed;
 				to += delta;
@@ -58,7 +58,7 @@ public class CameraMovement : MonoBehaviour {
 
 		}else if(Input.GetMouseButtonDown(0)){
 			mouseDrag = true;
-			startDragPos = Input.mousePosition;
+			startDragPos = new Vector3(0,Input.mousePosition.y,0);
 		}
 
 
