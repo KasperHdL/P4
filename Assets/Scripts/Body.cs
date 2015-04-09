@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Body : MonoBehaviour {
 
+	public Vector3 randomStartVelocity = Vector3.zero;
 	public Vector3 startVelocity;
 
 	public Vector3[] positions;
@@ -14,12 +15,11 @@ public class Body : MonoBehaviour {
 
 	public GameObject dotPrefab;
 
-	public bool freezePosition = false;
-
 	//lines
 	Transform[] dots;
 	public int dotOffset = 0;
 
+	public bool randomColor = false;
 	public Color color;
 
 	public void construct(){construct(mass,radius,transform.position,startVelocity);}
@@ -34,14 +34,24 @@ public class Body : MonoBehaviour {
 		positions = new Vector3[Settings.BODY_POSITION_LENGTH];
 		velocities = new Vector3[Settings.BODY_POSITION_LENGTH];
 
+
+		if(randomStartVelocity != Vector3.zero){
+			velocity = new Vector3(Random.Range(-randomStartVelocity.x,randomStartVelocity.x),Random.Range(-randomStartVelocity.y,randomStartVelocity.y),Random.Range(-randomStartVelocity.z,randomStartVelocity.z));
+		}
+
 		this.positions[0] = position;
 		this.velocities[0] = velocity;
 
 		transform.position = position;
+
+		if(randomColor){
+			color = new Color(Random.Range(.33f,1f),Random.Range(.33f,1f),Random.Range(.33f,1f));
+		}
+
 		GetComponent<Renderer>().material.color = color;
-		dots = new Transform[(Settings.DOT_OFFSET == 0)?0:Settings.BODY_POSITION_LENGTH/Settings.DOT_OFFSET];
+		dots = new Transform[(Settings.DOT_OFFSET == 0)?0:(Settings.BODY_POSITION_LENGTH/Settings.DOT_OFFSET)-1];
 		for(int i = 0;i<dots.Length;i++){
-			GameObject g = Instantiate(dotPrefab,positions[i*Settings.DOT_OFFSET],Quaternion.identity) as GameObject;
+			GameObject g = Instantiate(dotPrefab,positions[(i+1)*Settings.DOT_OFFSET],Quaternion.identity) as GameObject;
 			g.transform.parent = GravitySystem.DOT_CONTAINER;
 			dots[i] = g.transform;
 
@@ -54,6 +64,7 @@ public class Body : MonoBehaviour {
 	public void cyclePosition(Vector3 position, Vector3 velocity){
 		//move body
 		transform.position = positions[1];
+		transform.position = Vector3.Lerp(transform.position,positions[1],Time.deltaTime);
 
 		//shift array
 		shiftPositions();
@@ -66,10 +77,7 @@ public class Body : MonoBehaviour {
 		//TODO add velocity rotation perhaps?
 		for(int i = 0;i<dots.Length;i++){
 //			dots[i].rotation = Quaternion.Euler(0,Mathf.Atan2(velocities[i * Settings.DOT_OFFSET].x,velocities[i * Settings.DOT_OFFSET].x.z)/Mathf.PI * 180,0);
-			int index = i * Settings.DOT_OFFSET;
-			if(index != 0)
-				index -= dotOffset;
-			dots[i].position = positions[index];
+			dots[i].position = positions[(i+1) * Settings.DOT_OFFSET - dotOffset];
 		}
 
 		dotOffset++;
