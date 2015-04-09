@@ -18,6 +18,7 @@ public class Body : MonoBehaviour {
 
 	//lines
 	Transform[] dots;
+	public int dotOffset = 0;
 
 	public Color color;
 
@@ -65,8 +66,16 @@ public class Body : MonoBehaviour {
 		//TODO add velocity rotation perhaps?
 		for(int i = 0;i<dots.Length;i++){
 //			dots[i].rotation = Quaternion.Euler(0,Mathf.Atan2(velocities[i * Settings.DOT_OFFSET].x,velocities[i * Settings.DOT_OFFSET].x.z)/Mathf.PI * 180,0);
-			dots[i].position = positions[i * Settings.DOT_OFFSET];
+			int index = i * Settings.DOT_OFFSET;
+			if(index != 0)
+				index -= dotOffset;
+			dots[i].position = positions[index];
 		}
+
+		dotOffset++;
+
+		if(dotOffset >= Settings.DOT_OFFSET)
+			dotOffset = 0;
 	}
 
 	public void addPropAtIndex(Vector3 pos, Vector3 vel, int index){
