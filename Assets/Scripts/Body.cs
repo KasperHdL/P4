@@ -51,7 +51,7 @@ public class Body : MonoBehaviour {
 			color = new Color(Random.Range(.33f,1f),Random.Range(.33f,1f),Random.Range(.33f,1f));
 		}
 
-		//GetComponent<Renderer>().material.color = color;
+		GetComponent<Renderer>().material.color = color;
 		dots = new Transform[(Settings.DOT_OFFSET == 0)?0:(Settings.BODY_POSITION_LENGTH/Settings.DOT_OFFSET)-1];
 		for(int i = 0;i<dots.Length;i++){
 			GameObject g = Instantiate(dotPrefab,positions[(i+1)*Settings.DOT_OFFSET],Quaternion.identity) as GameObject;
