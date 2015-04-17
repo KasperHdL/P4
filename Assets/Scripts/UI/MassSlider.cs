@@ -5,9 +5,14 @@ using UnityEngine.EventSystems;
 
 public class MassSlider : SliderWithText {
 
+	public new void Start(){
+		text.text = (int)value + " kg";
+
+		base.Start();
+	}
+
 	public override void OnDrag(PointerEventData eventData){
 		controller.updateMass(value);
-
 		if(value < 100)
 			text.text = value + " kg";
 		else
