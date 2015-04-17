@@ -16,12 +16,12 @@ public class CameraMovement : MonoBehaviour {
 
 	void Start(){
 		if(target == null)
-			Debug.LogError("Camera target is not set!");
-
-		direction = -Vector3.forward*3 + Vector3.up;
-		transform.rotation = Quaternion.LookRotation(-direction);
-		transform.position = target.position + direction * offset;
-
+			Debug.LogWarning("Camera target is not set!");
+		else{
+			direction = -Vector3.forward*3 + Vector3.up;
+			transform.rotation = Quaternion.LookRotation(-direction);
+			transform.position = target.position + direction * offset;
+		}
 	}
 
 	void Update () {
