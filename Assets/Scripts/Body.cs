@@ -16,11 +16,14 @@ public class Body : MonoBehaviour {
 	public GameObject dotPrefab;
 
 	//lines
-	Transform[] dots;
-	public int dotOffset = 0;
+	private Transform[] dots;
+	private int dotOffset = 0;
 
 	public bool randomColor = false;
 	public Color color;
+
+	private float rot = 0;
+	public float rotSpeed;
 
 	public void construct(){construct(mass,radius,transform.position,startVelocity);}
 
@@ -63,8 +66,11 @@ public class Body : MonoBehaviour {
 
 	public void cyclePosition(Vector3 position, Vector3 velocity){
 		//move body
-		transform.position = positions[1];
-		transform.position = Vector3.Lerp(transform.position,positions[1],Time.deltaTime);
+		//transform.position = positions[1];
+		transform.position = Vector3.Lerp(transform.position,positions[1],1-Time.deltaTime);
+
+		rot += Time.deltaTime * rotSpeed;
+		transform.rotation = Quaternion.Euler(0,rot,0);
 
 		//shift array
 		shiftPositions();
@@ -97,5 +103,17 @@ public class Body : MonoBehaviour {
 
 		for(int i = 0;i<velocities.Length-1;i++)
 			velocities[i] = velocities[i+1];
+	}
+
+
+
+	public void updateMass(float value){
+		mass = value;
+	}
+
+	public void updateRadius(float value){
+		radius = value;
+		float dia = radius * 2;
+		transform.localScale = new Vector3(dia,dia,dia);
 	}
 }
