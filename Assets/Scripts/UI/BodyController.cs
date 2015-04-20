@@ -18,6 +18,8 @@ public class BodyController : MonoBehaviour {
 	public Button rightButton;
 	public Text rightButtonText;
 
+	float canvasWidth;
+	float canvasHeight;
 	State state = 0;
 
 	enum State{
@@ -27,6 +29,9 @@ public class BodyController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		RectTransform objectRectTransform = gameObject.GetComponent<RectTransform> ();
+		canvasWidth = objectRectTransform.rect.width;
+		canvasHeight = objectRectTransform.rect.height;
 		radiusSlider.controller = this;
 		massSlider.controller = this;
 		velocity.controller = this;
@@ -41,6 +46,14 @@ public class BodyController : MonoBehaviour {
 
 		updateMass(massSlider.value);
 		updateRadius(radiusSlider.value);
+
+		RectTransform rtL = leftButton.transform as RectTransform;
+		rtL.anchoredPosition = new Vector2(0+rtL.rect.width/2, 0-rtL.rect.height/2);
+		rtL.sizeDelta = new Vector2(50,30);
+
+		RectTransform rt = rightButton.transform as RectTransform;
+		rt.anchoredPosition = new Vector2(canvasWidth-rt.rect.width/2, 0-rt.rect.height/2);
+		rt.sizeDelta = new Vector2(50,30);
 	}
 
 	public void handleButton(int i){
@@ -58,7 +71,7 @@ public class BodyController : MonoBehaviour {
 				rightButton.gameObject.SetActive(true);
 
 				RectTransform rt = rightButton.transform as RectTransform;
-				rt.anchoredPosition = new Vector2(133,-16);
+				rt.anchoredPosition = new Vector2(canvasWidth-rt.rect.width/2,0-rt.rect.height/2);
 				rt.sizeDelta = new Vector2(50,30);
 
 				rightButtonText.text = "Finish";
@@ -87,7 +100,7 @@ public class BodyController : MonoBehaviour {
 					rightButton.gameObject.SetActive(true);
 
 					RectTransform rt = rightButton.transform as RectTransform;
-					rt.anchoredPosition = new Vector2(138,-16);
+					rt.anchoredPosition = new Vector2(canvasWidth-rt.rect.width/2,0-rt.rect.height/2);
 					rt.sizeDelta = new Vector2(40,30);
 
 					rightButtonText.text = "Next";
