@@ -9,6 +9,8 @@ public class Body : MonoBehaviour {
 	public Vector3[] positions;
 	public Vector3[] velocities;
 
+	public float density;
+	public float volume;
 	public float mass = 1;
 	public float radius;
 
@@ -30,6 +32,8 @@ public class Body : MonoBehaviour {
 	public void construct(float mass, float radius, Vector3 position, Vector3 velocity){
 		this.mass = mass;
 		this.radius = radius;
+		volume = ((4/3)*Mathf.PI)*Mathf.Pow(radius, 3);
+		density = mass/volume;
 
 		float dia = radius * 2;
 		transform.localScale = new Vector3(dia,dia,dia);
@@ -116,4 +120,13 @@ public class Body : MonoBehaviour {
 		float dia = radius * 2;
 		transform.localScale = new Vector3(dia,dia,dia);
 	}
+
+	public void updateVolume(float value){
+		volume = value;
+	}
+
+	public void updateDensity(float value){
+		density = value;
+	}
+
 }
