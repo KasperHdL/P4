@@ -3,21 +3,21 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class RadiusSlider : SliderWithText {
+public class DensitySlider : SliderWithText {
 
 	public new void Start(){
-
 		base.Start();
-		text.text = (int)value + " Mm";
+		text.text = (int)value + " kg/m3";
 	}
 
 	public override void OnDrag(PointerEventData eventData){
-		controller.updateRadius(value);
+		controller.updateDensity(value);
 		if(value < 100)
-			text.text = value + " Mm";
+			text.text = value + " kg/m3";
 		else
-			text.text = (int)value + " Mm";
+			text.text = value + " kg/m3";
 
 		base.OnDrag(eventData);
 	}
 }
+

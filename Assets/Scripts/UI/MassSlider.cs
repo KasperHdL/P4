@@ -6,9 +6,8 @@ using UnityEngine.EventSystems;
 public class MassSlider : SliderWithText {
 
 	public new void Start(){
-		text.text = (int)value + " kg";
-
 		base.Start();
+		text.text = (int)value + " kg";
 	}
 
 	public override void OnDrag(PointerEventData eventData){
