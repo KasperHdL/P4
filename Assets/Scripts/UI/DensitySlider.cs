@@ -7,17 +7,20 @@ public class DensitySlider : SliderWithText {
 
 	public new void Start(){
 		base.Start();
-		text.text = (int)value + " kg/m3";
+//		text.text = (value/100)*maxVal + " kg/m3";
+
 	}
 
 	public override void OnDrag(PointerEventData eventData){
-		controller.updateDensity(value);
-		if(value < 100)
-			text.text = value + " kg/m3";
-		else
-			text.text = value + " kg/m3";
-
+		//controller.updateDensity((value/100)*difVal);
 		base.OnDrag(eventData);
+	}
+
+	public void setText(double val){
+		if(val < 100)
+			text.text = val + " kg/m3";
+		else
+			text.text = val + " kg/m3";
 	}
 }
 

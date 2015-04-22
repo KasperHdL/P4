@@ -6,18 +6,24 @@ using UnityEngine.EventSystems;
 public class RadiusSlider : SliderWithText {
 
 	public new void Start(){
-
 		base.Start();
-		text.text = (int)value + " Mm";
+		text.text = value + " Mm";
+
+		maxValue = Settings.RADI_MAX_VAL;
+		minValue = Settings.RADI_MIN_VAL;
 	}
 
 	public override void OnDrag(PointerEventData eventData){
 		controller.updateRadius(value);
-		if(value < 100)
-			text.text = value + " Mm";
-		else
-			text.text = (int)value + " Mm";
-
 		base.OnDrag(eventData);
+	}
+
+	public void setText(double val){
+		string value = val.ToString();
+		if(val < 100){
+			text.text = value + " Mm";
+		} else {
+			text.text = value + " Mm";
+		}
 	}
 }
