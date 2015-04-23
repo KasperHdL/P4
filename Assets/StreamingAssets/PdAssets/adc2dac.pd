@@ -1,9 +1,9 @@
 #N canvas 581 259 535 471 10;
 #X obj 107 169 adc~;
-#X obj 107 233 hip~ 500;
-#X obj 108 303 dac~;
-#X obj 192 233 hip~ 500;
-#X connect 0 0 1 0;
-#X connect 0 1 3 0;
-#X connect 1 0 2 0;
-#X connect 3 0 2 1;
+#X obj 108 356 dac~;
+#X obj 107 286 lop~ 800;
+#X obj 192 286 lop~ 800;
+#X connect 0 0 2 0;
+#X connect 0 0 3 0;
+#X connect 2 0 1 0;
+#X connect 3 0 1 1;
