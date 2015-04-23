@@ -16,7 +16,6 @@ public class BodyController : MonoBehaviour {
 
 	public RadiusSlider radiusSlider;
 	public MassSlider massSlider;
-	public DensitySlider densitySlider;
 
 	public Button leftButton;
 	public Text leftButtonText;
@@ -73,7 +72,6 @@ public class BodyController : MonoBehaviour {
 			case State.PropState:{
 				radiusSlider.gameObject.SetActive(true);
 				massSlider.gameObject.SetActive(true);
-				densitySlider.gameObject.SetActive(true);
 				velocity.gameObject.SetActive(false);
 
 				leftButton.gameObject.SetActive(false);
@@ -92,7 +90,6 @@ public class BodyController : MonoBehaviour {
 			case State.VeloState:{
 				radiusSlider.gameObject.SetActive(false);
 				massSlider.gameObject.SetActive(false);
-				densitySlider.gameObject.SetActive(false);
 				velocity.gameObject.SetActive(true);
 
 				leftButton.gameObject.SetActive(true);
@@ -107,7 +104,6 @@ public class BodyController : MonoBehaviour {
 			case State.SimState:{
 				radiusSlider.gameObject.SetActive(false);
 				massSlider.gameObject.SetActive(false);
-				densitySlider.gameObject.SetActive(false);
 				velocity.gameObject.SetActive(false);
 
 				leftButton.gameObject.SetActive(false);
@@ -141,12 +137,20 @@ public class BodyController : MonoBehaviour {
 	}
 
 	public void Update(){
-		if(state == State.SimState && Input.GetMouseButtonDown(0)){
-	        Ray ray = cam.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+
+		if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && state == State.SimState){
+
+			Vector2 input = Input.GetTouch(0).position*-1;
+			Vector2 screen = new Vector2(Screen.width,Screen.height);
+			input += new Vector2(screen.x,screen.y);
+
+
+	        Ray ray = cam.ScreenPointToRay(new Vector3(input.x, input.y, 0));
+	        Debug.DrawRay(ray.origin,ray.direction,Color.white,1f);
+	        Debug.DrawRay(ray.origin,cam.transform.forward,Color.green,1f);
 	        RaycastHit hitinfo;
 	        if (Physics.Raycast(ray, out hitinfo, Mathf.Infinity, 1<<8)){
 				gs.uiHold = true;
-
 
 	        	body = hitinfo.transform.GetComponent<Body>();
 	        	setState(State.PropState);
@@ -171,6 +175,5 @@ public class BodyController : MonoBehaviour {
 
 	public void updateDensity(float value){
 		body.updateDensity(value);
-		densitySlider.value = value;
 	}
 }

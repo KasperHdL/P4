@@ -18,7 +18,7 @@ public class VectorUI : MonoBehaviour{
 	}
 
 	void Update () {
-		Vector2 mousePosition = Input.mousePosition;
+		/*Vector2 mousePosition = Input.mousePosition;
 
         if (Input.GetMouseButton(0)){
 			Vector2 input = mousePosition;
@@ -26,22 +26,34 @@ public class VectorUI : MonoBehaviour{
 			input -= center;
 			updateVelocity(input);
 			controller.updateVelocity(value);
-		}
+		}*/
 
-		/* for touch
+		//for touch
 		for(int i = 0;i<Input.touchCount;i++){
 			Touch touch = Input.GetTouch(i);
-			if((touch.position.x < 60 && touch.position.y > 180) ||
-				(touch.position.x > 265 && touch.position.y > 180))
-				continue;
-            if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved){
+
+             if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved){
 				Vector2 input = touch.position;
 
-				input -= center;
+				Vector2 screen = new Vector2(Screen.width,Screen.height);
+				input -= new Vector2(screen.x,screen.y)/2;
+
+				Vector2 lB = controller.leftButton.GetComponent<RectTransform>().sizeDelta;
+				Vector2 rB = controller.rightButton.GetComponent<RectTransform>().sizeDelta;
+
+				Debug.Log(string.Format("screen: ({0},{1}) - lB: ({2},{3}) - rB: ({4},{5}) - input: ({6},{7})",
+					screen.x,screen.y,
+					lB.x,lB.y,
+					rB.x,rB.y,
+					input.x,input.y));
+
+				if((input.x < -screen.x/2 + lB.x || input.x > screen.x/2 - rB.x) && input.y > screen.y/2 - lB.y)
+					continue;
+
 				updateVelocity(input);
 				controller.updateVelocity(value);
 			}
-		}*/
+		}
 	}
 
 	public void updateVelocity(Vector2 vel){
