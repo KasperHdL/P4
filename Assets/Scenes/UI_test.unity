@@ -342,19 +342,16 @@ MonoBehaviour:
   m_FillRect: {fileID: 194318699}
   m_HandleRect: {fileID: 41160245}
   m_Direction: 0
-  m_MinValue: 1
-  m_MaxValue: 100
+  m_MinValue: 1600
+  m_MaxValue: 1188768000
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 1600
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   controller: {fileID: 0}
-  maxVal: 1461.59998
-  minVal: .00160000008
-  difVal: 1461.59839
   text: {fileID: 858340176}
 --- !u!1 &194318698
 GameObject:
@@ -1150,7 +1147,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 14.616 Mm
+  m_Text: 1600 Mm
 --- !u!222 &858340177
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1525,19 +1522,16 @@ MonoBehaviour:
   m_FillRect: {fileID: 1325624883}
   m_HandleRect: {fileID: 248343020}
   m_Direction: 0
-  m_MinValue: 1
-  m_MaxValue: 100
+  m_MinValue: 299999986000
+  m_MaxValue: 4.97000004e+32
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 299999986000
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   controller: {fileID: 0}
-  maxVal: 4.97000004e+32
-  minVal: 299999986000
-  difVal: 4.97000004e+32
   text: {fileID: 1501201242}
 --- !u!1 &1105733211
 GameObject:
@@ -1566,7 +1560,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
---- !u!114 &1168790594
+--- !u!114 &1168790594 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11477112, guid: f9fbb1cee0963874ba305120a2100246,
     type: 2}
@@ -1808,7 +1802,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 4.97E+32 kg
+  m_Text: 3E+11 kg
 --- !u!222 &1501201243
 CanvasRenderer:
   m_ObjectHideFlags: 0
