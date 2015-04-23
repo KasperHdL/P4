@@ -19,11 +19,30 @@ public class MassSlider : SliderWithText {
 	}
 
 	public void setText(double val){
-		string value = val.ToString();
-		if(val < 100){
-			text.text = value + " kg";
-		} else {
-			text.text = value + " kg";
+		/* 
+		Teragram (Tg) 10e9
+		Petagram (Pg) 10e12
+		Exagram (Eg) 10e15
+		Zettagram (Zg) 10e18
+		Yottagram (Yg) 10e21
+		*/
+		Debug.Log(val);
+		if(val > Mathf.Pow(10,24)){
+			text.text = valueFormating(30, 2, val) + "E+30 kg";
+		} else if(val > Mathf.Pow(10,27)){
+			text.text = valueFormating(27, 2, val) + "E+27 kg";
+		} else if(val > Mathf.Pow(10,24)){
+			text.text = valueFormating(24, 2, val) + "E+24 kg";
+		} else if(val > Mathf.Pow(10,21)){
+			text.text = valueFormating(21, 2, val) + "E+21 kg";
+		} else if(val > Mathf.Pow(10, 18)){
+			text.text = valueFormating(18, 2, val) + "E+18 kg";
+		} else if(val > Mathf.Pow(10, 15)){
+			text.text = valueFormating(15, 2, val) + "E+15 kg";
+		} else if(val > Mathf.Pow(10, 12)){
+			text.text = valueFormating(12, 2, val) + "E+12 kg";
+		} else if(val > Mathf.Pow(10, 9)){
+			text.text = valueFormating(9, 2, val) + "E+9 kg";
 		}
 	}
 }
