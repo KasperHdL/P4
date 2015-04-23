@@ -3,13 +3,6 @@ using System.Collections;
 
 public class Spawner : MonoBehaviour {
 
-	public Vector3 front;
-	public Vector3 left;
-	public Vector3 right;
-	public Vector3 back;
-
-
-
 	public GameObject obj;
 
 	void Start(){
@@ -26,7 +19,7 @@ public class Spawner : MonoBehaviour {
 			RaycastHit hit;
 			if(Physics.Raycast(ray, out hit)){
 				//Debug.Log (hit.transform.name);
-				if(hit.collider.gameObject.tag == "Back"){
+				if(hit.collider.gameObject.tag == "BackRight"){
 					Destroy(GameObject.FindWithTag("SoundCube"));
 					Instantiate(obj, RandomPosition(), Quaternion.identity);
 					Debug.Log("BACK - WRONG");
@@ -49,6 +42,27 @@ public class Spawner : MonoBehaviour {
 					Debug.Log("RIGHT - WRONG");
 
 				}
+
+				if(hit.collider.gameObject.tag == "BackLeft"){
+					Destroy(GameObject.FindWithTag("SoundCube"));
+					Instantiate(obj, RandomPosition(), Quaternion.identity);
+					Debug.Log("RIGHT - WRONG");
+					
+				}
+
+				if(hit.collider.gameObject.tag == "FrontLeft"){
+					Destroy(GameObject.FindWithTag("SoundCube"));
+					Instantiate(obj, RandomPosition(), Quaternion.identity);
+					Debug.Log("RIGHT - WRONG");
+					
+				}
+
+				if(hit.collider.gameObject.tag == "FrontRight"){
+					Destroy(GameObject.FindWithTag("SoundCube"));
+					Instantiate(obj, RandomPosition(), Quaternion.identity);
+					Debug.Log("RIGHT - WRONG");
+					
+				}
 				if(hit.collider.gameObject.tag == "SoundCube"){
 					Destroy(GameObject.FindWithTag("SoundCube"));
 					Instantiate(obj, RandomPosition(), Quaternion.identity);
@@ -64,24 +78,39 @@ public class Spawner : MonoBehaviour {
 
 	Vector3 RandomPosition()
 	{
-		int rnd = Random.Range(1,5);
+		int rnd = Random.Range(1,8);
 		Vector3 pos = new Vector3(0, 0, 0);
 		switch (rnd)
 		{
 		case 1:
+			//Front
 			pos = new Vector3(0,25,300);
 			break;
 			
 		case 2:
-			pos = new Vector3(0,25,-300);
+			pos = new Vector3(200,25,200);
 			break;
 			
 		case 3:
+			//Right
 			pos = new Vector3(300,25,0);
 			break;
 			
 		case 4:
+			//Left
 			pos = new Vector3(-300,25,0);
+			break;
+
+		case 5:
+			pos = new Vector3(-200,25,200);
+			break;
+		
+		case 6:
+			pos = new Vector3(200,25,-200);
+			break;
+
+		case 7:
+			pos = new Vector3(-200,25,-200);
 			break;
 		}
 		

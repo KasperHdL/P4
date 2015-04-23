@@ -14,8 +14,6 @@ GameObject:
   - 114: {fileID: 11402372}
   - 82: {fileID: 8216622}
   - 169: {fileID: 16939390}
-  - 166: {fileID: 16665184}
-  - 114: {fileID: 11429992}
   m_Layer: 0
   m_Name: Earth 1
   m_TagString: Untagged
@@ -94,14 +92,19 @@ AudioSource:
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
-      value: .50429821
+    - time: .00200000009
+      value: 1
       inSlope: 0
-      outSlope: 0
+      outSlope: -1.00200403
+      tangentMode: 0
+    - time: .320744067
+      value: .247199476
+      inSlope: -1.0022521
+      outSlope: -1.0022521
       tangentMode: 0
     - time: 1
-      value: .507449687
-      inSlope: 0
+      value: 0
+      inSlope: -1.00200403
       outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
@@ -159,18 +162,6 @@ MonoBehaviour:
   randomColor: 0
   color: {r: .25, g: .410344779, b: 1, a: 0}
   rotSpeed: 20
---- !u!114 &11429992
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 101554}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e98e3fc86ca03f04aabdd36568ab70af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameOfPatch: adc2dac.pd
 --- !u!135 &13564610
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -183,20 +174,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: .5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!166 &16665184
-AudioChorusFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 101554}
-  m_Enabled: 0
-  m_DryMix: .5
-  m_WetMix1: .5
-  m_WetMix2: .5
-  m_WetMix3: .5
-  m_Delay: 40
-  m_Rate: .800000012
-  m_Depth: .0299999993
 --- !u!169 &16939390
 AudioLowPassFilter:
   m_ObjectHideFlags: 1
