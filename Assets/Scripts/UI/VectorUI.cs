@@ -5,15 +5,30 @@ using UnityEngine.EventSystems;
 
 public class VectorUI : MonoBehaviour{
 
-	public Vector2 velocity;
-	public Vector2 center = new Vector2(158,106);
+	public Vector2 value;
+	Vector2 center = new Vector2(158,106);
 
 	public BodyController controller;
 
 	public RectTransform line;
 	public RectTransform head;
 
+	void Start(){
+
+	}
+
 	void Update () {
+		Vector2 mousePosition = Input.mousePosition;
+
+        if (Input.GetMouseButton(0)){
+			Vector2 input = mousePosition;
+
+			input -= center;
+			updateVelocity(input);
+			controller.updateVelocity(value);
+		}
+
+		/* for touch
 		for(int i = 0;i<Input.touchCount;i++){
 			Touch touch = Input.GetTouch(i);
 			if((touch.position.x < 60 && touch.position.y > 180) ||
@@ -24,15 +39,16 @@ public class VectorUI : MonoBehaviour{
 
 				input -= center;
 				updateVelocity(input);
+				controller.updateVelocity(value);
 			}
-		}
+		}*/
 	}
 
 	public void updateVelocity(Vector2 vel){
-		velocity = vel;
+		value = vel;
 
-		head.anchoredPosition = velocity;
-		line.anchoredPosition = velocity/2;
+		head.anchoredPosition = value;
+		line.anchoredPosition = value/2;
 		line.sizeDelta = new Vector2(vel.magnitude,10);
 		float a = Vector2.Angle(new Vector2(1,0),vel);
 

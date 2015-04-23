@@ -12,7 +12,7 @@ GameObject:
   - 135: {fileID: 13562062}
   - 23: {fileID: 2362108}
   - 114: {fileID: 11477112}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BodyObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,11 +73,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef3ced3245a43a044b31efa7142889eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  randomStartVelocity: {x: 0, y: 0, z: 0}
+  startVelocity: {x: 0, y: 0, z: 0}
   positions: []
   velocities: []
+  density: 0
+  volume: 0
   mass: 0
   radius: 0
   dotPrefab: {fileID: 127452, guid: e2d62dc1e7a6700418cd7392bd541693, type: 2}
+  randomColor: 0
+  color: {r: 0, g: 0, b: 0, a: 0}
+  rotSpeed: 0
 --- !u!135 &13562062
 SphereCollider:
   m_ObjectHideFlags: 1

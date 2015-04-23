@@ -11,18 +11,21 @@ public class GravitySystem : MonoBehaviour {
 
 	private bool inited = false;
 
+	public bool doneCalculating = true;
+	public bool uiHold = false;
+
 
 	// Use this for initialization
 	void Start () {
 
 		DOT_CONTAINER = GameObject.Find("DotContainer").transform;
 
-		if(transform.childCount == 0)
-			initNewBodies(10);
+		if(transform.childCount == 0){
+			//initNewBodies(10);
+		}
 		else
 			initChildrenBodies();
 
-		calculateFuturePositions();
 		inited = true;
 	}
 
@@ -35,6 +38,17 @@ public class GravitySystem : MonoBehaviour {
 			b.construct();
 			bodies[i++] = b;
 		}
+		StopCoroutine(calculateFuturePositions());
+		//StartCoroutine(calculateFuturePositions());
+	}
+
+	public void reInitChildren(){
+		foreach(Body body in bodies){
+			body.construct();
+			Debug.Log("bPos " + body.positions[0] +", " + body.positions[1]);
+		}
+		StopCoroutine(calculateFuturePositions());
+		StartCoroutine(calculateFuturePositions());
 	}
 
 	public void initNewBodies(int numBodies){
@@ -56,16 +70,15 @@ public class GravitySystem : MonoBehaviour {
 		}
 	}
 
-	public void calculateFuturePositions(){
+	public IEnumerator calculateFuturePositions(){
 		//populate positions of bodies
+		doneCalculating = false;
 		for(int f = 1;f < Settings.BODY_POSITION_LENGTH;f++){
 			for(int i = 0;i<bodies.Length;i++){
 				Vector3 acc = Vector3.zero;
 				for(int j = 0;j<bodies.Length;j++){
 					if(i==j)continue;
-
 					acc += calculateGravitional(bodies[i],bodies[j],f);
-
 				}
 
 				Vector3 prevVel = bodies[i].velocities[f-1];
@@ -74,24 +87,21 @@ public class GravitySystem : MonoBehaviour {
 				Vector3 vel = prevVel + acc;
 				Vector3 pos = prevPos + vel;
 
+
 				bodies[i].addPropAtIndex(pos,vel,f);
 			}
+			yield return null;
 		}
+		doneCalculating = true;
 	}
 
 	// Update is called once per frame
 	void Update () {
-if(inited)
+		if(inited && doneCalculating && !uiHold)
 			updateBodies();
 
 			//updateChildren();
 	}
-
-
-	void FixedUpdate(){
-
-	}
-
 
 	public void updateBodies(){
 		for(int i = 0;i<bodies.Length;i++){
@@ -121,8 +131,10 @@ if(inited)
 
 		float distance = delta.magnitude;
 
-		if(distance == 0)
+		if(distance == 0){
+			Debug.LogWarning("Distance is zero - what is the chances");
 			return Vector3.zero;
+		}
 
 		float force = Settings.GRAVITATIONAL_CONSTANT * ((effected.mass * effector.mass) / distance);
 		Vector3 forceVector = delta.normalized * force;

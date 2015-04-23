@@ -27,8 +27,12 @@ public class Body : MonoBehaviour {
 	private float rot = 0;
 	public float rotSpeed;
 
-	public void construct(){construct(mass,radius,transform.position,startVelocity);}
 
+
+	////////////////////////////
+	//      Construction
+
+	public void construct(){construct(mass,radius,transform.position,startVelocity);}
 	public void construct(float mass, float radius, Vector3 position, Vector3 velocity){
 		this.mass = mass;
 		this.radius = radius;
@@ -61,12 +65,17 @@ public class Body : MonoBehaviour {
 			GameObject g = Instantiate(dotPrefab,positions[(i+1)*Settings.DOT_OFFSET],Quaternion.identity) as GameObject;
 			g.transform.parent = GravitySystem.DOT_CONTAINER;
 			dots[i] = g.transform;
+			g.SetActive(false);
 
 			g.GetComponent<Renderer>().material.color = color;
 		}
-
-
 	}
+
+
+
+
+	//////////////////////////////
+	//    Position Handling
 
 	public void cyclePosition(Vector3 position, Vector3 velocity){
 		//move body
@@ -84,10 +93,13 @@ public class Body : MonoBehaviour {
 		velocities[velocities.Length-1] = velocity;
 
 		//update lines
-		//TODO add velocity rotation perhaps?
 		for(int i = 0;i<dots.Length;i++){
 //			dots[i].rotation = Quaternion.Euler(0,Mathf.Atan2(velocities[i * Settings.DOT_OFFSET].x,velocities[i * Settings.DOT_OFFSET].x.z)/Mathf.PI * 180,0);
-			dots[i].position = positions[(i+1) * Settings.DOT_OFFSET - dotOffset];
+			int index = (i+1) * Settings.DOT_OFFSET - dotOffset;
+			if(positions[index] != null){
+				dots[i].position = positions[index];
+				dots[i].gameObject.SetActive(true);
+			}
 		}
 
 		dotOffset++;
@@ -109,7 +121,8 @@ public class Body : MonoBehaviour {
 			velocities[i] = velocities[i+1];
 	}
 
-
+	//////////////////////////////////
+	//     Interaction Handling
 
 	public void updateMass(float value){
 		mass = value;

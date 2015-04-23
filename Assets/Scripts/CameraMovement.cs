@@ -3,9 +3,14 @@ using System.Collections;
 
 public class CameraMovement : MonoBehaviour {
 
+	private Camera cam;
+	public GravitySystem gs;
+
 	public Transform target;
 	public float offset;
 	public float scrollSpeed = 20f;
+
+	public bool allowMouseDrag = true;
 
 	private bool mouseDrag = false;
 	private Vector3 startDragPos = Vector3.zero;
@@ -15,26 +20,34 @@ public class CameraMovement : MonoBehaviour {
 	private Vector3 direction;
 
 	void Start(){
-		if(target == null)
-			Debug.LogWarning("Camera target is not set!");
-		else{
-			direction = -Vector3.forward*3 + Vector3.up;
-			transform.rotation = Quaternion.LookRotation(-direction);
-			transform.position = target.position + direction * offset;
-		}
+		cam = GetComponent<Camera>();
 	}
 
 	void Update () {
 		if(target == null)
-			return;
+			updatePositionForAllBodies();
+		else{
 
-		mouseDragUpdate();
+			if(allowMouseDrag)
+				mouseDragUpdate();
+			updatePositionForTarget();
+		}
+	}
+
+	void updatePositionForAllBodies(){
+		foreach(Transform child in gs.transform){
+			Vector3 screenPos = cam.WorldToScreenPoint(child.position);
+		}
+	}
+
+	void updatePositionForTarget(){
+		Vector3 delta = transform.position - target.position;
+		direction = direction.normalized * offset;
+		transform.position = target.position + direction;
 	}
 
 	void mouseDragUpdate(){
 		Vector3 delta = transform.position - target.position;
-
-		offset -= Input.mouseScrollDelta.y * scrollSpeed;
 
 		if(mouseDrag){
 			//update
@@ -52,8 +65,6 @@ public class CameraMovement : MonoBehaviour {
 
 				direction = Vector3.RotateTowards(delta,to,Time.deltaTime,0f);
 
-				Debug.DrawRay(target.position, direction, Color.red);
-
 				transform.rotation = Quaternion.LookRotation(-direction);
 
 				startDragPos = mousePosition;
@@ -63,10 +74,17 @@ public class CameraMovement : MonoBehaviour {
 			mouseDrag = true;
 			startDragPos = new Vector3(0,Input.mousePosition.y,0);
 		}
+	}
 
-
-		direction = direction.normalized * offset;
-		transform.position = target.position + direction;
+	public void setTarget(Transform t){
+		target = t;
+		if(t == null){
+			//camera should target everyone
+		}else{
+			direction = -Vector3.forward*3 + Vector3.up;
+			transform.rotation = Quaternion.LookRotation(-direction);
+			transform.position = target.position + direction * offset;
+		}
 
 	}
 }
