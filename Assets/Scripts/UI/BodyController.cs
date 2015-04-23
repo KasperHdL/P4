@@ -45,9 +45,16 @@ public class BodyController : MonoBehaviour {
 		radiusSlider.controller = this;
 		massSlider.controller = this;
 		velocity.controller = this;
-		densitySlider.controller = this;
-		densitySlider.maxValue = massSlider.maxValue/(((4/3)*Mathf.PI)*Mathf.Pow(radiusSlider.minValue, 3));
-		densitySlider.minValue = massSlider.minValue/(((4/3)*Mathf.PI)*Mathf.Pow(radiusSlider.maxValue, 3));
+
+		Debug.Log(massSlider.maxValue);
+		Debug.Log(massSlider.minValue);
+
+		radiusSlider.gameObject.SetActive(true);
+		massSlider.gameObject.SetActive(true);
+		velocity.gameObject.SetActive(false);
+
+		leftButton.gameObject.SetActive(false);
+		rightButton.gameObject.SetActive(true);
 
 		updateMass(massSlider.value);
 		updateRadius(radiusSlider.value);
@@ -155,28 +162,18 @@ public class BodyController : MonoBehaviour {
 		//update Dots
 	}
 
-	public void updateMass(float value){
+	public void updateMass(double value){
+		massSlider.setText(value);
 		body.updateMass(value);
-		float p = value/body.volume;
-		updateDensity(p);
 	}
 
-	public void updateRadius(float value){
+	public void updateRadius(double value){
+		radiusSlider.setText(value);
 		body.updateRadius(value);
-		updateVolume(value);
-	}
-
-	public void updateVolume(float r){
-		float vol;
-		vol = ((4/3)*Mathf.PI)*Mathf.Pow(r, 3);
-		body.updateVolume(vol);
-		float p = body.mass/vol;
-		updateDensity(p);
 	}
 
 	public void updateDensity(float value){
 		body.updateDensity(value);
 		densitySlider.value = value;
 	}
-
 }
