@@ -19,11 +19,20 @@ public class RadiusSlider : SliderWithText {
 	}
 
 	public void setText(double val){
-		string value = val.ToString();
-		if(val < 100){
-			text.text = value + " Mm";
-		} else {
-			text.text = value + " Mm";
+		/*
+		10e3 Meter m
+		10e6 Kilometer km
+		10e9 Megameter Mm
+		10e12 Gigameter Gm
+		10e15 Terrameter Tm
+		*/
+
+		if(val < Mathf.Pow(10,6)){
+			text.text = valueFormating(3, 2, val) + " km";
+		} else if(val < Mathf.Pow(10, 9)){
+			text.text = valueFormating(6, 2, val) + "E+3 km";
+		} else if(val < Mathf.Pow(10, 12)){
+			text.text = valueFormating(9, 2, val) + "E+6 km";
 		}
 	}
 }

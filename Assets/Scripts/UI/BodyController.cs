@@ -46,9 +46,6 @@ public class BodyController : MonoBehaviour {
 		massSlider.controller = this;
 		velocity.controller = this;
 
-		Debug.Log(massSlider.maxValue);
-		Debug.Log(massSlider.minValue);
-
 		radiusSlider.gameObject.SetActive(true);
 		massSlider.gameObject.SetActive(true);
 		velocity.gameObject.SetActive(false);
