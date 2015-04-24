@@ -11,8 +11,12 @@ public class GravitySystem : MonoBehaviour {
 
 	private bool inited = false;
 
-	public bool doneCalculating = true;
+	public bool reset = false;
+	private bool calcRunning = false;
+
 	public bool uiHold = false;
+
+	public int frameShifts = 0;
 
 
 	// Use this for initialization
@@ -38,8 +42,7 @@ public class GravitySystem : MonoBehaviour {
 			b.construct();
 			bodies[i++] = b;
 		}
-		StopCoroutine(calculateFuturePositions());
-		//StartCoroutine(calculateFuturePositions());
+		calcFuturePositions();
 	}
 
 	public void reInitChildren(){
@@ -47,8 +50,7 @@ public class GravitySystem : MonoBehaviour {
 			body.construct();
 			Debug.Log("bPos " + body.positions[0] +", " + body.positions[1]);
 		}
-		StopCoroutine(calculateFuturePositions());
-		StartCoroutine(calculateFuturePositions());
+		calcFuturePositions();
 	}
 
 	public void initNewBodies(int numBodies){
@@ -70,40 +72,60 @@ public class GravitySystem : MonoBehaviour {
 		}
 	}
 
-	public IEnumerator calculateFuturePositions(){
+	public void calcFuturePositions(){
+		StopCoroutine("calculateFuturePositions");
+		StartCoroutine("calculateFuturePositions");
+	}
+
+	private IEnumerator calculateFuturePositions(){
 		//populate positions of bodies
-		doneCalculating = false;
-		for(int f = 1;f < Settings.BODY_POSITION_LENGTH;f++){
+		Debug.Log("starts");
+		calcRunning = true;
+		frameShifts = 0;
+		int f = 1;
+		while(!reset && f<Settings.BODY_POSITION_LENGTH + frameShifts){
 			for(int i = 0;i<bodies.Length;i++){
 				Vector3 acc = Vector3.zero;
+
+				int tf = f-frameShifts;
+
 				for(int j = 0;j<bodies.Length;j++){
 					if(i==j)continue;
-					acc += calculateGravitional(bodies[i],bodies[j],f);
+					acc += calculateGravitional(bodies[i],bodies[j],tf);
 				}
 
-				Vector3 prevVel = bodies[i].velocities[f-1];
-				Vector3 prevPos = bodies[i].positions[f-1];
+				Vector3 prevVel = bodies[i].velocities[tf-1];
+				Vector3 prevPos = bodies[i].positions[tf-1];
 
 				Vector3 vel = prevVel + acc;
 				Vector3 pos = prevPos + vel;
 
 
-				bodies[i].addPropAtIndex(pos,vel,f);
+				bodies[i].addPropAtIndex(pos,vel,tf);
 			}
-			yield return null;
+			f++;
+			if(f%5==0)
+				yield return null;
 		}
-		doneCalculating = true;
+		calcRunning = false;
+		if(reset){
+			reset = false;
+			Debug.Log("reset");
+			calcFuturePositions();
+		}
+		Debug.Log("stops");
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if(inited && doneCalculating && !uiHold)
+		if(inited && !uiHold)
 			updateBodies();
 
 			//updateChildren();
 	}
 
 	public void updateBodies(){
+		frameShifts++;
 		for(int i = 0;i<bodies.Length;i++){
 			Vector3 acc = Vector3.zero;
 			for(int j = 0;j<bodies.Length;j++){

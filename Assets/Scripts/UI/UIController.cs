@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class BodyController : MonoBehaviour {
+public class UIController : MonoBehaviour {
 
 	private Camera cam;
 	private CameraMovement cm;
@@ -109,7 +109,6 @@ public class BodyController : MonoBehaviour {
 				leftButton.gameObject.SetActive(false);
 				rightButton.gameObject.SetActive(false);
 
-				gs.reInitChildren();
 				gs.uiHold = false;
 	        	cm.allowMouseDrag = true;
 	        	cm.setTarget(null);
@@ -161,11 +160,13 @@ public class BodyController : MonoBehaviour {
 	public void updateVelocity(Vector2 value){
 		body.startVelocity = value;
 		//update Dots
+		gs.calcFuturePositions();
 	}
 
 	public void updateMass(double value){
 		massSlider.setText(value);
 		body.updateMass(value);
+		gs.calcFuturePositions();
 	}
 
 	public void updateRadius(double value){

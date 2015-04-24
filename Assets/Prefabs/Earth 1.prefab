@@ -16,7 +16,7 @@ GameObject:
   - 169: {fileID: 16939390}
   - 166: {fileID: 16665184}
   - 114: {fileID: 11429992}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Earth 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,6 +9,8 @@ public class Body : MonoBehaviour {
 	public Vector3[] positions;
 	public Vector3[] velocities;
 
+	public int indicesValid = 0;
+
 	public double density;
 	public double volume;
 	public float mass = 1;
@@ -26,8 +28,6 @@ public class Body : MonoBehaviour {
 
 	private float rot = 0;
 	public float rotSpeed;
-
-
 
 	////////////////////////////
 	//      Construction
@@ -96,10 +96,10 @@ public class Body : MonoBehaviour {
 		for(int i = 0;i<dots.Length;i++){
 //			dots[i].rotation = Quaternion.Euler(0,Mathf.Atan2(velocities[i * Settings.DOT_OFFSET].x,velocities[i * Settings.DOT_OFFSET].x.z)/Mathf.PI * 180,0);
 			int index = (i+1) * Settings.DOT_OFFSET - dotOffset;
-			if(positions[index] != null){
-				dots[i].position = positions[index];
-				dots[i].gameObject.SetActive(true);
-			}
+
+			dots[i].position = positions[index];
+			dots[i].gameObject.SetActive(true);
+
 		}
 
 		dotOffset++;
@@ -111,6 +111,7 @@ public class Body : MonoBehaviour {
 	public void addPropAtIndex(Vector3 pos, Vector3 vel, int index){
 		positions[index] = pos;
 		velocities[index] = vel;
+		indicesValid = index;
 	}
 
 	private void shiftPositions(){

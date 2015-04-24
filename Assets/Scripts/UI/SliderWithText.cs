@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class SliderWithText : Slider {
 
-	public BodyController controller;
+	public UIController controller;
 
 	[SerializeField]
 	public Text text;

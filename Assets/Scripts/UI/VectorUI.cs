@@ -8,7 +8,7 @@ public class VectorUI : MonoBehaviour{
 	public Vector2 value;
 	Vector2 center = new Vector2(158,106);
 
-	public BodyController controller;
+	public UIController controller;
 
 	public RectTransform line;
 	public RectTransform head;
