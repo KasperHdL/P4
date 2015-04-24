@@ -4,7 +4,8 @@ using System.Collections;
 public class Spawner : MonoBehaviour {
 
 	public GameObject obj;
-
+	int counter = 0;
+	int correct = 0;
 	void Start(){
 		Instantiate(obj, RandomPosition(), Quaternion.identity);
 
@@ -19,57 +20,81 @@ public class Spawner : MonoBehaviour {
 			RaycastHit hit;
 			if(Physics.Raycast(ray, out hit)){
 				//Debug.Log (hit.transform.name);
-				if(hit.collider.gameObject.tag == "BackRight"){
-					Destroy(GameObject.FindWithTag("SoundCube"));
-					Instantiate(obj, RandomPosition(), Quaternion.identity);
-					Debug.Log("BACK - WRONG");
-				}
-				if(hit.collider.gameObject.tag == "Front"){
-					Destroy(GameObject.FindWithTag("SoundCube"));
-					Instantiate(obj, RandomPosition(), Quaternion.identity);
-					Debug.Log("FRONT - WRONG");
+
+				if(counter < 20){
+					if(hit.collider.gameObject.tag == "BackRight"){
+						Destroy(GameObject.FindWithTag("SoundCube"));
+						Instantiate(obj, RandomPosition(), Quaternion.identity);
+						counter += 1;
+						Debug.Log("BACK - WRONG");
+					}
+					if(hit.collider.gameObject.tag == "Front"){
+						Destroy(GameObject.FindWithTag("SoundCube"));
+						Instantiate(obj, RandomPosition(), Quaternion.identity);
+						counter += 1;
+						Debug.Log("FRONT - WRONG");
+
+					}
+					if(hit.collider.gameObject.tag == "Left"){
+						Destroy(GameObject.FindWithTag("SoundCube"));
+						Instantiate(obj, RandomPosition(), Quaternion.identity);
+							counter += 1;
+
+						Debug.Log("LEFT - WRONG");
+
+					}
+					if(hit.collider.gameObject.tag == "Right"){
+						Destroy(GameObject.FindWithTag("SoundCube"));
+						Instantiate(obj, RandomPosition(), Quaternion.identity);
+							counter += 1;
+
+						Debug.Log("RIGHT - WRONG");
+
+					}
+
+					if(hit.collider.gameObject.tag == "BackLeft"){
+						Destroy(GameObject.FindWithTag("SoundCube"));
+						Instantiate(obj, RandomPosition(), Quaternion.identity);
+							counter += 1;
+
+						Debug.Log("RIGHT - WRONG");
+						
+					}
+
+					if(hit.collider.gameObject.tag == "FrontLeft"){
+						Destroy(GameObject.FindWithTag("SoundCube"));
+						Instantiate(obj, RandomPosition(), Quaternion.identity);
+							counter += 1;
+
+						Debug.Log("RIGHT - WRONG");
+						
+					}
+
+					if(hit.collider.gameObject.tag == "FrontRight"){
+						Destroy(GameObject.FindWithTag("SoundCube"));
+						Instantiate(obj, RandomPosition(), Quaternion.identity);
+							counter += 1;
+
+						Debug.Log("RIGHT - WRONG");
+						
+					}
+					if(hit.collider.gameObject.tag == "SoundCube"){
+						Destroy(GameObject.FindWithTag("SoundCube"));
+						Instantiate(obj, RandomPosition(), Quaternion.identity);
+							counter += 1;
+						correct += 1;
+						Debug.Log ("CORRECT!!!!!!");
+
+					}
+
 
 				}
-				if(hit.collider.gameObject.tag == "Left"){
-					Destroy(GameObject.FindWithTag("SoundCube"));
-					Instantiate(obj, RandomPosition(), Quaternion.identity);
-					Debug.Log("LEFT - WRONG");
 
-				}
-				if(hit.collider.gameObject.tag == "Right"){
-					Destroy(GameObject.FindWithTag("SoundCube"));
-					Instantiate(obj, RandomPosition(), Quaternion.identity);
-					Debug.Log("RIGHT - WRONG");
+			}
 
-				}
-
-				if(hit.collider.gameObject.tag == "BackLeft"){
-					Destroy(GameObject.FindWithTag("SoundCube"));
-					Instantiate(obj, RandomPosition(), Quaternion.identity);
-					Debug.Log("RIGHT - WRONG");
-					
-				}
-
-				if(hit.collider.gameObject.tag == "FrontLeft"){
-					Destroy(GameObject.FindWithTag("SoundCube"));
-					Instantiate(obj, RandomPosition(), Quaternion.identity);
-					Debug.Log("RIGHT - WRONG");
-					
-				}
-
-				if(hit.collider.gameObject.tag == "FrontRight"){
-					Destroy(GameObject.FindWithTag("SoundCube"));
-					Instantiate(obj, RandomPosition(), Quaternion.identity);
-					Debug.Log("RIGHT - WRONG");
-					
-				}
-				if(hit.collider.gameObject.tag == "SoundCube"){
-					Destroy(GameObject.FindWithTag("SoundCube"));
-					Instantiate(obj, RandomPosition(), Quaternion.identity);
-					Debug.Log ("CORRECT!!!!!!");
-
-				}
-
+			if(counter == 20){
+				Debug.Log("You got " + correct + " correct answers");
+				counter += 1;
 			}
 
 		}
