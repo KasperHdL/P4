@@ -4,11 +4,14 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Back
+  - BackRight
   - Front
   - Left
   - Right
   - SoundCube
+  - BackLeft
+  - FrontRight
+  - FrontLeft
   layers:
   - Default
   - TransparentFX
