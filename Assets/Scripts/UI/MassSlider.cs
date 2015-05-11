@@ -26,7 +26,6 @@ public class MassSlider : SliderWithText {
 		Zettagram (Zg) 10e18
 		Yottagram (Yg) 10e21
 		*/
-		Debug.Log(val);
 		if(val > Mathf.Pow(10,24)){
 			text.text = valueFormating(30, 2, val) + "E+30 kg";
 		} else if(val > Mathf.Pow(10,27)){

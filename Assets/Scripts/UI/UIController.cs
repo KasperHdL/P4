@@ -25,9 +25,9 @@ public class UIController : MonoBehaviour {
 
 	public float canvasWidth;
 	public float canvasHeight;
-	State state = 0;
+	public State state = 0;
 
-	enum State{
+	public enum State{
 		PropState,
 		VeloState,
 		SimState
@@ -67,7 +67,7 @@ public class UIController : MonoBehaviour {
 	}
 
 
-	private void setState(State s){
+	public void setState(State s){
 		switch(s){
 			case State.PropState:{
 				radiusSlider.gameObject.SetActive(true);
@@ -137,16 +137,14 @@ public class UIController : MonoBehaviour {
 
 	public void Update(){
 
-		if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && state == State.SimState){
+		//Chose planet for entering propertyState
+		if(Input.GetMouseButtonDown(0) && state == State.SimState){
 
-			Vector2 input = Input.GetTouch(0).position*-1;
+			Vector2 input = Input.mousePosition;
 			Vector2 screen = new Vector2(Screen.width,Screen.height);
-			input += new Vector2(screen.x,screen.y);
-
 
 	        Ray ray = cam.ScreenPointToRay(new Vector3(input.x, input.y, 0));
 	        Debug.DrawRay(ray.origin,ray.direction,Color.white,1f);
-	        Debug.DrawRay(ray.origin,cam.transform.forward,Color.green,1f);
 	        RaycastHit hitinfo;
 	        if (Physics.Raycast(ray, out hitinfo, Mathf.Infinity, 1<<8)){
 				gs.uiHold = true;
