@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 public class Spawner : MonoBehaviour {
 
-	public GameObject prefab;
+	public GameObject low_pitch;
+	public GameObject high_pitch;
 	private GameObject obj;
 
 	private readonly bool drawCube = false;
@@ -16,9 +19,7 @@ public class Spawner : MonoBehaviour {
 
 	private bool waitForRestart = false;
 
-
-
-	private readonly string directory = "D:/KasperHdL/Desktop/TestFiles/";
+	public string directory = "D:/KasperHdL/Desktop/TestFiles/";
 	private readonly string filenamePrepend = "participant_";
 	private readonly string filenameAppend = ".txt";
 	private int nextNum = 0;
@@ -35,7 +36,7 @@ public class Spawner : MonoBehaviour {
 
 
 	void Start(){
-		findNextFileNumber();
+		init();
 	}
 
 	void init(){
@@ -50,13 +51,23 @@ public class Spawner : MonoBehaviour {
 
 	void findNextFileNumber(){
 		DirectoryInfo dir = new DirectoryInfo(directory);
+		List<int> numbersUsed = new List<int>();
+
+		foreach (FileInfo file in dir.GetFiles()){
+			string name = file.Name;
+			if(name.IndexOf(filenamePrepend) != -1 && name.IndexOf(filenameAppend) != -1){
+				name = name.Substring(filenamePrepend.Length,name.Length-(filenameAppend.Length+filenamePrepend.Length));
+				numbersUsed.Add(int.Parse(name));
+			}
+		}
 
 		int max = 0;
 
-		foreach (FileInfo file in dir.GetFiles()){
-			if(file.Name == filenamePrepend + max + filenameAppend)
-				max++;
+		numbersUsed.Sort();
 
+		foreach(int n in numbersUsed){
+			if(n == max)
+				max++;
 		}
 
 		nextNum = max;
@@ -93,7 +104,10 @@ public class Spawner : MonoBehaviour {
 			if(round == maxRounds){
 				string s = "angle,\t\tcorrect angle;\r\n";
 				for(int i = 0;i<maxRounds;i++){
-					s += angles[i].ToString("F10") + ",\t" + correctAngles[i].ToString("F10") + ";\r\n";
+					s += (angles[i] <0 ? "":" ");
+					s += angles[i].ToString("F10") + ",\t";
+					s += (correctAngles[i] <0 ? "":" ");
+					s += correctAngles[i].ToString("F10") + ";\r\n";
 				}
  				File.WriteAllText(directory + filenamePrepend + nextNum + filenameAppend, s);
 
@@ -110,11 +124,11 @@ public class Spawner : MonoBehaviour {
 	}
 
 	private void newRound(){
-		float angle = Random.Range(-Mathf.PI,Mathf.PI);
+		float angle = UnityEngine.Random.Range(-Mathf.PI,Mathf.PI);
 
 		correctAngle = angle;
 
-		obj = Instantiate(prefab, new Vector3(Mathf.Cos(angle)*offset,(drawCube ? 0:-10),Mathf.Sin(angle)*offset), Quaternion.identity) as GameObject;
+		obj = Instantiate((UnityEngine.Random.Range(0,2) == 1 ? low_pitch:high_pitch), new Vector3(Mathf.Cos(angle)*offset,(drawCube ? 0:-10),Mathf.Sin(angle)*offset), Quaternion.identity) as GameObject;
 		round++;
 	}
 
