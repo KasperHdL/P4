@@ -90,9 +90,11 @@ public class CameraMovement : MonoBehaviour {
 
 
 		}else{
+			body = target.GetComponent<Body>();
+			body.sound.enabled = true;
 			target = t;
 			body = target.GetComponent<Body>();
-
+			body.sound.enabled = false;
 			direction = Vector3.up;
 			transform.rotation = Quaternion.LookRotation(-direction);
 			transform.position = target.position + direction * (offset + body.radius);

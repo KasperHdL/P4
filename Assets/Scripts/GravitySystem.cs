@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-<<<<<<< HEAD
 using UnityEngine.Audio;
-=======
 using System.Collections.Generic;
->>>>>>> 2b0149147ba30bae3a31dd853cc0d7c497763700
 
 public class GravitySystem : MonoBehaviour {
 

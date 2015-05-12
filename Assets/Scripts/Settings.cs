@@ -3,16 +3,11 @@ using System.Collections;
 
 public struct Settings {
 
-<<<<<<< HEAD
-	public readonly static int BODY_POSITION_LENGTH = 1000;
-	public readonly static int DOT_OFFSET = 0;
-=======
 #region General
 	public static readonly int 			BODY_POSITION_LENGTH 	= 1000;
 	public static readonly int 			DOT_OFFSET 				= 0;
 	public static readonly float 		GRAVITATIONAL_CONSTANT 	= 5f;
 #endregion
->>>>>>> 2b0149147ba30bae3a31dd853cc0d7c497763700
 
 	public struct Planet{
 		public static readonly ActiveSliders SLIDERS = ActiveSliders.Mass | ActiveSliders.Radius;
@@ -73,8 +68,6 @@ public struct Settings {
 
 }
 
-<<<<<<< HEAD
-=======
 [System.Flags]
 public enum ActiveSliders{
 	None 		= 1 << 0,
@@ -83,4 +76,3 @@ public enum ActiveSliders{
 	Density 	= 1 << 3,
 	Temperature = 1 << 4
 }
->>>>>>> 2b0149147ba30bae3a31dd853cc0d7c497763700
