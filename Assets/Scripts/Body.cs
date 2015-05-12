@@ -3,6 +3,29 @@ using System.Collections;
 
 public class Body : MonoBehaviour {
 
+
+	public enum Type{
+		None,
+		Planet,
+		DwarfStar
+	}
+
+	public Transform starLightTransform;
+	public Light starLight;
+
+	////////////////////////////
+	//      Type Variables
+
+	public Type type = Type.Planet;
+	public float temperature;
+	public float mass;
+	public float density;
+	public float radius;
+
+
+	////////////////////////////
+	//      Body Variables
+
 	public Vector3 randomStartVelocity = Vector3.zero;
 	public Vector3 startVelocity;
 
@@ -11,10 +34,6 @@ public class Body : MonoBehaviour {
 
 	public int indicesValid = 0;
 
-	public double density;
-	public double volume;
-	public float mass = 1;
-	public float radius;
 
 
 	public GameObject dotPrefab;
@@ -34,13 +53,10 @@ public class Body : MonoBehaviour {
 
 	public void construct(){construct(mass,radius,transform.position,startVelocity);}
 	public void construct(float mass, float radius, Vector3 position, Vector3 velocity){
+		Debug.Log(string.Format("m: {0} r: {1} p{2} v{3}",mass,radius,position,velocity));
 		this.mass = mass;
 		this.radius = radius;
-		volume = ((4/3)*Mathf.PI)*Mathf.Pow(radius, 3);
-		density = mass/volume;
-
-		float dia = radius * 2;
-		transform.localScale = new Vector3(dia,dia,dia);
+		density = 1;
 
 		positions = new Vector3[Settings.BODY_POSITION_LENGTH];
 		velocities = new Vector3[Settings.BODY_POSITION_LENGTH];
@@ -50,16 +66,18 @@ public class Body : MonoBehaviour {
 			velocity = new Vector3(Random.Range(-randomStartVelocity.x,randomStartVelocity.x),Random.Range(-randomStartVelocity.y,randomStartVelocity.y),Random.Range(-randomStartVelocity.z,randomStartVelocity.z));
 		}
 
+		if(position == null)position = new Vector3();
 		this.positions[0] = position;
+		if(velocity == null)velocity = new Vector3();
 		this.velocities[0] = velocity;
 
 		transform.position = position;
 
 		if(randomColor){
 			color = new Color(Random.Range(.33f,1f),Random.Range(.33f,1f),Random.Range(.33f,1f));
+			GetComponent<Renderer>().material.color = color;
 		}
 
-		GetComponent<Renderer>().material.color = color;
 		dots = new Transform[(Settings.DOT_OFFSET == 0)?0:(Settings.BODY_POSITION_LENGTH/Settings.DOT_OFFSET)-1];
 		for(int i = 0;i<dots.Length;i++){
 			GameObject g = Instantiate(dotPrefab,positions[(i+1)*Settings.DOT_OFFSET],Quaternion.identity) as GameObject;
@@ -72,6 +90,20 @@ public class Body : MonoBehaviour {
 	}
 
 
+	public void setType(Body.Type type){
+		this.type = type;
+		switch(type){
+			case Type.Planet:
+				GetComponent<Renderer>().enabled = true;
+				starLight.enabled = false;
+			break;
+			case Type.DwarfStar:
+				GetComponent<Renderer>().enabled = false;
+				starLight.enabled = true;
+			break;
+		}
+	}
+
 
 
 	//////////////////////////////
@@ -79,8 +111,8 @@ public class Body : MonoBehaviour {
 
 	public void cyclePosition(Vector3 position, Vector3 velocity){
 		//move body
-		//transform.position = positions[1];
-		transform.position = Vector3.Lerp(transform.position,positions[1],1-Time.deltaTime);
+		transform.position = positions[1];
+		//transform.position = Vector3.Lerp(transform.position,positions[1],1-Time.deltaTime);
 
 		rot += Time.deltaTime * rotSpeed;
 		transform.rotation = Quaternion.Euler(0,rot,0);
@@ -129,17 +161,25 @@ public class Body : MonoBehaviour {
 		mass = (float)(value);
 	}
 
-	public void updateRadius(double value){
-		radius = (float)(value);
-		float dia = (float)(radius * 2);
-		transform.localScale = new Vector3(dia,dia,dia);
+	public void updateRadius(float value){
+		radius = value * (type == Type.Planet ? 1:100);
+		float dia = (radius * 2);
+		if(type == Type.DwarfStar)
+			if(radius < 40)
+				transform.localScale = new Vector3(dia*3,1,dia*3);
+			else if(radius < 100)
+				transform.localScale = new Vector3(dia*1.5f,1,dia*1.5f);
+			else
+				transform.localScale = new Vector3(dia,1,dia);
+
+		else
+			transform.localScale = new Vector3(dia,dia,dia);
+
+		starLightTransform.localPosition = new Vector3(0,radius/7,0);
+
 	}
 
-	public void updateVolume(double value){
-		volume = value;
-	}
-
-	public void updateDensity(double value){
+	public void updateDensity(float value){
 		density = value;
 	}
 

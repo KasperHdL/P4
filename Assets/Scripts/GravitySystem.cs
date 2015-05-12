@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GravitySystem : MonoBehaviour {
 
@@ -7,7 +8,7 @@ public class GravitySystem : MonoBehaviour {
 
 	public static Transform DOT_CONTAINER;
 
-	public Body[] bodies;
+	public List<Body> bodies;
 
 	private bool inited = false;
 
@@ -34,13 +35,13 @@ public class GravitySystem : MonoBehaviour {
 	}
 
 	public void initChildrenBodies(){
-		bodies = new Body[transform.childCount];
+		bodies = new List<Body>(transform.childCount);
 
 		int i = 0;
 		foreach(Transform child in transform){
 			Body b = child.GetComponent<Body>() as Body;
 			b.construct();
-			bodies[i++] = b;
+			bodies.Add(b);
 		}
 		calcFuturePositions();
 	}
@@ -54,11 +55,11 @@ public class GravitySystem : MonoBehaviour {
 	}
 
 	public void initNewBodies(int numBodies){
-		bodies = new Body[numBodies];
+		bodies = new List<Body>(numBodies);
 
 		float rnd = 2000f;
 
-		for(int i = 0;i<bodies.Length;i++){
+		for(int i = 0;i<bodies.Count;i++){
 			GameObject g = Instantiate(bodyPrefab,Vector3.zero,Quaternion.identity) as GameObject;
 			int mass = 100000;
 			float rad = Random.Range(10,1000);
@@ -72,6 +73,12 @@ public class GravitySystem : MonoBehaviour {
 		}
 	}
 
+	public void addBody(Body b){
+		b.construct();
+		bodies.Add(b);
+		calcFuturePositions();
+	}
+
 	public void calcFuturePositions(){
 		StopCoroutine("calculateFuturePositions");
 		StartCoroutine("calculateFuturePositions");
@@ -79,17 +86,16 @@ public class GravitySystem : MonoBehaviour {
 
 	private IEnumerator calculateFuturePositions(){
 		//populate positions of bodies
-		Debug.Log("starts");
 		calcRunning = true;
 		frameShifts = 0;
 		int f = 1;
 		while(!reset && f<Settings.BODY_POSITION_LENGTH + frameShifts){
-			for(int i = 0;i<bodies.Length;i++){
+			for(int i = 0;i<bodies.Count;i++){
 				Vector3 acc = Vector3.zero;
 
 				int tf = f-frameShifts;
 
-				for(int j = 0;j<bodies.Length;j++){
+				for(int j = 0;j<bodies.Count;j++){
 					if(i==j)continue;
 					acc += calculateGravitional(bodies[i],bodies[j],tf);
 				}
@@ -110,10 +116,8 @@ public class GravitySystem : MonoBehaviour {
 		calcRunning = false;
 		if(reset){
 			reset = false;
-			Debug.Log("reset");
 			calcFuturePositions();
 		}
-		Debug.Log("stops");
 	}
 
 	// Update is called once per frame
@@ -126,9 +130,9 @@ public class GravitySystem : MonoBehaviour {
 
 	public void updateBodies(){
 		frameShifts++;
-		for(int i = 0;i<bodies.Length;i++){
+		for(int i = 0;i<bodies.Count;i++){
 			Vector3 acc = Vector3.zero;
-			for(int j = 0;j<bodies.Length;j++){
+			for(int j = 0;j<bodies.Count;j++){
 				if(i==j)continue;
 
 				acc += calculateGravitional(bodies[i],bodies[j]);

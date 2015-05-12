@@ -7,9 +7,13 @@ public class CameraMovement : MonoBehaviour {
 	public GravitySystem gs;
 
 	public Transform target;
+	private Body body;
 	public float offset;
 	public float scrollSpeed = 20f;
 
+	public bool disableMouseDrag = true;
+
+	[HideInInspector]
 	public bool allowMouseDrag = true;
 
 	private bool mouseDrag = false;
@@ -21,14 +25,18 @@ public class CameraMovement : MonoBehaviour {
 
 	void Start(){
 		cam = GetComponent<Camera>();
+		if(disableMouseDrag)
+			direction = Vector3.up;
+
+			setTarget(target);
+
 	}
 
 	void Update () {
 		if(target == null)
 			updatePositionForAllBodies();
 		else{
-
-			if(allowMouseDrag)
+			if(allowMouseDrag && !disableMouseDrag)
 				mouseDragUpdate();
 			updatePositionForTarget();
 		}
@@ -42,8 +50,8 @@ public class CameraMovement : MonoBehaviour {
 
 	void updatePositionForTarget(){
 		Vector3 delta = transform.position - target.position;
-		direction = direction.normalized * offset;
-		transform.position = target.position + direction;
+		direction = direction.normalized * (offset + body.radius);
+			transform.position = target.position + direction;
 	}
 
 	void mouseDragUpdate(){
@@ -77,13 +85,17 @@ public class CameraMovement : MonoBehaviour {
 	}
 
 	public void setTarget(Transform t){
-		target = t;
 		if(t == null){
 			//camera should target everyone
+
+
 		}else{
-			direction = -Vector3.forward*3 + Vector3.up;
+			target = t;
+			body = target.GetComponent<Body>();
+
+			direction = Vector3.up;
 			transform.rotation = Quaternion.LookRotation(-direction);
-			transform.position = target.position + direction * offset;
+			transform.position = target.position + direction * (offset + body.radius);
 		}
 
 	}

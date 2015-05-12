@@ -6,8 +6,6 @@ using UnityEngine.EventSystems;
 public class SliderWithText : Slider {
 
 	public UIController controller;
-
-	[SerializeField]
 	public Text text;
 
 	public new void Start(){
