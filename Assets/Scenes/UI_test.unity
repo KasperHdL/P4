@@ -925,6 +925,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gs: {fileID: 1884672725}
   body: {fileID: 11477112, guid: f9fbb1cee0963874ba305120a2100246, type: 2}
+  halfWidth: 0
+  halfHeight: 0
 --- !u!92 &674496663
 Behaviour:
   m_ObjectHideFlags: 0
@@ -996,7 +998,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gs: {fileID: 1884672725}
   target: {fileID: 349604966}
-  offset: 4000
+  offset: 50000
   scrollSpeed: 20
   allowMouseDrag: 1
   dragSpeed: 50

@@ -4,7 +4,7 @@ using System.Collections;
 public class Settings : MonoBehaviour {
 
 	public readonly static int BODY_POSITION_LENGTH = 1000;
-	public readonly static int DOT_OFFSET = 10;
+	public readonly static int DOT_OFFSET = 0;
 
 	public readonly static float GRAVITATIONAL_CONSTANT = 5f;
 
@@ -15,3 +15,4 @@ public class Settings : MonoBehaviour {
 	public readonly static float RADI_MAX_VAL = 1.708f*696000f*1000; // Metres
 	public readonly static float RADI_MIN_VAL = 1.6f*1000;	// Metres
 }
+

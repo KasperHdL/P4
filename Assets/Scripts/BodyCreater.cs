@@ -43,6 +43,7 @@ public class BodyCreater : MonoBehaviour {
 
         body = Object.Instantiate(body, planetPosition, Quaternion.identity) as Body;
         body.transform.parent = gs.transform;
+        gs.GetComponent<GravitySystem>().initChildrenBodies();
 
 		gs.uiHold = true;
 		GetComponent<CameraMovement>().setTarget(body.transform);

@@ -102,6 +102,10 @@ public class UIController : MonoBehaviour {
 				rightButtonText.text = "Finish";
 			}break;
 			case State.SimState:{
+				updateMass(massSlider.value);
+				updateRadius(radiusSlider.value);
+				updateVelocity(velocity.value);
+
 				radiusSlider.gameObject.SetActive(false);
 				massSlider.gameObject.SetActive(false);
 				velocity.gameObject.SetActive(false);

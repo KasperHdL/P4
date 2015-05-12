@@ -7,7 +7,7 @@ public class Spawner : MonoBehaviour {
 	public GameObject prefab;
 	private GameObject obj;
 
-	private readonly bool drawCube = false;
+	private readonly bool drawCube = true;
 
 
 	public Transform direction;
