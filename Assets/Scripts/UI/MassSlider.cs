@@ -9,17 +9,25 @@ public class MassSlider : SliderWithText {
 		base.Start();
 		text.text = value + " kg";
 
-		maxValue = Settings.MASS_MAX_VAL;
-		minValue = Settings.MASS_MIN_VAL;
+	}
+
+	public void updateExtremes(Body.Type type){
+		switch(type){
+			case Body.Type.Planet:
+				maxValue = Settings.Planet.MASS_MAX_VALUE;
+				minValue = Settings.Planet.MASS_MIN_VALUE;
+			break;
+		}
 	}
 
 	public override void OnDrag(PointerEventData eventData){
 		controller.updateMass(value);
+		setText(value);
 		base.OnDrag(eventData);
 	}
 
 	public void setText(double val){
-		/* 
+		/*
 		Teragram (Tg) 10e9
 		Petagram (Pg) 10e12
 		Exagram (Eg) 10e15

@@ -16,6 +16,10 @@ public class UIController : MonoBehaviour {
 
 	public RadiusSlider radiusSlider;
 	public MassSlider massSlider;
+	public DensitySlider densitySlider;
+	public TemperatureSlider temperatureSlider;
+
+	public GameObject typeSelector;
 
 	public Button leftButton;
 	public Text leftButtonText;
@@ -23,9 +27,12 @@ public class UIController : MonoBehaviour {
 	public Button rightButton;
 	public Text rightButtonText;
 
-	public float canvasWidth;
-	public float canvasHeight;
-	public State state = 0;
+	private float canvasWidth;
+	private float canvasHeight;
+
+	public State state = State.SimState;
+	public Body.Type selectedType = Body.Type.None;
+	public ActiveSliders activeSliders;
 
 	public enum State{
 		PropState,
@@ -33,8 +40,9 @@ public class UIController : MonoBehaviour {
 		SimState
 	}
 
-	// Use this for initialization
-	void Start () {
+
+#region Unity Methods
+	public void Start () {
 		cam = Camera.main;
 		cm = cam.GetComponent<CameraMovement>();
 		gs.uiHold = true;
@@ -43,36 +51,52 @@ public class UIController : MonoBehaviour {
 		canvasHeight = objectRectTransform.rect.height;
 		radiusSlider.controller = this;
 		massSlider.controller = this;
+		temperatureSlider.controller = this;
 		velocity.controller = this;
 
-		radiusSlider.gameObject.SetActive(true);
-		massSlider.gameObject.SetActive(true);
-		velocity.gameObject.SetActive(false);
+		setState(state);
+	}
 
-		leftButton.gameObject.SetActive(false);
-		rightButton.gameObject.SetActive(true);
+	public void Update(){
+
+		//Chose planet for entering propertyState
+		if(Input.GetMouseButtonDown(0) && state == State.SimState){
+
+			Vector2 input = Input.mousePosition;
+			Vector2 screen = new Vector2(Screen.width,Screen.height);
+
+	        Ray ray = cam.ScreenPointToRay(new Vector3(input.x, input.y, 0));
+	        RaycastHit hitinfo;
+	        if (Physics.Raycast(ray, out hitinfo, Mathf.Infinity, 1<<8)){
+				gs.uiHold = true;
+
+	        	body = hitinfo.transform.GetComponent<Body>();
+	        	setBody(body);
+	        }
+		}
+	}
+#endregion
+
+
+	public void setBody(Body body){
+		this.body = body;
+
+		updateType(body.type);
+		setState(State.PropState);
 
 		updateMass(massSlider.value);
 		updateRadius(radiusSlider.value);
 
-		RectTransform rtL = leftButton.transform as RectTransform;
-		rtL.anchoredPosition = new Vector2(0+rtL.rect.width/2, 0-rtL.rect.height/2);
-		rtL.sizeDelta = new Vector2(50,30);
-
-		RectTransform rt = rightButton.transform as RectTransform;
-		rt.anchoredPosition = new Vector2(canvasWidth-rt.rect.width/2, 0-rt.rect.height/2);
-		rt.sizeDelta = new Vector2(50,30);
-
-		setState(State.PropState);
 	}
-
 
 	public void setState(State s){
 		switch(s){
 			case State.PropState:{
-				radiusSlider.gameObject.SetActive(true);
-				massSlider.gameObject.SetActive(true);
+				updateActiveSliders(activeSliders);
+
 				velocity.gameObject.SetActive(false);
+
+				typeSelector.SetActive(true);
 
 				leftButton.gameObject.SetActive(false);
 				rightButton.gameObject.SetActive(true);
@@ -88,9 +112,10 @@ public class UIController : MonoBehaviour {
 				rightButtonText.text = "Next";
 			}break;
 			case State.VeloState:{
-				radiusSlider.gameObject.SetActive(false);
-				massSlider.gameObject.SetActive(false);
+				updateActiveSliders(ActiveSliders.None);
+
 				velocity.gameObject.SetActive(true);
+				typeSelector.SetActive(false);
 
 				leftButton.gameObject.SetActive(true);
 				rightButton.gameObject.SetActive(true);
@@ -102,12 +127,18 @@ public class UIController : MonoBehaviour {
 				rightButtonText.text = "Finish";
 			}break;
 			case State.SimState:{
+<<<<<<< HEAD
 				updateMass(massSlider.value);
 				updateRadius(radiusSlider.value);
 				updateVelocity(velocity.value);
 
 				radiusSlider.gameObject.SetActive(false);
 				massSlider.gameObject.SetActive(false);
+=======
+				updateActiveSliders(ActiveSliders.None);
+				typeSelector.SetActive(false);
+
+>>>>>>> 2b0149147ba30bae3a31dd853cc0d7c497763700
 				velocity.gameObject.SetActive(false);
 
 				leftButton.gameObject.SetActive(false);
@@ -122,9 +153,13 @@ public class UIController : MonoBehaviour {
 		state = s;
 	}
 
-	public void handleButton(int i){
+
+
+#region Button Handlers
+	public void handleNavigationalButton(int i){
 		//setup for setting the vel
 		// 0 is left button - 1 is right button
+
 		switch(state){
 			case State.PropState:{
 				setState(State.VeloState);
@@ -136,47 +171,92 @@ public class UIController : MonoBehaviour {
 					setState(State.SimState);
 			}break;
 		}
-
 	}
 
-	public void Update(){
+	public void handleTypeButton(int i ){
+		updateType((Body.Type)i);
+	}
 
-		//Chose planet for entering propertyState
-		if(Input.GetMouseButtonDown(0) && state == State.SimState){
+#endregion
 
-			Vector2 input = Input.mousePosition;
-			Vector2 screen = new Vector2(Screen.width,Screen.height);
 
-	        Ray ray = cam.ScreenPointToRay(new Vector3(input.x, input.y, 0));
-	        Debug.DrawRay(ray.origin,ray.direction,Color.white,1f);
-	        RaycastHit hitinfo;
-	        if (Physics.Raycast(ray, out hitinfo, Mathf.Infinity, 1<<8)){
-				gs.uiHold = true;
+	private void updateActiveSliders(ActiveSliders activeSliders){
+		//activate appropiate sliders
+		radiusSlider.gameObject.SetActive((activeSliders & ActiveSliders.Radius) == ActiveSliders.Radius);
+		massSlider.gameObject.SetActive((activeSliders & ActiveSliders.Mass) == ActiveSliders.Mass);
+		//densitySlider.gameObject.SetActive((activeSliders & ActiveSliders.Density) == ActiveSliders.Density);
+		temperatureSlider.gameObject.SetActive((activeSliders & ActiveSliders.Temperature) == ActiveSliders.Temperature);
 
-	        	body = hitinfo.transform.GetComponent<Body>();
-	        	setState(State.PropState);
-	        }
+		//update extremes
+		radiusSlider.updateExtremes(selectedType);
+		massSlider.updateExtremes(selectedType);
+		temperatureSlider.updateExtremes(selectedType);
+
+		//update location
+		int c = 0;
+		if(radiusSlider.gameObject.activeSelf){
+			RectTransform rt = radiusSlider.transform as RectTransform;
+			rt.anchoredPosition = new Vector2(-35  ,c++ * 40 + 20);
+		}
+		if(massSlider.gameObject.activeSelf){
+			RectTransform rt = massSlider.transform as RectTransform;
+			rt.anchoredPosition = new Vector2(-35  ,c++ * 40 + 20);
+		}
+		if(temperatureSlider.gameObject.activeSelf){
+			RectTransform rt = temperatureSlider.transform as RectTransform;
+			rt.anchoredPosition = new Vector2(-35  ,c++ * 40 + 20);
 		}
 	}
 
+	private void updateType(Body.Type type){
+		selectedType = type;
+		body.setType(type);
+		switch(type){
+			case Body.Type.Planet:{
+				activeSliders = Settings.Planet.SLIDERS;
+			}break;
+			case Body.Type.DwarfStar:{
+				activeSliders = Settings.Star.Dwarf.SLIDERS;
+			}break;
+		}
+		updateActiveSliders(activeSliders);
+	}
+
+#region Slider Calls
+
 	public void updateVelocity(Vector2 value){
-		body.startVelocity = value;
+		body.startVelocity = new Vector3(value.x,0,value.y);
+		body.construct();
 		//update Dots
 		gs.calcFuturePositions();
 	}
 
 	public void updateMass(double value){
-		massSlider.setText(value);
 		body.updateMass(value);
 		gs.calcFuturePositions();
 	}
 
-	public void updateRadius(double value){
-		radiusSlider.setText(value);
+	public void updateRadius(float value){
 		body.updateRadius(value);
 	}
 
 	public void updateDensity(float value){
 		body.updateDensity(value);
 	}
+
+	public void updateTemperature(float value){
+		for(int i = 1;i<Settings.Star.Dwarf.TEMPERATURE.Length;i++){
+			float ct = Settings.Star.Dwarf.TEMPERATURE[i];
+			float lt = Settings.Star.Dwarf.TEMPERATURE[i-1];
+			if(value < ct && value >= lt){
+				//found
+				float step = (value-lt)/(ct-lt);
+				body.starLight.color = Color.Lerp(Settings.Star.Dwarf.COLORS[i-1],Settings.Star.Dwarf.COLORS[i],step);
+				break;
+			}
+		}
+
+	}
+#endregion
+
 }

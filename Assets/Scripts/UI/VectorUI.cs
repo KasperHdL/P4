@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 public class VectorUI : MonoBehaviour{
 
 	public Vector2 value;
-	Vector2 center = new Vector2(158,106);
 
 	public UIController controller;
 
@@ -18,17 +17,6 @@ public class VectorUI : MonoBehaviour{
 	}
 
 	void Update () {
-		/*Vector2 mousePosition = Input.mousePosition;
-
-        if (Input.GetMouseButton(0)){
-			Vector2 input = mousePosition;
-
-			input -= center;
-			updateVelocity(input);
-			controller.updateVelocity(value);
-		}*/
-
-		//for touch
         if (Input.GetMouseButton(0)){
 			Vector2 input = Input.mousePosition;
 
@@ -38,17 +26,19 @@ public class VectorUI : MonoBehaviour{
 			Vector2 lB = controller.leftButton.GetComponent<RectTransform>().sizeDelta;
 			Vector2 rB = controller.rightButton.GetComponent<RectTransform>().sizeDelta;
 
+			/*
 			Debug.Log(string.Format("screen: ({0},{1}) - lB: ({2},{3}) - rB: ({4},{5}) - input: ({6},{7})",
 				screen.x,screen.y,
 				lB.x,lB.y,
 				rB.x,rB.y,
 				input.x,input.y));
+			*/
 
 			if(!((input.x < -screen.x/2 + lB.x || input.x > screen.x/2 - rB.x) && input.y > screen.y/2 - lB.y)){
 				updateVelocity(input);
-				controller.updateVelocity(value);	
+				controller.updateVelocity(value);
 			}
-		}	
+		}
 	}
 
 	public void updateVelocity(Vector2 vel){

@@ -5,34 +5,38 @@ using UnityEngine.EventSystems;
 
 public class RadiusSlider : SliderWithText {
 
+	private string unit = "";
+
 	public new void Start(){
 		base.Start();
 		text.text = value + " Mm";
 
-		maxValue = Settings.RADI_MAX_VAL;
-		minValue = Settings.RADI_MIN_VAL;
 	}
 
+	public void updateExtremes(Body.Type type){
+		switch(type){
+			case Body.Type.Planet:
+				minValue = Settings.Planet.RADIUS_MIN_VALUE;
+				maxValue = Settings.Planet.RADIUS_MAX_VALUE;
+				unit = Settings.Planet.RADIUS_UNIT;
+			break;
+
+			case Body.Type.DwarfStar:
+				minValue = Settings.Star.Dwarf.RADIUS_MIN_VALUE;
+				maxValue = Settings.Star.Dwarf.RADIUS_MAX_VALUE;
+				unit = Settings.Star.Dwarf.RADIUS_UNIT;
+			break;
+		}
+	}
 	public override void OnDrag(PointerEventData eventData){
 		controller.updateRadius(value);
+		setText(value);
 		base.OnDrag(eventData);
 	}
 
-	public void setText(double val){
-		/*
-		10e3 Meter m
-		10e6 Kilometer km
-		10e9 Megameter Mm
-		10e12 Gigameter Gm
-		10e15 Terrameter Tm
-		*/
+	public void setText(float val){
 
-		if(val < Mathf.Pow(10,6)){
-			text.text = valueFormating(3, 2, val) + " km";
-		} else if(val < Mathf.Pow(10, 9)){
-			text.text = valueFormating(6, 2, val) + "E+3 km";
-		} else if(val < Mathf.Pow(10, 12)){
-			text.text = valueFormating(9, 2, val) + "E+6 km";
-		}
+		text.text = val + " " + unit;
+
 	}
 }
