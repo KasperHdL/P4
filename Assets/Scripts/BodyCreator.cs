@@ -7,6 +7,8 @@ public class BodyCreator : MonoBehaviour {
 	private Camera cam;
 	public GravitySystem gs;
 
+	public CameraMovement cameraMovement;
+
 	private float 	halfWidth,
 					halfHeight;
 
@@ -41,7 +43,7 @@ public class BodyCreator : MonoBehaviour {
         body.type = Body.Type.Planet;
 
 		gs.uiHold = true;
-		GetComponent<CameraMovement>().setTarget(g.transform);
+		cameraMovement.setTarget(g.transform);
 		controller.setBody(body);
     	gs.addBody(body);
 	}

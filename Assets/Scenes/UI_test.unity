@@ -1012,6 +1012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 919239302}
   gs: {fileID: 1884672725}
+  cameraMovement: {fileID: 1068772193}
 --- !u!92 &674496663
 Behaviour:
   m_ObjectHideFlags: 0
@@ -1346,6 +1347,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42997e99fd13abb4b9bc4bd975aa73f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 674496665}
+  cm: {fileID: 1068772193}
   body: {fileID: 0}
   gs: {fileID: 1884672725}
   velocity: {fileID: 133064657}
@@ -1586,6 +1589,22 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 8261988, guid: 9ea0b8940935e7d4fa0ef2b9148994b4, type: 2}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8261988, guid: 9ea0b8940935e7d4fa0ef2b9148994b4, type: 2}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].time
+      value: .603246093
+      objectReference: {fileID: 0}
+    - target: {fileID: 8261988, guid: 9ea0b8940935e7d4fa0ef2b9148994b4, type: 2}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[2].time
+      value: .783950627
+      objectReference: {fileID: 0}
+    - target: {fileID: 8261988, guid: 9ea0b8940935e7d4fa0ef2b9148994b4, type: 2}
+      propertyPath: rolloffMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9ea0b8940935e7d4fa0ef2b9148994b4, type: 2}
   m_IsPrefabParent: 0
@@ -1711,7 +1730,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2800de79e5415c45bd24280fcceaf37, type: 2}
   m_IsPrefabParent: 0
---- !u!224 &1016401064 stripped
+--- !u!224 &1016401064
 RectTransform:
   m_PrefabParentObject: {fileID: 22426198, guid: f2800de79e5415c45bd24280fcceaf37,
     type: 2}
@@ -1757,13 +1776,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9e8e81b49ff8b34da2914f0872ff096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 674496665}
   gs: {fileID: 1884672725}
   target: {fileID: 1391660546}
   offset: 4000
-  scrollSpeed: 20
-  disableMouseDrag: 1
-  allowMouseDrag: 0
-  dragSpeed: 50
 --- !u!81 &1068772194
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2333,7 +2349,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1325624882}
---- !u!4 &1391660546 stripped
+--- !u!4 &1391660546
 Transform:
   m_PrefabParentObject: {fileID: 488656, guid: 9ea0b8940935e7d4fa0ef2b9148994b4, type: 2}
   m_PrefabInternal: {fileID: 1004440862}
@@ -2550,7 +2566,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2800de79e5415c45bd24280fcceaf37, type: 2}
   m_IsPrefabParent: 0
---- !u!224 &1457746515 stripped
+--- !u!224 &1457746515
 RectTransform:
   m_PrefabParentObject: {fileID: 22426198, guid: f2800de79e5415c45bd24280fcceaf37,
     type: 2}

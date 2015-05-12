@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 
 public class UIController : MonoBehaviour {
 
-	private Camera cam;
-	private CameraMovement cm;
+	public Camera cam;
+	public CameraMovement cm;
 
 	public Body body;
 
@@ -43,8 +43,6 @@ public class UIController : MonoBehaviour {
 
 #region Unity Methods
 	public void Start () {
-		cam = Camera.main;
-		cm = cam.GetComponent<CameraMovement>();
 		gs.uiHold = true;
 		RectTransform objectRectTransform = gameObject.GetComponent<RectTransform> ();
 		canvasWidth = objectRectTransform.rect.width;
@@ -106,7 +104,6 @@ public class UIController : MonoBehaviour {
 				rt.sizeDelta = new Vector2(40,30);
 
 
-	        	cm.allowMouseDrag = false;
 	        	cm.setTarget(body.transform);
 
 				rightButtonText.text = "Next";
@@ -136,8 +133,6 @@ public class UIController : MonoBehaviour {
 				rightButton.gameObject.SetActive(false);
 
 				gs.uiHold = false;
-	        	cm.allowMouseDrag = true;
-	        	cm.setTarget(null);
 
 			}break;
 		}
