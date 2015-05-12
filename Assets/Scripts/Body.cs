@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class Body : MonoBehaviour {
+	public AudioSource bodySound;
+	public AudioClip clip;
 
 	public Vector3 randomStartVelocity = Vector3.zero;
 	public Vector3 startVelocity;
@@ -47,7 +49,9 @@ public class Body : MonoBehaviour {
 
 
 		if(randomStartVelocity != Vector3.zero){
-			velocity = new Vector3(Random.Range(-randomStartVelocity.x,randomStartVelocity.x),Random.Range(-randomStartVelocity.y,randomStartVelocity.y),Random.Range(-randomStartVelocity.z,randomStartVelocity.z));
+			velocity = new Vector3(	Random.Range(-randomStartVelocity.x,randomStartVelocity.x),
+									Random.Range(-randomStartVelocity.y,randomStartVelocity.y),
+									Random.Range(-randomStartVelocity.z,randomStartVelocity.z));
 		}
 
 		this.positions[0] = position;
@@ -69,6 +73,10 @@ public class Body : MonoBehaviour {
 
 			g.GetComponent<Renderer>().material.color = color;
 		}
+
+		bodySound.clip = clip;
+
+		bodySound.Play();
 	}
 
 
