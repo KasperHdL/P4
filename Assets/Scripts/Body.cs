@@ -10,6 +10,7 @@ public class Body : MonoBehaviour {
 	public 	AudioClip clip;
 
 	public 	float currentVolume;
+	public 	float currentPitch;
 	private float baseVolume;
 	private float basePitch;
 
@@ -186,7 +187,7 @@ public class Body : MonoBehaviour {
 	public void updateMass(double value){
 		mass = (float)(value);
 		sound.pitch = (mass/Settings.Planet.MASS_MAX_VALUE)*(1-basePitch) + basePitch;
-
+		currentPitch = (mass/Settings.Planet.MASS_MAX_VALUE)*(1-basePitch) + basePitch;
 	}
 
 	public void updateRadius(float value){

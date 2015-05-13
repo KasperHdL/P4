@@ -208,9 +208,11 @@ public class UIController : MonoBehaviour {
 		switch(type){
 			case Body.Type.Planet:{
 				activeSliders = Settings.Planet.SLIDERS;
+				resetBodySoundValues(body);
 			}break;
 			case Body.Type.DwarfStar:{
 				activeSliders = Settings.Star.Dwarf.SLIDERS;
+				resetBodySoundValues(body);
 			}break;
 		}
 		updateActiveSliders(activeSliders);
@@ -252,5 +254,10 @@ public class UIController : MonoBehaviour {
 		body.temperature = value;
 	}
 #endregion
+
+	public void resetBodySoundValues(Body body){
+		body.sound.volume = Settings.RESET_VOLUME;
+		body.sound.pitch = Settings.RESET_PITCH;
+	}
 
 }
