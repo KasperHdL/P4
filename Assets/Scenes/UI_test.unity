@@ -1364,6 +1364,7 @@ MonoBehaviour:
   state: 2
   selectedType: 0
   activeSliders: 2
+  maxDistortion: 0
 --- !u!114 &919239303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1605,7 +1606,9 @@ Prefab:
       propertyPath: rolloffMode
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 16533082, guid: 9ea0b8940935e7d4fa0ef2b9148994b4, type: 2}
+    - {fileID: 16981850, guid: 9ea0b8940935e7d4fa0ef2b9148994b4, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 9ea0b8940935e7d4fa0ef2b9148994b4, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1016401063
@@ -1730,7 +1733,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2800de79e5415c45bd24280fcceaf37, type: 2}
   m_IsPrefabParent: 0
---- !u!224 &1016401064
+--- !u!224 &1016401064 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22426198, guid: f2800de79e5415c45bd24280fcceaf37,
     type: 2}
@@ -2349,7 +2352,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1325624882}
---- !u!4 &1391660546
+--- !u!4 &1391660546 stripped
 Transform:
   m_PrefabParentObject: {fileID: 488656, guid: 9ea0b8940935e7d4fa0ef2b9148994b4, type: 2}
   m_PrefabInternal: {fileID: 1004440862}
@@ -2566,7 +2569,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2800de79e5415c45bd24280fcceaf37, type: 2}
   m_IsPrefabParent: 0
---- !u!224 &1457746515
+--- !u!224 &1457746515 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22426198, guid: f2800de79e5415c45bd24280fcceaf37,
     type: 2}

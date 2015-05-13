@@ -127,6 +127,10 @@ public class GravitySystem : MonoBehaviour {
 			updateBodies();
 
 			//updateChildren();
+		for(int i = 0; i < bodies.Count; i++){
+
+		}
+
 	}
 
 	public void updateBodies(){

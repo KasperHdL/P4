@@ -1,11 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Audio;
 
 public class Body : MonoBehaviour {
-	public AudioSource sound;
-	public AudioClip clip;
+	////////////////////////////
+	//      Sound Variables
 
-	public enum Type{
+	public 	AudioSource sound;
+	public 	AudioClip clip;
+
+	public 	float currentVolume;
+	private float baseVolume;
+	private float basePitch;
+
+	public enum Type{		
 		None,
 		Planet,
 		DwarfStar
@@ -92,10 +100,16 @@ public class Body : MonoBehaviour {
 			g.GetComponent<Renderer>().material.color = color;
 		}
 
+		///////////////////
+		//		SOUND
 		sound.clip = clip;
-
-		sound.Play();
+		if(sound.enabled)
+			sound.Play();
 		sound.loop = true;
+
+		baseVolume = Settings.BASE_VOLUME;
+		basePitch = Settings.BASE_PITCH;
+
 	}
 
 
@@ -168,6 +182,8 @@ public class Body : MonoBehaviour {
 
 	public void updateMass(double value){
 		mass = (float)(value);
+		sound.pitch = (mass/Settings.Planet.MASS_MAX_VALUE)*(1-basePitch) + basePitch;
+
 	}
 
 	public void updateRadius(float value){
@@ -186,10 +202,15 @@ public class Body : MonoBehaviour {
 
 		starLightTransform.localPosition = new Vector3(0,radius/7,0);
 
+		if(type == Type.Planet){
+			sound.volume = (radius/Settings.Planet.RADIUS_MAX_VALUE)*(1-baseVolume) + baseVolume;
+		} else if(type == Type.DwarfStar){
+			sound.volume = ((radius/100)/Settings.Star.Dwarf.RADIUS_MAX_VALUE)*(1-baseVolume) + baseVolume;
+		}
+
 	}
 
 	public void updateDensity(float value){
 		density = value;
 	}
-
 }

@@ -34,6 +34,8 @@ public class UIController : MonoBehaviour {
 	public Body.Type selectedType = Body.Type.None;
 	public ActiveSliders activeSliders;
 
+	public float maxDistortion;
+
 	public enum State{
 		PropState,
 		VeloState,
@@ -53,10 +55,11 @@ public class UIController : MonoBehaviour {
 		velocity.controller = this;
 
 		setState(state);
+
+		maxDistortion = Settings.MAX_DISTORTION;
 	}
 
 	public void Update(){
-
 		//Chose planet for entering propertyState
 		if(Input.GetMouseButtonDown(0) && state == State.SimState){
 
@@ -241,7 +244,7 @@ public class UIController : MonoBehaviour {
 				break;
 			}
 		}
-
+		body.temperature = value;
 	}
 #endregion
 
