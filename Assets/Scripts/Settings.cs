@@ -6,7 +6,7 @@ public struct Settings {
 #region General
 	public static readonly int 			BODY_POSITION_LENGTH 	= 1000;
 	public static readonly int 			DOT_OFFSET 				= 0;
-	public static readonly float 		GRAVITATIONAL_CONSTANT 	= 5f;
+	public static readonly float 		GRAVITATIONAL_CONSTANT 	= .5f;
 #endregion
 
 	public struct Planet{

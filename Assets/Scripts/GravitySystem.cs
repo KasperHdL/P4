@@ -130,7 +130,7 @@ public class GravitySystem : MonoBehaviour {
 	}
 
 	public void updateBodies(){
-		for(int t = 0;t < Time.timeScale;t++){
+		for(int t = 0;t < Time.timeScale*10;t++){
 			frameShifts ++;
 			for(int i = 0;i<bodies.Count;i++){
 				Vector3 acc = Vector3.zero;
