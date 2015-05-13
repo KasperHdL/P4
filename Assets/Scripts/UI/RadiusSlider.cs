@@ -28,12 +28,14 @@ public class RadiusSlider : SliderWithText {
 		}
 		setText(value);
 	}
+
 	public override void ValueChanged(){
-		controller.updateRadius(value);
+		if(controller != null)
+			controller.updateRadius(value);
 		setText(value);
 	}
 
-	public void setText(float val){
+	public override void setText(float val){
 
 		text.text = val + " " + unit;
 

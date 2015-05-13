@@ -22,9 +22,6 @@ public class TemperatureSlider : SliderWithText {
 		float ct = Settings.Star.Dwarf.TEMPERATURE[i+1];
 		float lt = Settings.Star.Dwarf.TEMPERATURE[i];
 		value = (lt+(ct-lt)/2);
-
-		controller.updateTemperature(value);
-		setText(value);
 	}
 
 	public void updateExtremes(Body.Type type){
@@ -65,6 +62,12 @@ public class TemperatureSlider : SliderWithText {
 			break;
 		}
 		currentType = type;
+	}
+
+	public override void ValueChanged(){
+		if(controller != null)
+			controller.updateTemperature(value);
+		setText(value);
 	}
 
 	public override void setText(float val){

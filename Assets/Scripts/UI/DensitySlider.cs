@@ -21,6 +21,12 @@ public class DensitySlider : SliderWithText {
 		}
 	}
 
+	public override void ValueChanged(){
+		if(controller != null)
+			controller.updateDensity(value);
+		setText(value);
+	}
+
 	public void setText(float val){
 		if(val < 100)
 			text.text = val + " kg/m3";

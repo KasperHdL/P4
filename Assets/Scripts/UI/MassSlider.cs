@@ -20,6 +20,12 @@ public class MassSlider : SliderWithText {
 		}
 	}
 
+	public override void ValueChanged(){
+		if(controller != null)
+			controller.updateMass(value);
+		setText(value);
+	}
+
 	public override void setText(float val){
 		/*
 		Teragram (Tg) 10e9

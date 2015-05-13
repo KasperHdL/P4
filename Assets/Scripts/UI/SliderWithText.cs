@@ -27,8 +27,5 @@ public class SliderWithText : Slider {
 	public virtual void setText(float value){}
 
 	public virtual void ValueChanged(){
-		if(controller != null)
-			controller.updateDensity(value);
-		setText(value);
 	}
 }
