@@ -84,7 +84,7 @@ public class UIController : MonoBehaviour {
 
 		updateMass(massSlider.value);
 		updateRadius(radiusSlider.value);
-
+		updateTemperature(temperatureSlider.value);
 	}
 
 	public void setState(State s){
@@ -231,17 +231,7 @@ public class UIController : MonoBehaviour {
 	}
 
 	public void updateTemperature(float value){
-		for(int i = 1;i<Settings.Star.Dwarf.TEMPERATURE.Length;i++){
-			float ct = Settings.Star.Dwarf.TEMPERATURE[i];
-			float lt = Settings.Star.Dwarf.TEMPERATURE[i-1];
-			if(value < ct && value >= lt){
-				//found
-				float step = (value-lt)/(ct-lt);
-				body.starLight.color = Color.Lerp(Settings.Star.Dwarf.COLORS[i-1],Settings.Star.Dwarf.COLORS[i],step);
-				break;
-			}
-		}
-
+		body.updateTemperature(value);
 	}
 #endregion
 

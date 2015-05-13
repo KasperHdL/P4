@@ -10,6 +10,7 @@ public class SliderWithText : Slider {
 
 	public new void Start(){
 		base.Start();
+		onValueChanged.AddListener (delegate {ValueChanged();});
 	}
 
 	public string valueFormating(int powVal, float decimals, double value){
@@ -21,5 +22,13 @@ public class SliderWithText : Slider {
 		value = (double)(intVal)/d;
 
 		return value.ToString();
+	}
+
+	public virtual void setText(float value){}
+
+	public virtual void ValueChanged(){
+		if(controller != null)
+			controller.updateDensity(value);
+		setText(value);
 	}
 }

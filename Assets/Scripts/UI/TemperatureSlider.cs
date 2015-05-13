@@ -42,7 +42,7 @@ public class TemperatureSlider : SliderWithText {
 					float per = (value-minValue)/(maxValue-minValue);
 
 					GameObject g = Instantiate(classPrefab,Vector3.zero,Quaternion.identity) as GameObject;
-					g.transform.parent = classContainer;
+					g.transform.SetParent(classContainer);
 
 					RectTransform rt = g.transform as RectTransform;
 					rt.anchoredPosition = new Vector2(0,15);
@@ -50,7 +50,6 @@ public class TemperatureSlider : SliderWithText {
 					float fullWidth = Mathf.Abs(g.transform.localPosition.x)*2;
 					rt.anchoredPosition = new Vector2(fullWidth*per,15);
 					value = (((nt-pt))/(maxValue-minValue));
-					Debug.Log("f " + fullWidth + " v " + value);
 					rt.sizeDelta = new Vector2(value*fullWidth,30);
 
 					ButtonWithText btw = g.GetComponent<ButtonWithText>();
@@ -67,13 +66,8 @@ public class TemperatureSlider : SliderWithText {
 		}
 		currentType = type;
 	}
-	public override void OnDrag(PointerEventData eventData){
-		controller.updateTemperature(value);
-		setText(value);
-		base.OnDrag(eventData);
-	}
 
-	public void setText(float val){
+	public override void setText(float val){
 		text.text = value.ToString("F0") + " " + Settings.Star.Dwarf.TEMPERATURE_UNIT;
 	}
 }

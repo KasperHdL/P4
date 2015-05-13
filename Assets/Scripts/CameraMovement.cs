@@ -19,12 +19,17 @@ public class CameraMovement : MonoBehaviour {
 	}
 
 	void Update () {
-		transform.position = target.position;
-		cam.transform.localPosition = Vector3.up * (offset + body.radius);
+		if(target == null){
+			cam.transform.localPosition = Vector3.up * offset;
+		}else{
+			transform.position = target.position;
+			cam.transform.localPosition = Vector3.up * (offset + body.radius);
+		}
 	}
 
 	public void setTarget(Transform t){
-		body.sound.enabled = true;
+		if(body != null)
+			body.sound.enabled = true;
 
 		target = t;
 		body = target.GetComponent<Body>();

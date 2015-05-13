@@ -9,7 +9,6 @@ public class RadiusSlider : SliderWithText {
 
 	public new void Start(){
 		base.Start();
-		text.text = value + " Mm";
 
 	}
 
@@ -27,11 +26,11 @@ public class RadiusSlider : SliderWithText {
 				unit = Settings.Star.Dwarf.RADIUS_UNIT;
 			break;
 		}
+		setText(value);
 	}
-	public override void OnDrag(PointerEventData eventData){
+	public override void ValueChanged(){
 		controller.updateRadius(value);
 		setText(value);
-		base.OnDrag(eventData);
 	}
 
 	public void setText(float val){
