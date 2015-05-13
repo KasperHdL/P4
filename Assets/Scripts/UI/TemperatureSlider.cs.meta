@@ -1,10 +1,17 @@
 fileFormatVersion: 2
 guid: 1c830b3285dd03c4c997090711fff01e
-timeCreated: 1431421216
+timeCreated: 1431505709
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - m_TargetGraphic: {instanceID: 0}
+  - m_FillRect: {instanceID: 0}
+  - m_HandleRect: {instanceID: 0}
+  - controller: {instanceID: 0}
+  - text: {instanceID: 0}
+  - classPrefab: {fileID: 127620, guid: 3d70940bfebfaaf40adce5c473144789, type: 2}
+  - linePrefab: {fileID: 134182, guid: c32a0080a41c05f4ca8bfd2de887bc30, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

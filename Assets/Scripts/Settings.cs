@@ -27,19 +27,20 @@ public struct Settings {
 			public static readonly float 	RADIUS_MIN_VALUE 	= 0.1f;
 			public static readonly float 	RADIUS_MAX_VALUE 	= 90f;
 			public static readonly string 	RADIUS_UNIT 		= "Suns"; // Metres
+			public static readonly string 	TEMPERATURE_UNIT 	= "Kelvin";
 
 
 			public static readonly ActiveSliders SLIDERS = ActiveSliders.Temperature | ActiveSliders.Radius;
 
 
 			public static readonly char[] CLASSIFICATION = {
-				'O',
-				'B',
-				'A',
-				'F',
-				'G',
+				'M',
 				'K',
-				'M'
+				'G',
+				'F',
+				'A',
+				'B',
+				'O'
 			};
 
 			public static readonly int[] TEMPERATURE = {
@@ -50,17 +51,17 @@ public struct Settings {
 				7500,
 				10000,
 				30000,
-				60000
+				40000
 			};
 
 			public static readonly Color[] COLORS = {
-				new Color(255f/255,189f/255,111f/255),
 				new Color(255f/255,189f/255,111f/255),
 				new Color(255f/255,221f/255,180f/255),
 				new Color(255f/255,244f/255,232f/255),
 				new Color(251f/255,248f/255,255f/255),
 				new Color(202f/255,216f/255,255f/255),
 				new Color(170f/255,191f/255,255f/255),
+				new Color(155f/255,176f/255,255f/255),
 				new Color(155f/255,176f/255,255f/255)
 			};
 		}

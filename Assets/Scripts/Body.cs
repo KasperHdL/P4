@@ -55,7 +55,7 @@ public class Body : MonoBehaviour {
 	public void construct(){construct(mass,radius,transform.position,startVelocity);}
 	public void construct(float mass, float radius, Vector3 position, Vector3 velocity){
 
-		Debug.Log(string.Format("m: {0} r: {1} p{2} v{3}",mass,radius,position,velocity));
+//		Debug.Log(string.Format("m: {0} r: {1} p{2} v{3}",mass,radius,position,velocity));
 		this.mass = mass;
 		this.radius = radius;
 		density = 1;

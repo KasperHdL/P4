@@ -10,8 +10,6 @@ public class SliderWithText : Slider {
 
 	public new void Start(){
 		base.Start();
-
-		text = transform.GetChild(3).GetComponent<Text>();
 	}
 
 	public string valueFormating(int powVal, float decimals, double value){
