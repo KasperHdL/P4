@@ -12,17 +12,31 @@ public class CameraMovement : MonoBehaviour {
 
 	void Start(){
 		cam.transform.rotation = Quaternion.LookRotation(-Vector3.up);
-		body = target.GetComponent<Body>();
-		setTarget(target);
+		if(target != null){
+			body = target.GetComponent<Body>();
+			setTarget(target);
+		}
 	}
 
 	void Update () {
-		transform.position = target.position;
-		cam.transform.localPosition = Vector3.up * (offset + body.radius);
+		if(target == null){
+			cam.transform.localPosition = Vector3.up * offset;
+		}else{
+			transform.position = target.position;
+			cam.transform.localPosition = Vector3.up * (offset + body.radius);
+		}
 	}
 
 	public void setTarget(Transform t){
+		//if(body != null)
+			//body.sound.enabled = true;
+
 		target = t;
 		body = target.GetComponent<Body>();
+		//body.sound.enabled = false;
+
+		transform.position = target.position;
+		cam.transform.localPosition = Vector3.up * (offset + body.radius);
+
 	}
 }

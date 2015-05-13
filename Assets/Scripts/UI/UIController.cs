@@ -14,6 +14,8 @@ public class UIController : MonoBehaviour {
 
 	public VectorUI velocity;
 
+	public TimeSlider timeSlider;
+
 	public RadiusSlider radiusSlider;
 	public MassSlider massSlider;
 	public DensitySlider densitySlider;
@@ -87,7 +89,7 @@ public class UIController : MonoBehaviour {
 
 		updateMass(massSlider.value);
 		updateRadius(radiusSlider.value);
-
+		updateTemperature(temperatureSlider.value);
 	}
 
 	public void setState(State s){
@@ -96,6 +98,7 @@ public class UIController : MonoBehaviour {
 				updateActiveSliders(activeSliders);
 
 				velocity.gameObject.SetActive(false);
+				timeSlider.gameObject.SetActive(false);
 
 				typeSelector.SetActive(true);
 
@@ -115,6 +118,7 @@ public class UIController : MonoBehaviour {
 				updateActiveSliders(ActiveSliders.None);
 
 				velocity.gameObject.SetActive(true);
+				timeSlider.gameObject.SetActive(false);
 				typeSelector.SetActive(false);
 
 				leftButton.gameObject.SetActive(true);
@@ -129,6 +133,7 @@ public class UIController : MonoBehaviour {
 			case State.SimState:{
 				updateActiveSliders(ActiveSliders.None);
 				typeSelector.SetActive(false);
+				timeSlider.gameObject.SetActive(true);
 
 				velocity.gameObject.SetActive(false);
 

@@ -13,8 +13,6 @@ GameObject:
   - 23: {fileID: 2334154}
   - 114: {fileID: 11405188}
   - 82: {fileID: 8261988}
-  - 169: {fileID: 16981850}
-  - 165: {fileID: 16533082}
   m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
@@ -102,8 +100,7 @@ AudioSource:
   m_GameObject: {fileID: 117560}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300001, guid: 9e2d184bb17b77c48880221aaed385d8,
-    type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -111,25 +108,30 @@ AudioSource:
   Loop: 0
   Mute: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 1.16999996
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
-      value: 1
+    - time: .31775704
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
+    - time: .774585664
+      value: .702083349
+      inSlope: 0
+      outSlope: -1.00200403
+      tangentMode: 0
     - time: 1
       value: 0
-      inSlope: 0
+      inSlope: -1.00200403
       outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
@@ -157,8 +159,8 @@ AudioSource:
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
-      value: 1
+    - time: .492211848
+      value: 1.10000002
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -207,9 +209,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef3ced3245a43a044b31efa7142889eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  master: {fileID: 24100000, guid: 9e2d184bb17b77c48880221aaed385d8, type: 2}
-  group: {fileID: 24348764, guid: 9e2d184bb17b77c48880221aaed385d8, type: 2}
-  mixerGroup: {fileID: 0}
   sound: {fileID: 8261988}
   clip: {fileID: 8300000, guid: ef22931805c8130499dcb3d9f240d697, type: 3}
   starLightTransform: {fileID: 415132}
@@ -219,6 +218,7 @@ MonoBehaviour:
   mass: 100
   density: 0
   radius: 1
+  tempLightOffsetAmount: -100
   randomStartVelocity: {x: 0, y: 0, z: 0}
   startVelocity: {x: 0, y: 0, z: 0}
   positions: []
@@ -240,35 +240,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: .5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!165 &16533082
-AudioHighPassFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 117560}
-  m_Enabled: 0
-  m_CutoffFrequency: 5000
-  m_HighpassResonanceQ: 1
---- !u!169 &16981850
-AudioLowPassFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 117560}
-  m_Enabled: 0
-  serializedVersion: 3
-  m_CutoffFrequency: 5000
-  m_LowpassResonanceQ: 1
-  lowpassLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: .772727251
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

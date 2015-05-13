@@ -20,13 +20,13 @@ public class MassSlider : SliderWithText {
 		}
 	}
 
-	public override void OnDrag(PointerEventData eventData){
-		controller.updateMass(value);
+	public override void ValueChanged(){
+		if(controller != null)
+			controller.updateMass(value);
 		setText(value);
-		base.OnDrag(eventData);
 	}
 
-	public void setText(double val){
+	public override void setText(float val){
 		/*
 		Teragram (Tg) 10e9
 		Petagram (Pg) 10e12

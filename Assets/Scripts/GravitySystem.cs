@@ -111,7 +111,7 @@ public class GravitySystem : MonoBehaviour {
 				bodies[i].addPropAtIndex(pos,vel,tf);
 			}
 			f++;
-			if(f%5==0)
+			if(f%10==0)
 				yield return null;
 		}
 		calcRunning = false;
@@ -134,19 +134,21 @@ public class GravitySystem : MonoBehaviour {
 	}
 
 	public void updateBodies(){
-		frameShifts++;
-		for(int i = 0;i<bodies.Count;i++){
-			Vector3 acc = Vector3.zero;
-			for(int j = 0;j<bodies.Count;j++){
-				if(i==j)continue;
+		for(int t = 0;t < Time.timeScale*10;t++){
+			frameShifts ++;
+			for(int i = 0;i<bodies.Count;i++){
+				Vector3 acc = Vector3.zero;
+				for(int j = 0;j<bodies.Count;j++){
+					if(i==j)continue;
 
-				acc += calculateGravitional(bodies[i],bodies[j]);
+					acc += calculateGravitional(bodies[i],bodies[j]);
 
+				}
+
+				Vector3 vel = bodies[i].velocities[bodies[i].positions.Length-1] + acc;
+				Vector3 pos = bodies[i].positions[bodies[i].positions.Length-1] + vel;
+				bodies[i].cyclePosition(pos,vel);
 			}
-
-			Vector3 vel = bodies[i].velocities[bodies[i].positions.Length-1] + acc;
-			Vector3 pos = bodies[i].positions[bodies[i].positions.Length-1] + vel;
-			bodies[i].cyclePosition(pos,vel);
 		}
 	}
 

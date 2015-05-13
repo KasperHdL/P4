@@ -21,13 +21,13 @@ public class DensitySlider : SliderWithText {
 		}
 	}
 
-	public override void OnDrag(PointerEventData eventData){
-		//controller.updateDensity((value/100)*difVal);
+	public override void ValueChanged(){
+		if(controller != null)
+			controller.updateDensity(value);
 		setText(value);
-		base.OnDrag(eventData);
 	}
 
-	public void setText(double val){
+	public void setText(float val){
 		if(val < 100)
 			text.text = val + " kg/m3";
 		else
