@@ -24,6 +24,9 @@ public class Body : MonoBehaviour {
 	public float radius;
 
 
+	private float tempLightOffset;
+	public float tempLightOffsetAmount = 700;
+
 	////////////////////////////
 	//      Body Variables
 
@@ -184,7 +187,7 @@ public class Body : MonoBehaviour {
 		else
 			transform.localScale = new Vector3(dia,dia,dia);
 
-		starLightTransform.localPosition = new Vector3(0,radius/7,0);
+		calculateTemperatureOffset();
 
 	}
 
@@ -194,8 +197,12 @@ public class Body : MonoBehaviour {
 
 	public void updateTemperature(float value){
 		temperature = value;
+
+		calculateTemperatureOffset();
+
 		if(type != Type.DwarfStar)
 			return;
+
 		for(int i = 1;i<Settings.Star.Dwarf.TEMPERATURE.Length;i++){
 			float ct = Settings.Star.Dwarf.TEMPERATURE[i];
 			float lt = Settings.Star.Dwarf.TEMPERATURE[i-1];
@@ -206,6 +213,20 @@ public class Body : MonoBehaviour {
 				break;
 			}
 		}
+	}
+
+	private void calculateTemperatureOffset(){
+		if(radius < 100)
+			tempLightOffsetAmount = -5;
+		else
+			tempLightOffsetAmount = (radius/100) * -5;
+
+		if(temperature <= 6000){
+			tempLightOffset = 1-((6000 - temperature)/(6000 - 2400)) * tempLightOffsetAmount;
+		}else{
+			tempLightOffset = 1-((temperature - 6000)/(40000 - 6000)) * tempLightOffsetAmount;
+		}
+		starLightTransform.localPosition = new Vector3(0,radius/7 + (type == Type.DwarfStar ? tempLightOffset: 1),0);
 	}
 
 }
