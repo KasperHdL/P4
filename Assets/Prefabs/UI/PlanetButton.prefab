@@ -76,7 +76,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  text: {fileID: 0}
+  text: {fileID: 11497516}
   temp: {fileID: 0}
   planetSwitcher: {fileID: 0}
   index: 0

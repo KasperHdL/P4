@@ -8,8 +8,15 @@ public class PlanetSwitcher : MonoBehaviour {
 	public 	CameraMovement camMov;
 	public 	GravitySystem gs;
 	public 	List<ButtonWithText> buttons;
+	public 	Button nextButton;
+	public 	Button previousButton;
 
 	private Color defaultButtonColor;
+
+	private RectTransform nB;
+	private RectTransform pB;
+
+	private int maxButtonCount;
 	private int currentBodyCount;
 	private int currentButtonIndex;
 	private float buttonWidth = 50;
@@ -24,6 +31,7 @@ public class PlanetSwitcher : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		maxButtonCount 		= 5;
 		defaultButtonColor 	= Color.white;
 		panelRT 			= transform as RectTransform;
 		panelWidth 			= panelRT.rect.width;
@@ -51,13 +59,23 @@ public class PlanetSwitcher : MonoBehaviour {
 		b.index = currentBodyCount-1;
 		b.planetSwitcher = this;
 
-		panelWidth = (buttonWidth+buttonSpace)*currentBodyCount + buttonSpace;
-		panelRT.sizeDelta = new Vector2(panelWidth, panelHeight);
+		if(currentBodyCount <= maxButtonCount){
+			panelWidth = (buttonWidth+buttonSpace)*currentBodyCount + buttonSpace;
+			panelRT.sizeDelta = new Vector2(panelWidth, panelHeight);
+		}
 
 		t.SetParent(transform);
 		t.anchoredPosition = new Vector2((buttonWidth+buttonSpace)*currentBodyCount - buttonWidth/2,buttonOffset/2);
-	
+
 		buttons.Add(b);
+		if(currentBodyCount > maxButtonCount){
+			if(b.transform.position.x + buttonWidth/2 >= transform.position.x + panelWidth/2)
+				b.gameObject.SetActive(false);
+			else if(b.transform.position.x - buttonWidth/2 <= transform.position.x - panelWidth/2)
+				b.gameObject.SetActive(false);
+			else
+				b.gameObject.SetActive(true);
+		}
 	}
 
 	public void updateButtons(){
@@ -69,6 +87,35 @@ public class PlanetSwitcher : MonoBehaviour {
 				buttons[i].text.text = "Dwarf Star";
 				buttons[i].targetGraphic.color = gs.bodies[i].starLight.color;
 			}
+		}
+
+		if(currentBodyCount <= maxButtonCount){
+			nextButton.gameObject.SetActive(false);
+			previousButton.gameObject.SetActive(false);
+		} else {			
+			nextButton.gameObject.SetActive(true);
+			previousButton.gameObject.SetActive(true);
+		}
+	}
+
+	public void shiftButtons(bool next){
+		RectTransform bt;
+		for(int i = 0;i<buttons.Count;i++){
+			if(currentBodyCount > maxButtonCount){
+				if(buttons[i].transform.position.x + buttonWidth/2 >= transform.position.x + panelWidth/2)
+					buttons[i].gameObject.SetActive(false);
+				else if(buttons[i].transform.position.x - buttonWidth/2 <= transform.position.x - panelWidth/2)
+					buttons[i].gameObject.SetActive(false);
+				else
+					buttons[i].gameObject.SetActive(true);
+			}
+
+			bt = buttons[i].transform as RectTransform;
+			if(next)
+				bt.anchoredPosition = new Vector2(bt.anchoredPosition.x - (buttonWidth+buttonSpace), bt.anchoredPosition.y);
+			else
+				bt.anchoredPosition = new Vector2(bt.anchoredPosition.x + (buttonWidth+buttonSpace), bt.anchoredPosition.y);
+
 		}
 	}
 }
