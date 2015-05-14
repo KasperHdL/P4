@@ -292,7 +292,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 528503164}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 10
+  m_MaxValue: 9.89999962
   m_WholeNumbers: 0
   m_Value: 1
   m_OnValueChanged:
@@ -1183,7 +1183,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1x speed
+  m_Text: 1.0x speed
 --- !u!222 &529038753
 CanvasRenderer:
   m_ObjectHideFlags: 0

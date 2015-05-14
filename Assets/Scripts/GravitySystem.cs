@@ -111,7 +111,7 @@ public class GravitySystem : MonoBehaviour {
 				bodies[i].addPropAtIndex(pos,vel,tf);
 			}
 			f++;
-			if(f%10==0)
+			if(f%((int)(Time.timeScale*10))==0)
 				yield return null;
 		}
 		calcRunning = false;
@@ -134,13 +134,12 @@ public class GravitySystem : MonoBehaviour {
 	}
 
 	public void updateBodies(){
-		for(int t = 0;t < Time.timeScale*10;t++){
+		for(int t = 0;t < Time.timeScale*10;t ++){
 			frameShifts ++;
 			for(int i = 0;i<bodies.Count;i++){
 				Vector3 acc = Vector3.zero;
 				for(int j = 0;j<bodies.Count;j++){
 					if(i==j)continue;
-
 					acc += calculateGravitional(bodies[i],bodies[j]);
 
 				}
@@ -156,8 +155,8 @@ public class GravitySystem : MonoBehaviour {
 		if(index == 0 || index > Settings.BODY_POSITION_LENGTH){
 			Debug.LogError("invalid index: out of range");
 			return Vector3.zero;
-		}else if(index == -1){
-			index = effected.positions.Length;
+		}else if(index  == -1){
+			index = effected.positions.Length ;
 		}
 
 		Vector3 delta = effector.positions[index-1] - effected.positions[index-1];
