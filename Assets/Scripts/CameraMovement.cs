@@ -22,7 +22,7 @@ public class CameraMovement : MonoBehaviour {
 		if(target == null){
 			cam.transform.localPosition = Vector3.up * offset;
 		}else{
-			transform.position = target.position;
+			transform.position = body.positions[(gs.uiHold ? 0 : (int)(Time.timeScale*10))];
 			cam.transform.localPosition = Vector3.up * (offset + body.radius);
 		}
 	}

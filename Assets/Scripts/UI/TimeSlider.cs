@@ -11,6 +11,6 @@ public class TimeSlider : SliderWithText {
 	}
 
 	public override void setText(float val){
-		text.text = value + "x speed";
+		text.text = value.ToString("F1") + "x speed";
 	}
 }
