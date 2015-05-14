@@ -12,6 +12,8 @@ public class UIController : MonoBehaviour {
 
 	public GravitySystem gs;
 
+	public PlanetSwitcher planetSwitcher;
+
 	public VectorUI velocity;
 
 	public TimeSlider timeSlider;
@@ -79,7 +81,10 @@ public class UIController : MonoBehaviour {
 		}
 	}
 #endregion
-
+	public void newBody(Body body){
+		planetSwitcher.newBody(body);
+		setBody(body);
+	}
 
 	public void setBody(Body body){
 		this.body = body;

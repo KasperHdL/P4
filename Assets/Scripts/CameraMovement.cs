@@ -28,12 +28,12 @@ public class CameraMovement : MonoBehaviour {
 	}
 
 	public void setTarget(Transform t){
-		//if(body != null)
-			//body.sound.enabled = true;
+		if(body != null)
+			body.sound.enabled = true;
 
 		target = t;
 		body = target.GetComponent<Body>();
-		//body.sound.enabled = false;
+		body.sound.enabled = false;
 
 		transform.position = target.position;
 		cam.transform.localPosition = Vector3.up * (offset + body.radius);
