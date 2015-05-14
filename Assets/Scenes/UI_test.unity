@@ -294,7 +294,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 10
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1183,7 +1183,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0.0x speed
+  m_Text: 1.0x speed
 --- !u!222 &529038753
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2127,6 +2127,7 @@ MonoBehaviour:
   controller: {fileID: 919239302}
   camMov: {fileID: 1068772193}
   gs: {fileID: 1884672725}
+  buttons: []
 --- !u!114 &1026544310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2201,6 +2202,7 @@ MonoBehaviour:
   gs: {fileID: 1884672725}
   target: {fileID: 0}
   offset: 4000
+  scrollSpeed: 100
 --- !u!81 &1068772194
 AudioListener:
   m_ObjectHideFlags: 0
