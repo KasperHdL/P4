@@ -61,26 +61,11 @@ public class UIController : MonoBehaviour {
 		maxDistortion = Settings.MAX_DISTORTION;
 	}
 
-	public void Update(){
-		//Chose planet for entering propertyState
-		if(Input.GetMouseButtonDown(0) && state == State.SimState){
-
-			Vector2 input = Input.mousePosition;
-
-	        Ray ray = cam.ScreenPointToRay(new Vector3(input.x, input.y, 0));
-	        RaycastHit hitinfo;
-	        if (Physics.Raycast(ray, out hitinfo, Mathf.Infinity, 1<<8)){
-				gs.uiHold = true;
-
-	        	body = hitinfo.transform.GetComponent<Body>();
-	        	setBody(body);
-	        }
-		}
-	}
 #endregion
 
-	public void cancelBody(){
-
+	public void editBody(Body body){
+		gs.uiHold = true;
+		setBody(body);
 	}
 
 	public void newBody(Body body){
@@ -175,7 +160,7 @@ public class UIController : MonoBehaviour {
 		switch(state){
 			case State.PropState:{
 				if(i == 0)
-					cancelBody();
+					setState(State.SimState);
 				else
 					setState(State.VeloState);
 			}break;

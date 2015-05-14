@@ -98,27 +98,19 @@ public class GravitySystem : MonoBehaviour {
 					acc += calculateGravitional(bodies[i],bodies[j],tf);
 				}
 
-				try{
-					Vector3 prevVel= bodies[i].velocities[tf-1];
-					Vector3 prevPos = bodies[i].positions[tf-1];
+				Vector3 prevVel= bodies[i].velocities[tf-1];
+				Vector3 prevPos = bodies[i].positions[tf-1];
 
-					Vector3 vel = prevVel + acc;
-					Vector3 pos = prevPos + vel;
+				Vector3 vel = prevVel + acc;
+				Vector3 pos = prevPos + vel;
 
 
-					bodies[i].addPropAtIndex(pos,vel,tf);
-				}catch(System.IndexOutOfRangeException e){
-					if(i<0 || i>bodies.Count){
-						Debug.LogError("index out of range body: " + i + " \n " + e);
-					}else{
-						Debug.LogError("index out of range velo: " + (tf-1)+ " \n " + e);
-					}
+				bodies[i].addPropAtIndex(pos,vel,tf);
 
-				}
 
 			}
 			f++;
-			if(f%10==0)
+			if(f%20==0)
 				yield return null;
 		}
 		if(reset){
@@ -131,6 +123,7 @@ public class GravitySystem : MonoBehaviour {
 	void Update () {
 		if(inited && !uiHold)
 			updateBodies();
+
 
 	}
 
@@ -159,11 +152,12 @@ public class GravitySystem : MonoBehaviour {
 		}else if(index  == -1){
 			index = effected.positions.Length;
 		}
+
 		Vector3 delta;
 		try{
 			 delta = effector.positions[index-1] - effected.positions[index-1];
 		}catch(System.IndexOutOfRangeException e){
-			Debug.LogWarning("index: " + (index-1) + " effector: " + effector + " effected: " + effected+ " \n " + e);
+			Debug.LogError("index: " + (index-1) + " effector: " + effector + " effected: " + effected+ " \n " + e);
 			return Vector3.zero;
 		}
 

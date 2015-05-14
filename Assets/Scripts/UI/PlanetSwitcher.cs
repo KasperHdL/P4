@@ -5,13 +5,14 @@ using System.Collections.Generic;
 
 public class PlanetSwitcher : MonoBehaviour {
 	public 	Transform buttonPrefab;
+	public UIController controller;
 	public 	CameraMovement camMov;
 	public 	GravitySystem gs;
 
 	private int currentBodyCount;
 	private float buttonWidth = 50;
 	private float panelWidth;
-	private float panelHeight = 60;
+	private float panelHeight = 85;
 
 	private RectTransform panelRT;
 	private RectTransform buttonRT;
@@ -36,22 +37,29 @@ public class PlanetSwitcher : MonoBehaviour {
 
 	public void handleButton(int i){
 		if(gs.bodies[i] != null){
-			camMov.setTarget(gs.bodies[i].transform);
+				camMov.setTarget(gs.bodies[i].transform);
 		} else
 			Debug.Log("No body found!");
+	}
+
+	public void handleEditButton(int i ){
+		controller.editBody(gs.bodies[i]);
 	}
 
 	public void updateButtons(){
 		RectTransform t = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity) as RectTransform;
 		ButtonWithText b = t.GetComponent<ButtonWithText>();
 		b.index = currentBodyCount-1;
+		b.editButton.index = b.index;
+
 		b.planetSwitcher = this;
+		b.editButton.planetSwitcher = this;
 
 		panelWidth = (buttonWidth+buttonSpace)*currentBodyCount + buttonSpace;
 		panelRT.sizeDelta = new Vector2(panelWidth, panelHeight);
 
 		t.SetParent(transform);
-		t.anchoredPosition = new Vector2((buttonWidth+buttonSpace)*currentBodyCount - buttonWidth/2,buttonOffset/2);
+		t.anchoredPosition = new Vector2((buttonWidth+buttonSpace)*currentBodyCount - buttonWidth/2,15);
 
 
 	}
