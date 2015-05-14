@@ -14,7 +14,6 @@ public class GravitySystem : MonoBehaviour {
 	private bool inited = false;
 
 	public bool reset = false;
-	private bool calcRunning = false;
 
 	public bool uiHold = false;
 
@@ -38,7 +37,6 @@ public class GravitySystem : MonoBehaviour {
 	public void initChildrenBodies(){
 		bodies = new List<Body>(transform.childCount);
 
-		int i = 0;
 		foreach(Transform child in transform){
 			Body b = child.GetComponent<Body>() as Body;
 			b.construct();
@@ -87,7 +85,6 @@ public class GravitySystem : MonoBehaviour {
 
 	private IEnumerator calculateFuturePositions(){
 		//populate positions of bodies
-		calcRunning = true;
 		frameShifts = 0;
 		int f = 1;
 		while(!reset && f<Settings.BODY_POSITION_LENGTH + frameShifts){
@@ -101,20 +98,29 @@ public class GravitySystem : MonoBehaviour {
 					acc += calculateGravitional(bodies[i],bodies[j],tf);
 				}
 
-				Vector3 prevVel = bodies[i].velocities[tf-1];
-				Vector3 prevPos = bodies[i].positions[tf-1];
+				try{
+					Vector3 prevVel= bodies[i].velocities[tf-1];
+					Vector3 prevPos = bodies[i].positions[tf-1];
 
-				Vector3 vel = prevVel + acc;
-				Vector3 pos = prevPos + vel;
+					Vector3 vel = prevVel + acc;
+					Vector3 pos = prevPos + vel;
 
 
-				bodies[i].addPropAtIndex(pos,vel,tf);
+					bodies[i].addPropAtIndex(pos,vel,tf);
+				}catch(System.IndexOutOfRangeException e){
+					if(i<0 || i>bodies.Count){
+						Debug.LogError("index out of range body: " + i + " \n " + e);
+					}else{
+						Debug.LogError("index out of range velo: " + (tf-1)+ " \n " + e);
+					}
+
+				}
+
 			}
 			f++;
 			if(f%10==0)
 				yield return null;
 		}
-		calcRunning = false;
 		if(reset){
 			reset = false;
 			calcFuturePositions();
@@ -125,11 +131,6 @@ public class GravitySystem : MonoBehaviour {
 	void Update () {
 		if(inited && !uiHold)
 			updateBodies();
-
-			//updateChildren();
-		for(int i = 0; i < bodies.Count; i++){
-
-		}
 
 	}
 
@@ -156,10 +157,15 @@ public class GravitySystem : MonoBehaviour {
 			Debug.LogError("invalid index: out of range");
 			return Vector3.zero;
 		}else if(index  == -1){
-			index = effected.positions.Length ;
+			index = effected.positions.Length;
 		}
-
-		Vector3 delta = effector.positions[index-1] - effected.positions[index-1];
+		Vector3 delta;
+		try{
+			 delta = effector.positions[index-1] - effected.positions[index-1];
+		}catch(System.IndexOutOfRangeException e){
+			Debug.LogWarning("index: " + (index-1) + " effector: " + effector + " effected: " + effected+ " \n " + e);
+			return Vector3.zero;
+		}
 
 		float distance = delta.magnitude;
 

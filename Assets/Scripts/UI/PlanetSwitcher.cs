@@ -8,7 +8,6 @@ public class PlanetSwitcher : MonoBehaviour {
 	public 	CameraMovement camMov;
 	public 	GravitySystem gs;
 
-	private List<Button> buttons;
 	private int currentBodyCount;
 	private float buttonWidth = 50;
 	private float panelWidth;
@@ -28,7 +27,6 @@ public class PlanetSwitcher : MonoBehaviour {
 		panelHeight 		= panelRT.rect.height;
 
 		currentBodyCount 	= 0;
-		buttons 			= new List<Button>();
 	}
 
 	public void newBody(Body body){
