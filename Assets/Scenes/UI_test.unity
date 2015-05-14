@@ -2124,7 +2124,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: 22417872, guid: df79bec15479f2344b12823e30c77fa8, type: 2}
-  cam: {fileID: 674496665}
+  camMov: {fileID: 1068772193}
+  gs: {fileID: 1884672725}
 --- !u!114 &1026544310
 MonoBehaviour:
   m_ObjectHideFlags: 0

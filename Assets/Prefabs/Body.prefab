@@ -108,11 +108,11 @@ AudioSource:
   Loop: 0
   Mute: 0
   Priority: 128
-  DopplerLevel: 1.16999996
+  DopplerLevel: .00100000005
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 1e+06
   Pan2D: 0
-  rolloffMode: 2
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -140,7 +140,7 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -211,6 +211,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sound: {fileID: 8261988}
   clip: {fileID: 8300000, guid: ef22931805c8130499dcb3d9f240d697, type: 3}
+  currentVolume: 0
+  currentPitch: 0
   starLightTransform: {fileID: 415132}
   starLight: {fileID: 10845502}
   type: 2

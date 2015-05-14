@@ -78,6 +78,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   text: {fileID: 0}
   temp: {fileID: 0}
+  planetSwitcher: {fileID: 0}
   index: 0
 --- !u!114 &11442390
 MonoBehaviour:
