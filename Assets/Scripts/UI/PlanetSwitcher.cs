@@ -32,7 +32,7 @@ public class PlanetSwitcher : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		maxButtonCount 		= 5;
+		maxButtonCount 		= 10;
 		defaultButtonColor 	= Color.white;
 		panelRT 			= transform as RectTransform;
 		panelWidth 			= panelRT.rect.width;
@@ -73,11 +73,7 @@ public class PlanetSwitcher : MonoBehaviour {
 		}
 
 		t.SetParent(transform);
-<<<<<<< HEAD
-		t.anchoredPosition = new Vector2((buttonWidth+buttonSpace)*currentBodyCount - buttonWidth/2,buttonOffset/2);
-=======
 		t.anchoredPosition = new Vector2((buttonWidth+buttonSpace)*currentBodyCount - buttonWidth/2,15);
->>>>>>> 2e0c12274274ce48fae3dc221e52bae18f6d2906
 
 		buttons.Add(b);
 		if(currentBodyCount > maxButtonCount){
@@ -106,28 +102,35 @@ public class PlanetSwitcher : MonoBehaviour {
 			previousButton.gameObject.SetActive(false);
 		} else {			
 			nextButton.gameObject.SetActive(true);
-			previousButton.gameObject.SetActive(true);
 		}
 	}
 
 	public void shiftButtons(bool next){
 		RectTransform bt;
 		for(int i = 0;i<buttons.Count;i++){
-			if(currentBodyCount > maxButtonCount){
-				if(buttons[i].transform.position.x + buttonWidth/2 >= transform.position.x + panelWidth/2)
-					buttons[i].gameObject.SetActive(false);
-				else if(buttons[i].transform.position.x - buttonWidth/2 <= transform.position.x - panelWidth/2)
-					buttons[i].gameObject.SetActive(false);
-				else
-					buttons[i].gameObject.SetActive(true);
-			}
-
 			bt = buttons[i].transform as RectTransform;
 			if(next)
 				bt.anchoredPosition = new Vector2(bt.anchoredPosition.x - (buttonWidth+buttonSpace), bt.anchoredPosition.y);
 			else
 				bt.anchoredPosition = new Vector2(bt.anchoredPosition.x + (buttonWidth+buttonSpace), bt.anchoredPosition.y);
 
+			if(buttons[i].transform.position.x + buttonWidth/2 >= transform.position.x + panelWidth/2)
+				buttons[i].gameObject.SetActive(false);
+			else if(buttons[i].transform.position.x - buttonWidth/2 <= transform.position.x - panelWidth/2)
+				buttons[i].gameObject.SetActive(false);
+			else
+				buttons[i].gameObject.SetActive(true);
 		}
+
+		
+		if(buttons[0].transform.position.x > transform.position.x - panelWidth/2)
+			previousButton.gameObject.SetActive(false);
+		else
+			previousButton.gameObject.SetActive(true);
+
+		if(buttons[buttons.Count-1].transform.position.x < transform.position.x + panelWidth/2)
+			nextButton.gameObject.SetActive(false);
+		else
+			nextButton.gameObject.SetActive(true);
 	}
 }

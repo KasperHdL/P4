@@ -112,11 +112,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   text: {fileID: 11497516}
-<<<<<<< HEAD
-=======
   isEditBtn: 0
   editButton: {fileID: 11493688}
->>>>>>> 2e0c12274274ce48fae3dc221e52bae18f6d2906
   temp: {fileID: 0}
   planetSwitcher: {fileID: 0}
   index: 0
