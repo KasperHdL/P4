@@ -292,9 +292,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 528503164}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 9.89999962
+  m_MaxValue: 10
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1183,7 +1183,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1.0x speed
+  m_Text: 0.0x speed
 --- !u!222 &529038753
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2109,8 +2109,8 @@ RectTransform:
   m_RootOrder: 8
   m_AnchorMin: {x: .5, y: 0}
   m_AnchorMax: {x: .5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 25}
-  m_SizeDelta: {x: 235, y: 60}
+  m_AnchoredPosition: {x: 0, y: 30}
+  m_SizeDelta: {x: 235, y: 85}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1026544309
 MonoBehaviour:
@@ -2124,6 +2124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonPrefab: {fileID: 22417872, guid: df79bec15479f2344b12823e30c77fa8, type: 2}
+  controller: {fileID: 919239302}
   camMov: {fileID: 1068772193}
   gs: {fileID: 1884672725}
 --- !u!114 &1026544310
