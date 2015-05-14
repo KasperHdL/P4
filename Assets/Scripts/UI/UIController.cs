@@ -66,10 +66,13 @@ public class UIController : MonoBehaviour {
 	public void editBody(Body body){
 		gs.uiHold = true;
 		setBody(body);
+
+
 	}
 
 	public void newBody(Body body){
 		planetSwitcher.newBody(body);
+
 		setBody(body);
 	}
 
@@ -79,9 +82,7 @@ public class UIController : MonoBehaviour {
 		updateType(body.type);
 		setState(State.PropState);
 
-		updateMass(massSlider.value);
-		updateRadius(radiusSlider.value);
-		updateTemperature(temperatureSlider.value);
+		updateValues();
 	}
 
 	public void setState(State s){
@@ -216,24 +217,35 @@ public class UIController : MonoBehaviour {
 
 	private void updateType(Body.Type type){
 		selectedType = type;
-		body.setType(type);
 		switch(type){
 			case Body.Type.Planet:{
 				activeSliders = Settings.Planet.SLIDERS;
-				resetBodySoundValues(body);
 			}break;
 			case Body.Type.DwarfStar:{
 				activeSliders = Settings.Star.Dwarf.SLIDERS;
-				resetBodySoundValues(body);
 			}break;
 		}
+		body.setType(type);
+		resetBodySoundValues(body);
 		updateActiveSliders(activeSliders);
+		updateValues();
+	}
+
+	private void updateValues(Body body = null){
+		updateMass((body == null ? massSlider.value : body.mass));
+		updateRadius((body == null ? radiusSlider.value : body.radius));
+		updateTemperature((body == null ? temperatureSlider.value : body.mass));
+		if(body == null)
+			updateVelocity(velocity.value);
+		else
+			updateVelocity(body.velocities[(int)(Time.timeScale*10)]);
 	}
 
 #region Slider Calls
 
-	public void updateVelocity(Vector2 value){
-		body.startVelocity = new Vector3(value.x,0,value.y);
+	public void updateVelocity(Vector2 value){updateVelocity(new Vector3(value.x,0,value.y));}
+	public void updateVelocity(Vector3 value){
+		body.startVelocity = value;
 		body.construct();
 		//update Dots
 		gs.calcFuturePositions();
@@ -253,17 +265,7 @@ public class UIController : MonoBehaviour {
 	}
 
 	public void updateTemperature(float value){
-		for(int i = 1;i<Settings.Star.Dwarf.TEMPERATURE.Length;i++){
-			float ct = Settings.Star.Dwarf.TEMPERATURE[i];
-			float lt = Settings.Star.Dwarf.TEMPERATURE[i-1];
-			if(value < ct && value >= lt){
-				//found
-				float step = (value-lt)/(ct-lt);
-				body.starLight.color = Color.Lerp(Settings.Star.Dwarf.COLORS[i-1],Settings.Star.Dwarf.COLORS[i],step);
-				break;
-			}
-		}
-		body.temperature = value;
+		body.updateTemperature(value);
 	}
 #endregion
 

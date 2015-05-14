@@ -18,7 +18,6 @@ public class TemperatureSlider : SliderWithText {
 	}
 
 	public void handleJumpButton(int i){
-
 		float ct = Settings.Star.Dwarf.TEMPERATURE[i+1];
 		float lt = Settings.Star.Dwarf.TEMPERATURE[i];
 		value = (lt+(ct-lt)/2);

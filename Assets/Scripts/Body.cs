@@ -228,7 +228,7 @@ public class Body : MonoBehaviour {
 		for(int i = 1;i<Settings.Star.Dwarf.TEMPERATURE.Length;i++){
 			float ct = Settings.Star.Dwarf.TEMPERATURE[i];
 			float lt = Settings.Star.Dwarf.TEMPERATURE[i-1];
-			if(value < ct && value >= lt){
+			if(value <= ct && value >= lt){
 				//found
 				float step = (value-lt)/(ct-lt);
 				starLight.color = Color.Lerp(Settings.Star.Dwarf.COLORS[i-1],Settings.Star.Dwarf.COLORS[i],step);
