@@ -93,6 +93,7 @@ public class UIController : MonoBehaviour {
 				timeSlider.gameObject.SetActive(false);
 
 				typeSelector.SetActive(true);
+				planetSwitcher.gameObject.SetActive(false);
 
 				leftButton.gameObject.SetActive(true);
 				rightButton.gameObject.SetActive(true);
@@ -121,6 +122,7 @@ public class UIController : MonoBehaviour {
 
 				leftButton.gameObject.SetActive(true);
 				rightButton.gameObject.SetActive(true);
+				planetSwitcher.gameObject.SetActive(false);
 
 				RectTransform rt = rightButton.transform as RectTransform;
 				rt.sizeDelta = new Vector2(50,30);
@@ -134,6 +136,7 @@ public class UIController : MonoBehaviour {
 				rightButtonText.text = "Finish";
 			}break;
 			case State.SimState:{
+
 				updateActiveSliders(ActiveSliders.None);
 				typeSelector.SetActive(false);
 				timeSlider.gameObject.SetActive(true);
@@ -142,6 +145,9 @@ public class UIController : MonoBehaviour {
 
 				leftButton.gameObject.SetActive(false);
 				rightButton.gameObject.SetActive(false);
+				planetSwitcher.gameObject.SetActive(true);
+
+				planetSwitcher.updateButtons();
 
 				gs.uiHold = false;
 

@@ -48,7 +48,6 @@ public class Body : MonoBehaviour {
 	public int indicesValid = 0;
 
 
-
 	public GameObject dotPrefab;
 
 	//lines

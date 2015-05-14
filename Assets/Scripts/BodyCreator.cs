@@ -39,7 +39,7 @@ public class BodyCreator : MonoBehaviour {
 
 		gs.uiHold = true;
 		cameraMovement.setTarget(g.transform);
-		controller.newBody(body);
     	gs.addBody(body);
+		controller.newBody(body);
 	}
 }

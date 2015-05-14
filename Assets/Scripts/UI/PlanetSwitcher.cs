@@ -8,8 +8,11 @@ public class PlanetSwitcher : MonoBehaviour {
 	public UIController controller;
 	public 	CameraMovement camMov;
 	public 	GravitySystem gs;
+	public 	List<ButtonWithText> buttons;
 
+	private Color defaultButtonColor;
 	private int currentBodyCount;
+	private int currentButtonIndex;
 	private float buttonWidth = 50;
 	private float panelWidth;
 	private float panelHeight = 85;
@@ -22,17 +25,18 @@ public class PlanetSwitcher : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		defaultButtonColor 	= Color.white;
 		panelRT 			= transform as RectTransform;
 		panelWidth 			= panelRT.rect.width;
 		panelHeight 		= panelRT.rect.height;
 
 		currentBodyCount 	= 0;
+		buttons 			= new List<ButtonWithText>();
 	}
 
 	public void newBody(Body body){
 		currentBodyCount++;
-		updateButtons();
+		createButton();
 	}
 
 	public void handleButton(int i){
@@ -46,7 +50,7 @@ public class PlanetSwitcher : MonoBehaviour {
 		controller.editBody(gs.bodies[i]);
 	}
 
-	public void updateButtons(){
+	public void createButton(){
 		RectTransform t = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity) as RectTransform;
 		ButtonWithText b = t.GetComponent<ButtonWithText>();
 		b.index = currentBodyCount-1;
@@ -61,6 +65,18 @@ public class PlanetSwitcher : MonoBehaviour {
 		t.SetParent(transform);
 		t.anchoredPosition = new Vector2((buttonWidth+buttonSpace)*currentBodyCount - buttonWidth/2,15);
 
+		buttons.Add(b);
+	}
 
+	public void updateButtons(){
+		for(int i = 0;i<buttons.Count;i++){
+			if(gs.bodies[i].type == Body.Type.Planet){
+				buttons[i].text.text = "Planet";
+				buttons[i].targetGraphic.color = defaultButtonColor;
+			}else{
+				buttons[i].text.text = "Dwarf Star";
+				buttons[i].targetGraphic.color = gs.bodies[i].starLight.color;
+			}
+		}
 	}
 }
