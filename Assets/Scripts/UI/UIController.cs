@@ -114,7 +114,6 @@ public class UIController : MonoBehaviour {
 				rt.anchoredPosition = new Vector2(canvasWidth-rt.rect.width/2,0-rt.rect.height/2);
 				rt.sizeDelta = new Vector2(40,30);
 
-
 	        	cm.setTarget(body.transform);
 
 				rightButtonText.text = "Next";
@@ -130,8 +129,12 @@ public class UIController : MonoBehaviour {
 				rightButton.gameObject.SetActive(true);
 
 				RectTransform rt = rightButton.transform as RectTransform;
-				rt.anchoredPosition = new Vector2(canvasWidth-rt.rect.width/2,0-rt.rect.height/2);
 				rt.sizeDelta = new Vector2(50,30);
+				rt.anchoredPosition = new Vector2(canvasWidth-rt.rect.width/2,0-rt.rect.height/2);
+
+				rt = leftButton.transform as RectTransform;
+				rt.sizeDelta = new Vector2(70,30);
+				rt.anchoredPosition = new Vector2(rt.rect.width/2,0-rt.rect.height/2);
 
 				rightButtonText.text = "Finish";
 			}break;
