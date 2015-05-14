@@ -9,7 +9,9 @@ public class PlanetSwitcher : MonoBehaviour {
 	public 	GravitySystem gs;
 	public 	List<ButtonWithText> buttons;
 
+	private Color defaultButtonColor;
 	private int currentBodyCount;
+	private int currentButtonIndex;
 	private float buttonWidth = 50;
 	private float panelWidth;
 	private float panelHeight = 60;
@@ -22,7 +24,7 @@ public class PlanetSwitcher : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		defaultButtonColor 	= Color.white;
 		panelRT 			= transform as RectTransform;
 		panelWidth 			= panelRT.rect.width;
 		panelHeight 		= panelRT.rect.height;
@@ -33,7 +35,7 @@ public class PlanetSwitcher : MonoBehaviour {
 
 	public void newBody(Body body){
 		currentBodyCount++;
-		updateButtons();
+		createButton();
 	}
 
 	public void handleButton(int i){
@@ -43,10 +45,9 @@ public class PlanetSwitcher : MonoBehaviour {
 			Debug.Log("No body found!");
 	}
 
-	public void updateButtons(){
+	public void createButton(){
 		RectTransform t = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity) as RectTransform;
 		ButtonWithText b = t.GetComponent<ButtonWithText>();
-		buttons[buttons.Count] = b;
 		b.index = currentBodyCount-1;
 		b.planetSwitcher = this;
 
@@ -55,14 +56,19 @@ public class PlanetSwitcher : MonoBehaviour {
 
 		t.SetParent(transform);
 		t.anchoredPosition = new Vector2((buttonWidth+buttonSpace)*currentBodyCount - buttonWidth/2,buttonOffset/2);
+	
+		buttons.Add(b);
 	}
 
-	public void updateButtonText(int buttonIndex, string type){
-		if(type == "Planet")
-			buttons[buttonIndex].text.text = "Planet";
-		else if(type == "DwarfStar")
-			buttons[buttonIndex].text.text = "Star";
-		else
-			Debug.Log("PLANETSWITCHER: TYPE ERROR");
+	public void updateButtons(){
+		for(int i = 0;i<buttons.Count;i++){
+			if(gs.bodies[i].type == Body.Type.Planet){
+				buttons[i].text.text = "Planet";
+				buttons[i].targetGraphic.color = defaultButtonColor;
+			}else{
+				buttons[i].text.text = "Dwarf Star";
+				buttons[i].targetGraphic.color = gs.bodies[i].starLight.color;
+			}
+		}
 	}
 }

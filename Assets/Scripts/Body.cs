@@ -14,7 +14,7 @@ public class Body : MonoBehaviour {
 	private float baseVolume;
 	private float basePitch;
 
-	public enum Type{		
+	public enum Type{
 		None,
 		Planet,
 		DwarfStar
@@ -46,7 +46,6 @@ public class Body : MonoBehaviour {
 	public Vector3[] velocities;
 
 	public int indicesValid = 0;
-	public int bodyIndex;
 
 
 	public GameObject dotPrefab;
@@ -82,9 +81,7 @@ public class Body : MonoBehaviour {
 									Random.Range(-randomStartVelocity.z,randomStartVelocity.z));
 		}
 
-		if(position == null)position = new Vector3();
 		this.positions[0] = position;
-		if(velocity == null)velocity = new Vector3();
 		this.velocities[0] = velocity;
 
 		transform.position = position;

@@ -9,13 +9,8 @@ public class BodyCreator : MonoBehaviour {
 
 	public CameraMovement cameraMovement;
 
-	private float 	halfWidth,
-					halfHeight;
-
 	// Use this for initialization
 	void Start () {
-		halfWidth = Screen.width/2;
-		halfHeight = Screen.height/2;
 		cam = Camera.main;
 	}
 

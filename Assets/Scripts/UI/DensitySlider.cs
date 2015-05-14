@@ -27,7 +27,7 @@ public class DensitySlider : SliderWithText {
 		setText(value);
 	}
 
-	public void setText(float val){
+	public override void setText(float val){
 		if(val < 100)
 			text.text = val + " kg/m3";
 		else
