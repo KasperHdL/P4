@@ -111,7 +111,7 @@ public class GravitySystem : MonoBehaviour {
 				bodies[i].addPropAtIndex(pos,vel,tf);
 			}
 			f++;
-			if(f%((int)(Time.timeScale*10))==0)
+			if(f%10==0)
 				yield return null;
 		}
 		calcRunning = false;
