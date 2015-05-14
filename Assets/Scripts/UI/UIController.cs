@@ -82,8 +82,8 @@ public class UIController : MonoBehaviour {
 	}
 #endregion
 	public void newBody(Body body){
-		planetSwitcher.newBody(body);
 		setBody(body);
+		planetSwitcher.newBody(body);
 	}
 
 	public void setBody(Body body){

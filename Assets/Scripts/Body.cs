@@ -46,7 +46,7 @@ public class Body : MonoBehaviour {
 	public Vector3[] velocities;
 
 	public int indicesValid = 0;
-
+	public int bodyIndex;
 
 
 	public GameObject dotPrefab;

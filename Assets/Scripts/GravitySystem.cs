@@ -76,6 +76,7 @@ public class GravitySystem : MonoBehaviour {
 
 	public void addBody(Body b){
 		b.construct();
+		b.bodyIndex = bodies.Count;
 		bodies.Add(b);
 		calcFuturePositions();
 	}

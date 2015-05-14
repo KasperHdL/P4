@@ -7,8 +7,8 @@ public class PlanetSwitcher : MonoBehaviour {
 	public 	Transform buttonPrefab;
 	public 	CameraMovement camMov;
 	public 	GravitySystem gs;
+	public 	List<ButtonWithText> buttons;
 
-	private List<Button> buttons;
 	private int currentBodyCount;
 	private float buttonWidth = 50;
 	private float panelWidth;
@@ -28,7 +28,7 @@ public class PlanetSwitcher : MonoBehaviour {
 		panelHeight 		= panelRT.rect.height;
 
 		currentBodyCount 	= 0;
-		buttons 			= new List<Button>();
+		buttons 			= new List<ButtonWithText>();
 	}
 
 	public void newBody(Body body){
@@ -46,6 +46,7 @@ public class PlanetSwitcher : MonoBehaviour {
 	public void updateButtons(){
 		RectTransform t = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity) as RectTransform;
 		ButtonWithText b = t.GetComponent<ButtonWithText>();
+		buttons[buttons.Count] = b;
 		b.index = currentBodyCount-1;
 		b.planetSwitcher = this;
 
@@ -54,7 +55,14 @@ public class PlanetSwitcher : MonoBehaviour {
 
 		t.SetParent(transform);
 		t.anchoredPosition = new Vector2((buttonWidth+buttonSpace)*currentBodyCount - buttonWidth/2,buttonOffset/2);
+	}
 
-
+	public void updateButtonText(int buttonIndex, string type){
+		if(type == "Planet")
+			buttons[buttonIndex].text.text = "Planet";
+		else if(type == "DwarfStar")
+			buttons[buttonIndex].text.text = "Star";
+		else
+			Debug.Log("PLANETSWITCHER: TYPE ERROR");
 	}
 }
