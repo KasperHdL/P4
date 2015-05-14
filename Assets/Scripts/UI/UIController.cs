@@ -18,6 +18,8 @@ public class UIController : MonoBehaviour {
 
 	public TimeSlider timeSlider;
 
+	public InformationHandler informationHandler;
+
 	public RadiusSlider radiusSlider;
 	public MassSlider massSlider;
 	public DensitySlider densitySlider;
@@ -110,6 +112,7 @@ public class UIController : MonoBehaviour {
 
 
 	        	cm.setTarget(body.transform);
+	        	informationHandler.setBody(body);
 
 	        	for(int i = 0; i < gs.bodies.Count; i++)
 	        		if(gs.bodies[i] != body)

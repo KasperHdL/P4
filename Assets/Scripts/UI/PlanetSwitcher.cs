@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class PlanetSwitcher : MonoBehaviour {
 	public 	Transform buttonPrefab;
-	public UIController controller;
+	public 	UIController controller;
 	public 	CameraMovement camMov;
 	public 	GravitySystem gs;
 	public 	List<ButtonWithText> buttons;

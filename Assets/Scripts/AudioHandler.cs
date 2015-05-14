@@ -22,7 +22,7 @@ public class AudioHandler : MonoBehaviour {
 	public void volumeOscillation(Body body){
 		float oscillationSpeed = (body.temperature/Settings.Star.Dwarf.TEMPERATURE[Settings.Star.Dwarf.TEMPERATURE.Length-1])*20;
 		float x = (Mathf.Sin(Time.time*oscillationSpeed)+2)/3;
-//		Debug.Log(x);
+		//Debug.Log(Time.time);
 		body.sound.volume = body.currentVolume*x;
 		//Debug.Log(body.sound.volume);
 	}
