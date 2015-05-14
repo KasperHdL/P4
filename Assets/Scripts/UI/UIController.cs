@@ -111,6 +111,12 @@ public class UIController : MonoBehaviour {
 
 	        	cm.setTarget(body.transform);
 
+	        	for(int i = 0; i < gs.bodies.Count; i++)
+	        		if(gs.bodies[i] != body)
+	        			gs.bodies[i].sound.enabled = false;
+	        		else
+	        			gs.bodies[i].sound.enabled = true;
+
 				leftButtonText.text = "Cancel";
 				rightButtonText.text = "Next";
 			}break;
@@ -151,6 +157,12 @@ public class UIController : MonoBehaviour {
 				planetSwitcher.updateButtons();
 
 				gs.uiHold = false;
+
+	        	for(int i = 0; i < gs.bodies.Count; i++)
+	        		if(gs.bodies[i] != body)
+	        			gs.bodies[i].sound.enabled = true;
+	        		else
+	        			gs.bodies[i].sound.enabled = false;
 
 			}break;
 		}
