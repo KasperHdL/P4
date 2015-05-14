@@ -6,7 +6,10 @@ using UnityEngine.EventSystems;
 public class TimeSlider : SliderWithText {
 
 	public override void ValueChanged(){
-		Time.timeScale = value;
+		if(value == 0)
+			Time.timeScale = 0;
+		else
+			Time.timeScale = value/10;
 		setText(value);
 	}
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class PlanetSwitcher : MonoBehaviour {
 	public 	Transform buttonPrefab;
+	public UIController controller;
 	public 	CameraMovement camMov;
 	public 	GravitySystem gs;
 	public 	List<ButtonWithText> buttons;
@@ -21,7 +22,7 @@ public class PlanetSwitcher : MonoBehaviour {
 	private int currentButtonIndex;
 	private float buttonWidth = 50;
 	private float panelWidth;
-	private float panelHeight = 60;
+	private float panelHeight = 85;
 
 	private RectTransform panelRT;
 	private RectTransform buttonRT;
@@ -48,16 +49,23 @@ public class PlanetSwitcher : MonoBehaviour {
 
 	public void handleButton(int i){
 		if(gs.bodies[i] != null){
-			camMov.setTarget(gs.bodies[i].transform);
+				camMov.setTarget(gs.bodies[i].transform);
 		} else
 			Debug.Log("No body found!");
+	}
+
+	public void handleEditButton(int i ){
+		controller.editBody(gs.bodies[i]);
 	}
 
 	public void createButton(){
 		RectTransform t = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity) as RectTransform;
 		ButtonWithText b = t.GetComponent<ButtonWithText>();
 		b.index = currentBodyCount-1;
+		b.editButton.index = b.index;
+
 		b.planetSwitcher = this;
+		b.editButton.planetSwitcher = this;
 
 		if(currentBodyCount <= maxButtonCount){
 			panelWidth = (buttonWidth+buttonSpace)*currentBodyCount + buttonSpace;
@@ -65,7 +73,11 @@ public class PlanetSwitcher : MonoBehaviour {
 		}
 
 		t.SetParent(transform);
+<<<<<<< HEAD
 		t.anchoredPosition = new Vector2((buttonWidth+buttonSpace)*currentBodyCount - buttonWidth/2,buttonOffset/2);
+=======
+		t.anchoredPosition = new Vector2((buttonWidth+buttonSpace)*currentBodyCount - buttonWidth/2,15);
+>>>>>>> 2e0c12274274ce48fae3dc221e52bae18f6d2906
 
 		buttons.Add(b);
 		if(currentBodyCount > maxButtonCount){
