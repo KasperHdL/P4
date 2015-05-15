@@ -211,7 +211,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camMovement: {fileID: 0}
   sound: {fileID: 8261988}
-  clip: {fileID: 8300000, guid: ef22931805c8130499dcb3d9f240d697, type: 3}
+  planetSounds:
+  - {fileID: 8300000, guid: 94d7c9235fc0c14458d0cdda49e4f97a, type: 3}
+  - {fileID: 8300000, guid: f563d6a948e01c046bfa9e737734d199, type: 3}
+  starSounds:
+  - {fileID: 8300000, guid: ef22931805c8130499dcb3d9f240d697, type: 3}
+  - {fileID: 8300000, guid: 091fe134f9d154b4db98909c5a94e834, type: 3}
   currentVolume: 0
   currentPitch: 0
   starLightTransform: {fileID: 415132}
@@ -219,8 +224,8 @@ MonoBehaviour:
   type: 2
   temperature: 0
   mass: 100
-  density: 0
   radius: 1
+  classification: 0
   tempLightOffsetAmount: -100
   randomStartVelocity: {x: 0, y: 0, z: 0}
   startVelocity: {x: 0, y: 0, z: 0}
