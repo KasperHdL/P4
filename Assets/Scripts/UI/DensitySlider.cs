@@ -21,11 +21,11 @@ public class DensitySlider : SliderWithText {
 		}
 	}
 
-	public override void ValueChanged(){
+	/*public override void ValueChanged(){
 		if(controller != null)
 			controller.updateDensity(value);
 		setText(value);
-	}
+	}*/
 
 	public override void setText(float val){
 		if(val < 100)

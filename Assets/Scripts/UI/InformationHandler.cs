@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class InformationHandler : MonoBehaviour {
 
 	public 	Text text;
+	public 	Text infoText;
 
 	private Body body;
 	private float screenWidth;
@@ -27,32 +28,48 @@ public class InformationHandler : MonoBehaviour {
 	void Update () {
 		if(body != null){
 			setText();
+			if(body.type == Body.Type.Planet)
+				rt.sizeDelta = new Vector2(boxWidth, 56.5f);
+			else
+				rt.sizeDelta = new Vector2(boxWidth, 77.25f);
 		}
 	}
 
 	public void setText(){
 		if(body != null){
-			if(body.type == Body.Type.DwarfStar)
+			if(body.type == Body.Type.DwarfStar){
 				text.text = 
-				"Type: " 			+ body.type.ToString() 							+ 
-				"\nCategory: "		+ "categoryPlaceHolder"							+
-				"\nTemperature: " 	+ body.temperature.ToString("F0") 				+ " kelvin" +
-				//"\nLuminosity: "	+ body.luminosity.ToString("F3")				+ " suns"	+
-				"\nRadius: " 		+ body.radius.ToString("F0") 					+ " earths" +
-				"\nMass: " 			+ body.mass.ToString("F1") 						+ " suns" 	+
-				"\nMass: "			+ (body.mass*333060.402).ToString("F0")			+ " earths"	+
-				"\nMass: "			+ (body.mass*333060.402*5972.19).ToString("F1")	+ " Yg" 	+
-				"\nDensity: "		+ body.density 							
+				"<color=lightblue>Type: </color>"			+ 
+				"<color=lightblue>\nClass: </color>"		+
+				"<color=lightblue>\nTemperature: </color>"	+
+				"<color=lightblue>\nRadius: </color>"		+
+				"<color=lightblue>\nMass: </color>"			+
+				"<color=lightblue>\nMass: </color>"
 				;
-			else
+
+				infoText.text =
+						body.type.ToString() 						+ 
+				"\n" + 	body.classification							+
+				"\n" + 	body.temperature.ToString("F0") 			+ " kelvin" +
+				"\n" + 	body.radius.ToString("F0") 					+ " earths" +
+				"\n" + 	body.mass.ToString("F1") 					+ " suns" 	+
+				"\n" + 	(body.mass*333060.402).ToString("F0")		+ " earths"
+				;
+			} else{
 				text.text = 
-				"Type: " 			+ body.type.ToString() 	+ 
-				"\nRadius: " 		+ body.radius 			+ " earths" +
-				"\nMass: " 			+ body.mass				+ " earths" +
-				"\nDensity: "		+ body.density 			+
-				"\nAcceleration: "	+ "accPlaceHolder"		+
-				"\nvelocity: "		+ "velPlaceHolder"
+				"<color=lightblue>Type: </color>" 			+
+				"<color=lightblue>\nRadius: </color>" 		+
+				"<color=lightblue>\nMass: </color>"			+
+				"<color=lightblue>\nMass: </color>" 	
 				;
+
+				infoText.text =
+						body.type.ToString() 						+ 
+				"\n" + 	body.radius 								+ " earths" +
+				"\n" + 	(body.mass*0.0000030024584).ToString("F6") 	+ " suns"	+
+				"\n" + 	body.mass									+ " earths"
+				;
+			}
 
 
 		} else

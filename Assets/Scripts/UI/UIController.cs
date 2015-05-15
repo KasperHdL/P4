@@ -276,10 +276,6 @@ public class UIController : MonoBehaviour {
 		body.updateRadius(value);
 	}
 
-	public void updateDensity(float value){
-		body.updateDensity(value);
-	}
-
 	public void updateTemperature(float value){
 		body.updateTemperature(value);
 		gs.calcFuturePositions();
