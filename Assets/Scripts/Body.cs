@@ -121,12 +121,6 @@ public class Body : MonoBehaviour {
 				starLight.enabled = true;
 			break;
 		}
-		for(int i = 0;i<dots.Length;i++){
-			if(type == Type.Planet)
-				dots[i].GetComponent<Renderer>().material.color = color;
-			else
-				dots[i].GetComponent<Renderer>().material.color = starLight.color;
-		}
 
 		///////////////////
 		//		SOUND
@@ -191,6 +185,11 @@ public class Body : MonoBehaviour {
 			Vector3 delta = positions[index] - camMovement.body.positions[index];
 			dots[dotIndex].position = delta + camMovement.body.positions[0];
 			dots[dotIndex].gameObject.SetActive(true);
+
+			if(type == Type.Planet)
+				dots[dotIndex].GetComponent<Renderer>().material.color = color;
+			else
+				dots[dotIndex].GetComponent<Renderer>().material.color = starLight.color;
 		}
 	}
 

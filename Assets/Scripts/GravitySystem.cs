@@ -87,6 +87,10 @@ public class GravitySystem : MonoBehaviour {
 		//populate positions of bodies
 		frameShifts = 0;
 		int f = 1;
+
+		for(int i = 0;i<bodies.Count;i++)
+			bodies[i].disableDots();
+
 		while(!reset && f<Settings.BODY_POSITION_LENGTH + frameShifts){
 			for(int i = 0;i<bodies.Count;i++){
 				Vector3 acc = Vector3.zero;
@@ -110,8 +114,9 @@ public class GravitySystem : MonoBehaviour {
 
 			}
 
-			for(int i = 0;i<bodies.Count;i++)
-				bodies[i].calculateDot(f-frameShifts);
+			if(Body.showingDots)
+				for(int i = 0;i<bodies.Count;i++)
+					bodies[i].calculateDot(f-frameShifts);
 			f++;
 			if(f%20==0)
 				yield return null;

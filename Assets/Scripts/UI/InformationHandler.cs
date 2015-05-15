@@ -8,22 +8,15 @@ public class InformationHandler : MonoBehaviour {
 	public 	Text infoText;
 
 	private Body body;
-	private float screenWidth;
-	private float screenHeight;
-
 	private RectTransform rt;
 	private float boxWidth;
-	private float boxHeight;
 
 	// Use this for initialization
 	void Start () {
-		screenWidth 	= Screen.width;
-		screenHeight 	= Screen.height;
 		rt 				= transform as RectTransform;
 		boxWidth		= rt.rect.width;
-		boxHeight 		= rt.rect.height;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if(body != null){
@@ -38,8 +31,8 @@ public class InformationHandler : MonoBehaviour {
 	public void setText(){
 		if(body != null){
 			if(body.type == Body.Type.DwarfStar){
-				text.text = 
-				"<color=lightblue>Type: </color>"			+ 
+				text.text =
+				"<color=lightblue>Type: </color>"			+
 				"<color=lightblue>\nClass: </color>"		+
 				"<color=lightblue>\nTemperature: </color>"	+
 				"<color=lightblue>\nRadius: </color>"		+
@@ -48,7 +41,7 @@ public class InformationHandler : MonoBehaviour {
 				;
 
 				infoText.text =
-						body.type.ToString() 						+ 
+						body.type.ToString() 						+
 				"\n" + 	body.classification							+
 				"\n" + 	body.temperature.ToString("F0") 			+ " kelvin" +
 				"\n" + 	body.radius.ToString("F0") 					+ " earths" +
@@ -56,15 +49,15 @@ public class InformationHandler : MonoBehaviour {
 				"\n" + 	(body.mass*333060.402).ToString("F0")		+ " earths"
 				;
 			} else{
-				text.text = 
+				text.text =
 				"<color=lightblue>Type: </color>" 			+
 				"<color=lightblue>\nRadius: </color>" 		+
 				"<color=lightblue>\nMass: </color>"			+
-				"<color=lightblue>\nMass: </color>" 	
+				"<color=lightblue>\nMass: </color>"
 				;
 
 				infoText.text =
-						body.type.ToString() 						+ 
+						body.type.ToString() 						+
 				"\n" + 	body.radius 								+ " earths" +
 				"\n" + 	(body.mass*0.0000030024584).ToString("F6") 	+ " suns"	+
 				"\n" + 	body.mass									+ " earths"

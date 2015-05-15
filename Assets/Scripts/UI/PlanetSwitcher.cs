@@ -28,7 +28,6 @@ public class PlanetSwitcher : MonoBehaviour {
 	private RectTransform buttonRT;
 
 	private float buttonSpace = 5;
-	private float buttonOffset = 5;
 
 	// Use this for initialization
 	void Start () {
@@ -100,7 +99,7 @@ public class PlanetSwitcher : MonoBehaviour {
 		if(currentBodyCount <= maxButtonCount){
 			nextButton.gameObject.SetActive(false);
 			previousButton.gameObject.SetActive(false);
-		} else {			
+		} else {
 			nextButton.gameObject.SetActive(true);
 		}
 	}
@@ -122,7 +121,7 @@ public class PlanetSwitcher : MonoBehaviour {
 				buttons[i].gameObject.SetActive(true);
 		}
 
-		
+
 		if(buttons[0].transform.position.x > transform.position.x - panelWidth/2)
 			previousButton.gameObject.SetActive(false);
 		else
