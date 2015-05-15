@@ -7,6 +7,8 @@ public class VectorUI : MonoBehaviour{
 
 	public Vector2 value;
 
+	private bool mouseDown = false;
+
 	public UIController controller;
 
 	public RectTransform line;
@@ -36,8 +38,11 @@ public class VectorUI : MonoBehaviour{
 
 			if(!((input.x < -screen.x/2 + lB.x || input.x > screen.x/2 - rB.x) && input.y > screen.y/2 - lB.y)){
 				updateVelocity(input * 0.2f);
-				controller.updateVelocity(value);
 			}
+			mouseDown = true;
+		}else if(mouseDown){
+			controller.updateVelocity(value);
+			mouseDown = false;
 		}
 	}
 
