@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef3ced3245a43a044b31efa7142889eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camMovement: {fileID: 0}
   sound: {fileID: 8261988}
   clip: {fileID: 8300000, guid: ef22931805c8130499dcb3d9f240d697, type: 3}
   currentVolume: 0
@@ -226,7 +227,7 @@ MonoBehaviour:
   positions: []
   velocities: []
   indicesValid: 0
-  dotPrefab: {fileID: 0}
+  dotPrefab: {fileID: 127452, guid: e2d62dc1e7a6700418cd7392bd541693, type: 2}
   randomColor: 0
   color: {r: 1, g: 0, b: 0, a: 0}
   rotSpeed: 0

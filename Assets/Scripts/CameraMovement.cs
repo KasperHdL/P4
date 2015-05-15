@@ -7,7 +7,7 @@ public class CameraMovement : MonoBehaviour {
 	public GravitySystem gs;
 
 	public Transform target;
-	private Body body;
+	public Body body;
 	public float offset;
 	public float scrollSpeed = 100;
 

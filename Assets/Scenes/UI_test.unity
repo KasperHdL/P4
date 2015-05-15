@@ -294,7 +294,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 10
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2273,6 +2273,7 @@ MonoBehaviour:
   cam: {fileID: 674496665}
   gs: {fileID: 1884672725}
   target: {fileID: 0}
+  body: {fileID: 0}
   offset: 4000
   scrollSpeed: 100
 --- !u!81 &1068772194

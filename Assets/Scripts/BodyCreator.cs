@@ -36,6 +36,7 @@ public class BodyCreator : MonoBehaviour {
 
         Body body = g.GetComponent<Body>();
         body.type = Body.Type.Planet;
+        body.camMovement = cameraMovement;
 
 		gs.uiHold = true;
 		cameraMovement.setTarget(g.transform);
