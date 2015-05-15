@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour {
 	public CameraMovement cm;
 
 	public Body body;
+	public Body previousBody;
 
 	public GravitySystem gs;
 
@@ -73,6 +74,9 @@ public class UIController : MonoBehaviour {
 	}
 
 	public void newBody(Body body){
+		if(this.body != null)
+			previousBody = this.body;
+
 		planetSwitcher.newBody(body);
 
 	    informationHandler.gameObject.SetActive(true);
@@ -159,6 +163,9 @@ public class UIController : MonoBehaviour {
 				planetSwitcher.gameObject.SetActive(true);
 
 				planetSwitcher.updateButtons();
+
+				if(previousBody != null)
+					cm.setTarget(previousBody.transform);
 
 				gs.uiHold = false;
 
