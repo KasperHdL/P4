@@ -14,7 +14,6 @@ public class Body : MonoBehaviour {
 	public 	float currentVolume;
 	public 	float currentPitch;
 	private float baseVolume;
-	private float basePitch;
 
 	public enum Type{
 		None,
@@ -56,7 +55,6 @@ public class Body : MonoBehaviour {
 	//lines
 	public static bool showingDots = false;
 	private Transform[] dots;
-	private int dotOffset = 0;
 
 	public bool randomColor = false;
 	public Color color;
@@ -115,7 +113,6 @@ public class Body : MonoBehaviour {
 		sound.loop = true;
 
 		baseVolume = Settings.BASE_VOLUME;
-		basePitch = Settings.BASE_PITCH;
 
 	}
 
@@ -202,9 +199,24 @@ public class Body : MonoBehaviour {
 
 	public void updateMass(double value){
 		mass = (float)(value);
-		sound.pitch = (mass/Settings.Planet.MASS_MAX_VALUE)*(1-basePitch) + basePitch;
-		currentPitch = (mass/Settings.Planet.MASS_MAX_VALUE)*(1-basePitch) + basePitch;
+		if(type == Type.Planet){
+			float pitch = 	Settings.Planet.BASE_PITCH;
+			float amount = 	Settings.Planet.PITCH_AMOUNT;
+			int i = 		Settings.Star.Dwarf.MASS.Length - 1;
+
+			sound.pitch = 	(mass/Settings.Star.Dwarf.MASS[i]) * amount + pitch;
+			currentPitch = 	(mass/Settings.Star.Dwarf.MASS[i]) * amount + pitch;
+		}else{
+			float pitch = 	Settings.Star.Dwarf.BASE_PITCH;
+			float amount = 	Settings.Star.Dwarf.PITCH_AMOUNT;
+			int i = 		Settings.Star.Dwarf.MASS.Length - 1;
+
+			sound.pitch = 	(mass/Settings.Star.Dwarf.MASS[i]) * amount + pitch;
+			currentPitch = 	(mass/Settings.Star.Dwarf.MASS[i]) * amount + pitch;
+
+		}
 	}
+
 
 	public void updateRadius(float value){
 		radius = value * (type == Type.Planet ? 1:100);
@@ -250,8 +262,8 @@ public class Body : MonoBehaviour {
 				//found
 				float step = (value-lt)/(ct-lt);
 				starLight.color = Color.Lerp(Settings.Star.Dwarf.COLORS[i-1],Settings.Star.Dwarf.COLORS[i],step);
+				updateMass(Mathf.Lerp(Settings.Star.Dwarf.MASS[i-1],Settings.Star.Dwarf.MASS[i],step) * 333);
 				//updateLuminosity(i, step);
-				updateMass(i, step);
 				break;
 			}
 		}
@@ -275,7 +287,4 @@ public class Body : MonoBehaviour {
 		luminosity = Mathf.Lerp(Settings.Star.Dwarf.LUMI[i-1],Settings.Star.Dwarf.LUMI[i],step);
 	}
 
-	public void updateMass(int i, float step){
-		mass = Mathf.Lerp(Settings.Star.Dwarf.MASS[i-1],Settings.Star.Dwarf.MASS[i],step);
-	}
 }

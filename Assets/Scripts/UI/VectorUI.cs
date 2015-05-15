@@ -37,7 +37,7 @@ public class VectorUI : MonoBehaviour{
 			*/
 
 			if(!((input.x < -screen.x/2 + lB.x || input.x > screen.x/2 - rB.x) && input.y > screen.y/2 - lB.y)){
-				updateVelocity(input * 0.2f);
+				updateVelocity(input);
 			}
 			mouseDown = true;
 		}else if(mouseDown){
