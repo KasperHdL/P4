@@ -250,7 +250,7 @@ public class UIController : MonoBehaviour {
 	private void updateValues(Body body = null){
 		updateMass((body == null ? massSlider.value : body.mass));
 		updateRadius((body == null ? radiusSlider.value : body.radius));
-		updateTemperature((body == null ? temperatureSlider.value : body.mass));
+		updateTemperature((body == null ? temperatureSlider.value : body.temperature));
 		if(body == null)
 			updateVelocity(velocity.value);
 		else
@@ -278,6 +278,7 @@ public class UIController : MonoBehaviour {
 
 	public void updateTemperature(float value){
 		body.updateTemperature(value);
+		gs.calcFuturePositions();
 	}
 #endregion
 

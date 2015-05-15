@@ -8,7 +8,6 @@ public struct Settings {
 	public static readonly int 			DOT_OFFSET 				= 5;
 	public static readonly float 		GRAVITATIONAL_CONSTANT 	= 5f;
 	public static readonly float 		BASE_VOLUME 			= 0.20f;
-	public static readonly float 		BASE_PITCH				= 0.20f;
 	public static readonly float 		MAX_DISTORTION			= 60000;
 	public static readonly float 		RESET_VOLUME			= 1;
 	public static readonly float 		RESET_PITCH				= 1;
@@ -24,6 +23,10 @@ public struct Settings {
 
 		public static readonly float 	MASS_MIN_VALUE 			= 1; // kg
 		public static readonly float 	MASS_MAX_VALUE 			= 100; // kg
+
+
+		public static readonly float 	BASE_PITCH				= 0.20f;
+		public static readonly float 	PITCH_AMOUNT			= 0.8f;
 	}
 
 
@@ -37,6 +40,9 @@ public struct Settings {
 
 
 			public static readonly ActiveSliders SLIDERS = ActiveSliders.Temperature | ActiveSliders.Radius;
+
+			public static readonly float 	BASE_PITCH				= 1.2f;
+			public static readonly float 	PITCH_AMOUNT			= 0.2f;
 
 
 			public static readonly char[] CLASSIFICATION = {
