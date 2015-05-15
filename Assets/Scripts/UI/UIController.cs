@@ -74,7 +74,7 @@ public class UIController : MonoBehaviour {
 	}
 
 	public void newBody(Body body){
-		if(this.body != null)
+		if(this.body != null && previousBody == null)
 			previousBody = this.body;
 
 		planetSwitcher.newBody(body);

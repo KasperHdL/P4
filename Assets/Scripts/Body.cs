@@ -6,7 +6,7 @@ public class Body : MonoBehaviour {
 	////////////////////////////
 	//      Sound Variables
 
-	public CameraMovement camMovement;
+	public UIController uiController;
 
 	public 	AudioSource sound;
 	public 	AudioClip[] planetSounds = new AudioClip[2];
@@ -180,10 +180,10 @@ public class Body : MonoBehaviour {
 	}
 
 	public void calculateDot(int index){
-		if(index % Settings.DOT_OFFSET == 0){
+		if(index % Settings.DOT_OFFSET == 0 && uiController.previousBody != null){
 			int dotIndex = index/Settings.DOT_OFFSET;
-			Vector3 delta = positions[index] - camMovement.body.positions[index];
-			dots[dotIndex].position = delta + camMovement.body.positions[0];
+			Vector3 delta = positions[index] - uiController.previousBody.positions[index];
+			dots[dotIndex].position = delta + uiController.previousBody.positions[0];
 			dots[dotIndex].gameObject.SetActive(true);
 
 			if(type == Type.Planet)

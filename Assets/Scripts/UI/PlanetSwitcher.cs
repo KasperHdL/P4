@@ -48,7 +48,8 @@ public class PlanetSwitcher : MonoBehaviour {
 
 	public void handleButton(int i){
 		if(gs.bodies[i] != null){
-				camMov.setTarget(gs.bodies[i].transform);
+			camMov.setTarget(gs.bodies[i].transform);
+			controller.previousBody = gs.bodies[i];
 		} else
 			Debug.Log("No body found!");
 	}

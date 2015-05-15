@@ -1855,6 +1855,7 @@ MonoBehaviour:
   cam: {fileID: 674496665}
   cm: {fileID: 1068772193}
   body: {fileID: 0}
+  previousBody: {fileID: 0}
   gs: {fileID: 1884672725}
   planetSwitcher: {fileID: 1026544309}
   velocity: {fileID: 133064657}
