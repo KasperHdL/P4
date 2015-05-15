@@ -31,6 +31,7 @@ public class Body : MonoBehaviour {
 	public float mass;
 	public float density;
 	public float radius;
+	public float luminosity;
 
 
 	private float tempLightOffset;
@@ -210,7 +211,6 @@ public class Body : MonoBehaviour {
 			sound.volume = ((radius/100)/Settings.Star.Dwarf.RADIUS_MAX_VALUE)*(1-baseVolume) + baseVolume;
 			currentVolume = ((radius/100)/Settings.Star.Dwarf.RADIUS_MAX_VALUE)*(1-baseVolume) + baseVolume;
 		}
-
 	}
 
 	public void updateDensity(float value){
@@ -232,6 +232,8 @@ public class Body : MonoBehaviour {
 				//found
 				float step = (value-lt)/(ct-lt);
 				starLight.color = Color.Lerp(Settings.Star.Dwarf.COLORS[i-1],Settings.Star.Dwarf.COLORS[i],step);
+				//updateLuminosity(i, step);
+				updateMass(i, step);
 				break;
 			}
 		}
@@ -249,5 +251,13 @@ public class Body : MonoBehaviour {
 			tempLightOffset = 1-((temperature - 6000)/(40000 - 6000)) * tempLightOffsetAmount;
 		}
 		starLightTransform.localPosition = new Vector3(0,radius/7 + (type == Type.DwarfStar ? tempLightOffset: 1),0);
+	}
+
+	public void updateLuminosity(int i, float step){
+		luminosity = Mathf.Lerp(Settings.Star.Dwarf.LUMI[i-1],Settings.Star.Dwarf.LUMI[i],step);
+	}
+
+	public void updateMass(int i, float step){
+		mass = Mathf.Lerp(Settings.Star.Dwarf.MASS[i-1],Settings.Star.Dwarf.MASS[i],step);
 	}
 }

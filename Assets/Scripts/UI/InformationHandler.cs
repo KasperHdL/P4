@@ -34,11 +34,14 @@ public class InformationHandler : MonoBehaviour {
 		if(body != null){
 			if(body.type == Body.Type.DwarfStar)
 				text.text = 
-				"Type: " 			+ body.type.ToString() 					+ 
-				"\nCategory: "		+ "categoryPlaceHolder"					+
-				"\nTemperature: " 	+ body.temperature.ToString("F0") 		+ " kelvin" +
-				"\nRadius: " 		+ body.radius.ToString("F0") 			+ " earths" +
-				"\nMass: " 			+ body.mass.ToString("F0") 				+ " earths" +
+				"Type: " 			+ body.type.ToString() 							+ 
+				"\nCategory: "		+ "categoryPlaceHolder"							+
+				"\nTemperature: " 	+ body.temperature.ToString("F0") 				+ " kelvin" +
+				//"\nLuminosity: "	+ body.luminosity.ToString("F3")				+ " suns"	+
+				"\nRadius: " 		+ body.radius.ToString("F0") 					+ " earths" +
+				"\nMass: " 			+ body.mass.ToString("F1") 						+ " suns" 	+
+				"\nMass: "			+ (body.mass*333060.402).ToString("F0")			+ " earths"	+
+				"\nMass: "			+ (body.mass*333060.402*5972.19).ToString("F1")	+ " Yg" 	+
 				"\nDensity: "		+ body.density 							
 				;
 			else

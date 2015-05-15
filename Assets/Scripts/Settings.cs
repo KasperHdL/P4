@@ -57,7 +57,7 @@ public struct Settings {
 				7500,
 				10000,
 				30000,
-				40000
+				35000
 			};
 
 			public static readonly Color[] COLORS = {
@@ -69,6 +69,28 @@ public struct Settings {
 				new Color(170f/255,191f/255,255f/255),
 				new Color(155f/255,176f/255,255f/255),
 				new Color(155f/255,176f/255,255f/255)
+			};
+
+			public static readonly float[] MASS = {
+				0.08f,
+				0.45f,
+				0.8f,
+				1.04f,
+				1.4f,
+				2.1f,
+				16f,
+				60f
+			};
+
+			public static readonly float[] LUMI = {
+				0.05f,
+				0.08f,
+				0.6f,
+				1.5f,
+				5f,
+				25f,
+				30000f,
+				100000f
 			};
 		}
 	}
