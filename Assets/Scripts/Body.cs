@@ -9,7 +9,8 @@ public class Body : MonoBehaviour {
 	public CameraMovement camMovement;
 
 	public 	AudioSource sound;
-	public 	AudioClip clip;
+	public 	AudioClip[] planetSounds = new AudioClip[2];
+	public 	AudioClip[]	starSounds 	= new AudioClip[2];
 
 	public 	float currentVolume;
 	public 	float currentPitch;
@@ -109,13 +110,6 @@ public class Body : MonoBehaviour {
 			GetComponent<Renderer>().material.color = color;
 		}
 
-		///////////////////
-		//		SOUND
-		sound.clip = clip;
-		if(sound.enabled)
-			sound.Play();
-		sound.loop = true;
-
 		baseVolume = Settings.BASE_VOLUME;
 		basePitch = Settings.BASE_PITCH;
 
@@ -141,6 +135,17 @@ public class Body : MonoBehaviour {
 				dots[i].GetComponent<Renderer>().material.color = starLight.color;
 		}
 
+		///////////////////
+		//		SOUND
+		if(type == Body.Type.Planet){
+			setSoundClip(planetSounds);
+		} else
+			setSoundClip(starSounds);
+
+		if(sound.enabled && !sound.isPlaying){
+			sound.Play();
+			sound.loop = true;
+		}
 	}
 
 	public void disableDots(){
@@ -287,6 +292,11 @@ public class Body : MonoBehaviour {
 	public void updateMass(int i, float step){
 		mass = Mathf.Lerp(Settings.Star.Dwarf.MASS[i-1],Settings.Star.Dwarf.MASS[i],step);
 		updateDensity();
+	}
+
+	public void setSoundClip(AudioClip[] sounds){
+		int rand = Random.Range(0,1);
+		sound.clip = sounds[rand];
 	}
 
 }
