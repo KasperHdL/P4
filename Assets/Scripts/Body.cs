@@ -132,8 +132,13 @@ public class Body : MonoBehaviour {
 		//		SOUND
 		if(type == Body.Type.Planet){
 			setSoundClip(planetSounds);
-		} else
+			if(sound.isPlaying)
+				sound.Stop();
+		} else{
 			setSoundClip(starSounds);
+			if(sound.isPlaying)
+				sound.Stop();
+		}
 
 		if(sound.enabled && !sound.isPlaying){
 			sound.Play();
@@ -283,7 +288,7 @@ public class Body : MonoBehaviour {
 	}
 
 	public void setSoundClip(AudioClip[] sounds){
-		int rand = Random.Range(0,1);
+		int rand = Random.Range(0,2);
 		sound.clip = sounds[rand];
 	}
 

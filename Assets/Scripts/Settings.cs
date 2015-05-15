@@ -25,7 +25,7 @@ public struct Settings {
 		public static readonly float 	MASS_MAX_VALUE 			= 100; // kg
 
 
-		public static readonly float 	BASE_PITCH				= 0.20f;
+		public static readonly float 	BASE_PITCH				= 0.80f;
 		public static readonly float 	PITCH_AMOUNT			= 0.8f;
 	}
 
