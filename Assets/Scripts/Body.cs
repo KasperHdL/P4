@@ -32,9 +32,11 @@ public class Body : MonoBehaviour {
 	public float temperature;
 	public float mass;
 	public float density;
+	public float volume;
 	public float radius;
 	public float luminosity;
 
+	public char classification;
 
 	private float tempLightOffset;
 	public float tempLightOffsetAmount = 700;
@@ -229,10 +231,16 @@ public class Body : MonoBehaviour {
 			sound.volume = ((radius/100)/Settings.Star.Dwarf.RADIUS_MAX_VALUE)*(1-baseVolume) + baseVolume;
 			currentVolume = ((radius/100)/Settings.Star.Dwarf.RADIUS_MAX_VALUE)*(1-baseVolume) + baseVolume;
 		}
+		updateVolume();
 	}
 
-	public void updateDensity(float value){
-		density = value;
+	public void updateDensity(){
+		density = mass/volume;
+	}
+
+	public void updateVolume(){
+		volume = (4/3)*Mathf.PI*Mathf.Pow(radius,3);
+		updateDensity();
 	}
 
 	public void updateTemperature(float value){
@@ -251,6 +259,7 @@ public class Body : MonoBehaviour {
 				float step = (value-lt)/(ct-lt);
 				starLight.color = Color.Lerp(Settings.Star.Dwarf.COLORS[i-1],Settings.Star.Dwarf.COLORS[i],step);
 				//updateLuminosity(i, step);
+				classification = Settings.Star.Dwarf.CLASSIFICATION[i-1];
 				updateMass(i, step);
 				break;
 			}
@@ -277,5 +286,7 @@ public class Body : MonoBehaviour {
 
 	public void updateMass(int i, float step){
 		mass = Mathf.Lerp(Settings.Star.Dwarf.MASS[i-1],Settings.Star.Dwarf.MASS[i],step);
+		updateDensity();
 	}
+
 }
