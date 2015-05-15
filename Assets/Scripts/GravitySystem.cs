@@ -109,10 +109,16 @@ public class GravitySystem : MonoBehaviour {
 
 
 			}
+
+			for(int i = 0;i<bodies.Count;i++)
+				bodies[i].calculateDot(f-frameShifts);
 			f++;
 			if(f%20==0)
 				yield return null;
 		}
+
+		Body.showingDots = true;
+
 		if(reset){
 			reset = false;
 			calcFuturePositions();
@@ -123,11 +129,15 @@ public class GravitySystem : MonoBehaviour {
 	void Update () {
 		if(inited && !uiHold)
 			updateBodies();
-
-
 	}
 
 	public void updateBodies(){
+		if(Body.showingDots){
+			for(int i = 0;i<bodies.Count;i++)
+				bodies[i].disableDots();
+
+			Body.showingDots = false;
+		}
 		for(int t = 0;t < Time.timeScale*10;t ++){
 			frameShifts ++;
 			for(int i = 0;i<bodies.Count;i++){

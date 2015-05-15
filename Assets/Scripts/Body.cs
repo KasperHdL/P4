@@ -6,6 +6,8 @@ public class Body : MonoBehaviour {
 	////////////////////////////
 	//      Sound Variables
 
+	public CameraMovement camMovement;
+
 	public 	AudioSource sound;
 	public 	AudioClip clip;
 
@@ -52,6 +54,7 @@ public class Body : MonoBehaviour {
 	public GameObject dotPrefab;
 
 	//lines
+	public static bool showingDots = false;
 	private Transform[] dots;
 	private int dotOffset = 0;
 
@@ -60,6 +63,18 @@ public class Body : MonoBehaviour {
 
 	private float rot = 0;
 	public float rotSpeed;
+
+	public void Awake(){
+		dots = new Transform[(Settings.DOT_OFFSET == 0)?0:(Settings.BODY_POSITION_LENGTH/Settings.DOT_OFFSET)];
+		for(int i = 0;i<dots.Length;i++){
+			GameObject g = Instantiate(dotPrefab,Vector3.zero,Quaternion.identity) as GameObject;
+			g.transform.parent = GravitySystem.DOT_CONTAINER;
+			dots[i] = g.transform;
+			g.SetActive(false);
+
+		}
+
+	}
 
 	////////////////////////////
 	//      Construction
@@ -92,16 +107,6 @@ public class Body : MonoBehaviour {
 			GetComponent<Renderer>().material.color = color;
 		}
 
-		dots = new Transform[(Settings.DOT_OFFSET == 0)?0:(Settings.BODY_POSITION_LENGTH/Settings.DOT_OFFSET)-1];
-		for(int i = 0;i<dots.Length;i++){
-			GameObject g = Instantiate(dotPrefab,positions[(i+1)*Settings.DOT_OFFSET],Quaternion.identity) as GameObject;
-			g.transform.parent = GravitySystem.DOT_CONTAINER;
-			dots[i] = g.transform;
-			g.SetActive(false);
-
-			g.GetComponent<Renderer>().material.color = color;
-		}
-
 		///////////////////
 		//		SOUND
 		sound.clip = clip;
@@ -127,6 +132,19 @@ public class Body : MonoBehaviour {
 				starLight.enabled = true;
 			break;
 		}
+		for(int i = 0;i<dots.Length;i++){
+			if(type == Type.Planet)
+				dots[i].GetComponent<Renderer>().material.color = color;
+			else
+				dots[i].GetComponent<Renderer>().material.color = starLight.color;
+		}
+
+	}
+
+	public void disableDots(){
+		for(int i = 0;i<dots.Length;i++){
+			dots[i].gameObject.SetActive(false);
+		}
 	}
 
 
@@ -149,26 +167,26 @@ public class Body : MonoBehaviour {
 		positions[positions.Length-1] = position;
 		velocities[velocities.Length-1] = velocity;
 
-		//update lines
-		for(int i = 0;i<dots.Length;i++){
-//			dots[i].rotation = Quaternion.Euler(0,Mathf.Atan2(velocities[i * Settings.DOT_OFFSET].x,velocities[i * Settings.DOT_OFFSET].x.z)/Mathf.PI * 180,0);
-			int index = (i+1) * Settings.DOT_OFFSET - dotOffset;
 
-			dots[i].position = positions[index];
-			dots[i].gameObject.SetActive(true);
-
-		}
-
-		dotOffset++;
-
-		if(dotOffset >= Settings.DOT_OFFSET)
-			dotOffset = 0;
 	}
 
 	public void addPropAtIndex(Vector3 pos, Vector3 vel, int index){
 		positions[index] = pos;
 		velocities[index] = vel;
 		indicesValid = index;
+
+		//update lines
+
+
+	}
+
+	public void calculateDot(int index){
+		if(index % Settings.DOT_OFFSET == 0){
+			int dotIndex = index/Settings.DOT_OFFSET;
+			Vector3 delta = positions[index] - camMovement.body.positions[index];
+			dots[dotIndex].position = delta + camMovement.body.positions[0];
+			dots[dotIndex].gameObject.SetActive(true);
+		}
 	}
 
 	private void shiftPositions(){
