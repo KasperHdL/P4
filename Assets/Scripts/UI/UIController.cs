@@ -75,6 +75,7 @@ public class UIController : MonoBehaviour {
 	public void newBody(Body body){
 		planetSwitcher.newBody(body);
 
+	    informationHandler.gameObject.SetActive(true);
 		setBody(body);
 	}
 

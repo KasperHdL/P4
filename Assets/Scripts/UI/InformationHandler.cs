@@ -26,7 +26,6 @@ public class InformationHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(body != null){
-			setPosition();
 			setText();
 		}
 	}
@@ -35,21 +34,19 @@ public class InformationHandler : MonoBehaviour {
 		if(body != null){
 			if(body.type == Body.Type.DwarfStar)
 				text.text = 
-				"Type: " 			+ body.type.ToString() 	+ 
-				"\nTemperature: " 	+ body.temperature 		+ " kelvin" +
-				"\nCategory: "		+ "categoryPlaceHolder"	+
-				"\nRadius: " 		+ body.radius/100 		+ " suns" +
-				"\nMass: " 			+ body.mass/100 		+ " suns" +
-				"\nDensity: "		+ body.density 			+
-				"\nRotation Speed: "+ body.rotSpeed
+				"Type: " 			+ body.type.ToString() 					+ 
+				"\nTemperature: " 	+ body.temperature.ToString("F0") 		+ " kelvin" +
+				"\nCategory: "		+ "categoryPlaceHolder"					+
+				"\nRadius: " 		+ body.radius.ToString("F0") 			+ " earths" +
+				"\nMass: " 			+ body.mass.ToString("F0") 				+ " earths" +
+				"\nDensity: "		+ body.density 							
 				;
 			else
 				text.text = 
 				"Type: " 			+ body.type.ToString() 	+ 
 				"\nRadius: " 		+ body.radius 			+ " earths" +
 				"\nMass: " 			+ body.mass				+ " earths" +
-				"\nDensity: "		+ body.density 			+
-				"\nRotation Speed: "+ body.rotSpeed;
+				"\nDensity: "		+ body.density 			
 				;
 
 
@@ -59,15 +56,5 @@ public class InformationHandler : MonoBehaviour {
 
 	public void setBody(Body body){
 		this.body = body;
-	}
-
-	public void setPosition(){
-		if(body != null){
-			if(body.type == Body.Type.DwarfStar)
-				transform.localPosition = new Vector3(body.radius/7+boxWidth/2, body.radius/7+boxHeight/2, 0);
-			else
-				transform.localPosition = new Vector3(body.transform.localScale.x/4+boxWidth/2, body.transform.localScale.y/4+boxHeight/2, 0);
-		} else
-			Debug.LogError("INFORMATIONHANDLER: BODY IS NOT INSTANTIATED");
 	}
 }
