@@ -53,6 +53,7 @@ public class VectorUI : MonoBehaviour{
 			a = -a;
 
 		line.localRotation = Quaternion.Euler(0,0,a);
+		head.localRotation = Quaternion.Euler(0,0,a);
 
 
 	}

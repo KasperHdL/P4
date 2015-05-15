@@ -9,7 +9,7 @@ public class MassSlider : SliderWithText {
 
 	public new void Start(){
 		base.Start();
-		text.text = value + " kg";
+		setText(value);
 
 	}
 
