@@ -109,12 +109,12 @@ public class UIController : MonoBehaviour {
 
 				RectTransform rt = rightButton.transform as RectTransform;
 				rt.sizeDelta = new Vector2(50,30);
-				rt.anchoredPosition = new Vector2(canvasWidth-rt.rect.width/2,0-rt.rect.height/2);
+				//rt.anchoredPosition = new Vector2(canvasWidth-rt.rect.width/2,0-rt.rect.height/2);
 
 
 				rt = leftButton.transform as RectTransform;
 				rt.sizeDelta = new Vector2(60,30);
-				rt.anchoredPosition = new Vector2(rt.rect.width/2,0-rt.rect.height/2);
+				//rt.anchoredPosition = new Vector2(rt.rect.width/2,0-rt.rect.height/2);
 
 
 	        	cm.setTarget(body.transform);
@@ -142,11 +142,11 @@ public class UIController : MonoBehaviour {
 
 				RectTransform rt = rightButton.transform as RectTransform;
 				rt.sizeDelta = new Vector2(50,30);
-				rt.anchoredPosition = new Vector2(canvasWidth-rt.rect.width/2,0-rt.rect.height/2);
+				//rt.anchoredPosition = new Vector2(canvasWidth-rt.rect.width/2,0-rt.rect.height/2);
 
 				rt = leftButton.transform as RectTransform;
 				rt.sizeDelta = new Vector2(70,30);
-				rt.anchoredPosition = new Vector2(rt.rect.width/2,0-rt.rect.height/2);
+				//rt.anchoredPosition = new Vector2(rt.rect.width/2,0-rt.rect.height/2);
 
 				leftButtonText.text = "Previous";
 				rightButtonText.text = "Finish";

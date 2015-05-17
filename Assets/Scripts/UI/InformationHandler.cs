@@ -22,9 +22,9 @@ public class InformationHandler : MonoBehaviour {
 		if(body != null){
 			setText();
 			if(body.type == Body.Type.Planet)
-				rt.sizeDelta = new Vector2(boxWidth, 65f);
+				rt.sizeDelta = new Vector2(boxWidth, 100f);
 			else
-				rt.sizeDelta = new Vector2(boxWidth, 110f);
+				rt.sizeDelta = new Vector2(boxWidth, 150f);
 		}
 	}
 
