@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: .960784316, g: .960784316, b: .960784316, a: 1}
+    m_HighlightedColor: {r: .786764741, g: .786764741, b: .786764741, a: 1}
     m_PressedColor: {r: .784313738, g: .784313738, b: .784313738, a: 1}
     m_DisabledColor: {r: .784313738, g: .784313738, b: .784313738, a: .501960814}
     m_ColorMultiplier: 1
@@ -113,6 +113,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   text: {fileID: 11497516}
   isEditBtn: 0
+  defaultColor: {r: 0, g: 0, b: 0, a: 0}
   editButton: {fileID: 11493688}
   temp: {fileID: 0}
   planetSwitcher: {fileID: 0}
@@ -228,6 +229,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   text: {fileID: 11474280}
   isEditBtn: 1
+  defaultColor: {r: 0, g: 0, b: 0, a: 0}
   editButton: {fileID: 0}
   temp: {fileID: 0}
   planetSwitcher: {fileID: 0}

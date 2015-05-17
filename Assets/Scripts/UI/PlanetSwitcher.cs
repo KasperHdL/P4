@@ -53,6 +53,7 @@ public class PlanetSwitcher : MonoBehaviour {
 			buttons[currentButtonIndex].highlight(true);
 			camMov.setTarget(gs.bodies[i].transform);
 			controller.previousBody = gs.bodies[i];
+			controller.informationHandler.setBody(gs.bodies[i]);
 		} else
 			Debug.Log("No body found!");
 	}
