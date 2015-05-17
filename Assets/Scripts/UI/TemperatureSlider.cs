@@ -44,7 +44,7 @@ public class TemperatureSlider : SliderWithText {
 					rt.anchoredPosition = new Vector2(0,15);
 
 					float fullWidth = Mathf.Abs(g.transform.localPosition.x)*2;
-					rt.anchoredPosition = new Vector2(fullWidth*per,15);
+					rt.anchoredPosition = new Vector2(fullWidth*per,35);
 					value = (((nt-pt))/(maxValue-minValue));
 					rt.sizeDelta = new Vector2(value*fullWidth,30);
 

@@ -226,15 +226,15 @@ public class UIController : MonoBehaviour {
 		int c = 0;
 		if(radiusSlider.gameObject.activeSelf){
 			RectTransform rt = radiusSlider.transform as RectTransform;
-			rt.anchoredPosition = new Vector2(-35  ,c++ * 40 + 20);
+			rt.anchoredPosition = new Vector2(-35  ,c++ * 50 + 20);
 		}
 		if(massSlider.gameObject.activeSelf){
 			RectTransform rt = massSlider.transform as RectTransform;
-			rt.anchoredPosition = new Vector2(-35  ,c++ * 40 + 20);
+			rt.anchoredPosition = new Vector2(-35  ,c++ * 50 + 20);
 		}
 		if(temperatureSlider.gameObject.activeSelf){
 			RectTransform rt = temperatureSlider.transform as RectTransform;
-			rt.anchoredPosition = new Vector2(-35  ,c++ * 40 + 20);
+			rt.anchoredPosition = new Vector2(-35  ,c++ * 50 + 20);
 		}
 	}
 
