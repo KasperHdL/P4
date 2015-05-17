@@ -235,9 +235,9 @@ public class Body : MonoBehaviour {
 			float pitch = 	Settings.Star.Dwarf.BASE_PITCH;
 			float amount = 	Settings.Star.Dwarf.PITCH_AMOUNT;
 			int i = 		Settings.Star.Dwarf.MASS.Length - 1;
-
-			sound.pitch = 	(mass/Settings.Star.Dwarf.MASS[i]) * amount + pitch;
-			currentPitch = 	(mass/Settings.Star.Dwarf.MASS[i]) * amount + pitch;
+			float s = (mass/(Settings.Star.Dwarf.MASS[i]*Settings.EARTH_MASS_TO_SUN));
+			sound.pitch = 	s * amount + pitch;
+			currentPitch = 	s * amount + pitch;
 
 		}
 	}
