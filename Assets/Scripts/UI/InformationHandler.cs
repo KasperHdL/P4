@@ -32,13 +32,13 @@ public class InformationHandler : MonoBehaviour {
 		if(body != null){
 			if(body.type == Body.Type.DwarfStar){
 				text.text =
-				"Type: </color>"			+
-				"\nClass: </color>"		+
-				"\nTemperature: </color>"	+
-				"\nRadius: </color>"		+
-				"\nRadius: </color>"		+
-				"\nMass: </color>"			+
-				"\nMass: </color>"
+				"Type:"			+
+				"\nClass:"		+
+				"\nTemperature:"	+
+				"\nRadius:"		+
+				"\nRadius:"		+
+				"\nMass:"			+
+				"\nMass:"
 				;
 
 				infoText.text =
@@ -52,10 +52,10 @@ public class InformationHandler : MonoBehaviour {
 				;
 			} else{
 				text.text =
-				"Type: </color>" 			+
-				"\nRadius: </color>" 		+
-				"\nRadius: </color>" 		+
-				"\nMass: </color>"
+				"Type:" 			+
+				"\nRadius:" 		+
+				"\nRadius:" 		+
+				"\nMass:"
 				;
 
 				infoText.text =

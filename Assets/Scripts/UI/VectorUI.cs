@@ -7,7 +7,7 @@ public class VectorUI : MonoBehaviour{
 
 	public Vector2 value;
 
-	private Transform camera;
+	private new Transform camera;
 	private CameraMovement cameraMovement;
 
 	private bool mouseDown = false;
@@ -19,7 +19,7 @@ public class VectorUI : MonoBehaviour{
 
 	void Start(){
 		camera = Camera.main.transform;
-		cameraMovement = camera.GetComponent<CameraMovement>();
+		cameraMovement = camera.parent.GetComponent<CameraMovement>();
 	}
 
 	void Update () {
@@ -55,9 +55,9 @@ public class VectorUI : MonoBehaviour{
 		}
 	}
 
-	public void setVelocity(Vector2 vel){
+	public void setVelocity(Vector3 vel){
 
-		updateVelocity(vel/(camera.position.y/5000));
+		updateVelocity(new Vector2(vel.x,vel.z)/(camera.position.y/5000));
 
 	}
 
