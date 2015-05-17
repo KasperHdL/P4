@@ -22,9 +22,9 @@ public class InformationHandler : MonoBehaviour {
 		if(body != null){
 			setText();
 			if(body.type == Body.Type.Planet)
-				rt.sizeDelta = new Vector2(boxWidth, 55f);
+				rt.sizeDelta = new Vector2(boxWidth, 65f);
 			else
-				rt.sizeDelta = new Vector2(boxWidth, 90f);
+				rt.sizeDelta = new Vector2(boxWidth, 110f);
 		}
 	}
 
@@ -37,8 +37,9 @@ public class InformationHandler : MonoBehaviour {
 				"\nTemperature:"	+
 				"\nRadius:"		+
 				"\nRadius:"		+
-				"\nMass:"			+
-				"\nMass:"
+				"\nMass:"		+
+				"\nMass:" 		+
+				"\nVelocity:"
 				;
 
 				infoText.text =
@@ -48,21 +49,24 @@ public class InformationHandler : MonoBehaviour {
 				"\n" + 	(body.radius/Settings.EARTH_RADIUS_TO_SUN).ToString("F3") 			+ " suns" +
 				"\n" + 	body.radius.ToString("F0") 					+ " earths" +
 				"\n" + 	(body.mass/Settings.EARTH_MASS_TO_SUN).ToString("F3") 			+ " suns" 	+
-				"\n" + 	body.mass.ToString("F0")					+ " earths"
+				"\n" + 	body.mass.ToString("F0")					+ " earths"	+
+				"\n" +	((body.velocities[0].magnitude*6.371)/(1/Time.smoothDeltaTime)).ToString("F2") 	+ " km/s"
 				;
 			} else{
 				text.text =
 				"Type:" 			+
 				"\nRadius:" 		+
 				"\nRadius:" 		+
-				"\nMass:"
+				"\nMass:"			+
+				"\nVelocity:"
 				;
 
 				infoText.text =
 						"Planet" 						+
 				"\n" + 	(body.radius/Settings.EARTH_RADIUS_TO_SUN).ToString("F3") 								+ " suns" +
 				"\n" + 	body.radius.ToString("F1") 								+ " earths" +
-				"\n" + 	body.mass.ToString("F1")									+ " earths"
+				"\n" + 	body.mass.ToString("F1")									+ " earths"	+
+				"\n" +	((body.velocities[0].magnitude*6.371)/(1/Time.smoothDeltaTime)).ToString("F2") 	+ " km/s"
 				;
 			}
 
