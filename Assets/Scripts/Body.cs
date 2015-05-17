@@ -52,6 +52,8 @@ public class Body : MonoBehaviour {
 
 	public GameObject dotPrefab;
 
+	private Transform camera;
+
 	//lines
 	public static bool showingDots = false;
 	private Transform[] dots;
@@ -63,6 +65,7 @@ public class Body : MonoBehaviour {
 	public float rotSpeed;
 
 	public void Awake(){
+		camera = Camera.main.transform;
 		dots = new Transform[(Settings.DOT_OFFSET == 0)?0:(Settings.BODY_POSITION_LENGTH/Settings.DOT_OFFSET)];
 		for(int i = 0;i<dots.Length;i++){
 			GameObject g = Instantiate(dotPrefab,Vector3.zero,Quaternion.identity) as GameObject;
@@ -184,6 +187,7 @@ public class Body : MonoBehaviour {
 			int dotIndex = index/Settings.DOT_OFFSET;
 			Vector3 delta = positions[index] - uiController.previousBody.positions[index];
 			dots[dotIndex].position = delta + uiController.previousBody.positions[0];
+			dots[dotIndex].localScale = new Vector3(camera.position.y/50,camera.position.y/50,camera.position.y/50);
 			dots[dotIndex].gameObject.SetActive(true);
 
 			if(type == Type.Planet)

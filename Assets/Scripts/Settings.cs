@@ -5,15 +5,15 @@ public struct Settings {
 
 #region General
 	public static readonly int 			BODY_POSITION_LENGTH 	= 1000;
-	public static readonly int 			DOT_OFFSET 				= 5;
-	public static readonly float 		GRAVITATIONAL_CONSTANT 	= 5f;
+	public static readonly int 			DOT_OFFSET 				= 1;
+	public static readonly float 		GRAVITATIONAL_CONSTANT 	= 0.3769f;
 	public static readonly float 		BASE_VOLUME 			= 0.50f;
 	public static readonly float 		MAX_DISTORTION			= 60000;
 	public static readonly float 		RESET_VOLUME			= 1;
 	public static readonly float 		RESET_PITCH				= 1;
 
 	//divide with this
-	public static readonly float 		EARTH_RADIUS_TO_SUN 	= 109;
+	public static readonly float 		EARTH_RADIUS_TO_SUN 	= 109f;
 	public static readonly float 		EARTH_MASS_TO_SUN 		= 333060f;
 
 #endregion
