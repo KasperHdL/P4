@@ -22,6 +22,7 @@ public class Body : MonoBehaviour {
 		DwarfStar
 	}
 
+	public Transform smallBox;
 	public Transform starLightTransform;
 	public Light starLight;
 
@@ -77,6 +78,17 @@ public class Body : MonoBehaviour {
 
 	}
 
+	public void Update(){
+		//check if too small
+		if(type == Type.Planet && camera.position.y/radius > 200){
+			smallBox.gameObject.SetActive(true);
+			float scale = (camera.position.y/radius)/100;
+			smallBox.localScale = new Vector3(scale,scale,scale);
+		}else
+			smallBox.gameObject.SetActive(false);
+
+	}
+
 	////////////////////////////
 	//      Construction
 
@@ -106,6 +118,7 @@ public class Body : MonoBehaviour {
 			color = new Color(Random.Range(.33f,1f),Random.Range(.33f,1f),Random.Range(.33f,1f));
 			GetComponent<Renderer>().material.color = color;
 		}
+		smallBox.GetComponent<TextMesh>().color = color;
 
 		baseVolume = Settings.BASE_VOLUME;
 
@@ -183,7 +196,8 @@ public class Body : MonoBehaviour {
 	}
 
 	public void calculateDot(int index){
-		if(index % Settings.DOT_OFFSET == 0 && uiController.previousBody != null){
+
+		if(Settings.DOT_OFFSET != 0 && index % Settings.DOT_OFFSET == 0 && uiController.previousBody != null){
 			int dotIndex = index/Settings.DOT_OFFSET;
 			Vector3 delta = positions[index] - uiController.previousBody.positions[index];
 			dots[dotIndex].position = delta + uiController.previousBody.positions[0];

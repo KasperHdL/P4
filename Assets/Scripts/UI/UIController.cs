@@ -278,7 +278,7 @@ public class UIController : MonoBehaviour {
 
 	public void updateVelocity(Vector2 value){updateVelocity(new Vector3(value.x,0,value.y));}
 	public void updateVelocity(Vector3 value){
-		value *= cam.transform.position.y/5000;
+		value *= cam.transform.position.y/10000;
 		body.startVelocity = value;
 		body.construct();
 		//update Dots

@@ -25,7 +25,7 @@ public class VectorUI : MonoBehaviour{
 	void Update () {
 		if(Input.mouseScrollDelta.y != 0 && camera.position.y > 50 && camera.position.y <90050){
 
-			updateVelocity(value * (1-(-Input.mouseScrollDelta.y * cameraMovement.scrollSpeed)/5000));
+			updateVelocity(value * (1-(-Input.mouseScrollDelta.y * cameraMovement.scrollSpeed)/10000));
 			//controller.updateVelocity(value);
 		}
         if (Input.GetMouseButton(0)){
@@ -57,7 +57,7 @@ public class VectorUI : MonoBehaviour{
 
 	public void setVelocity(Vector3 vel){
 
-		updateVelocity(new Vector2(vel.x,vel.z)/(camera.position.y/5000));
+		updateVelocity(new Vector2(vel.x,vel.z)/(camera.position.y/10000));
 
 	}
 
