@@ -52,6 +52,8 @@ public class Body : MonoBehaviour {
 
 	public GameObject dotPrefab;
 
+	private Transform camera;
+
 	//lines
 	public static bool showingDots = false;
 	private Transform[] dots;
@@ -63,6 +65,7 @@ public class Body : MonoBehaviour {
 	public float rotSpeed;
 
 	public void Awake(){
+		camera = Camera.main.transform;
 		dots = new Transform[(Settings.DOT_OFFSET == 0)?0:(Settings.BODY_POSITION_LENGTH/Settings.DOT_OFFSET)];
 		for(int i = 0;i<dots.Length;i++){
 			GameObject g = Instantiate(dotPrefab,Vector3.zero,Quaternion.identity) as GameObject;
@@ -184,6 +187,7 @@ public class Body : MonoBehaviour {
 			int dotIndex = index/Settings.DOT_OFFSET;
 			Vector3 delta = positions[index] - uiController.previousBody.positions[index];
 			dots[dotIndex].position = delta + uiController.previousBody.positions[0];
+			dots[dotIndex].localScale = new Vector3(camera.position.y/50,camera.position.y/50,camera.position.y/50);
 			dots[dotIndex].gameObject.SetActive(true);
 
 			if(type == Type.Planet)
@@ -226,7 +230,7 @@ public class Body : MonoBehaviour {
 
 
 	public void updateRadius(float value){
-		radius = value * (type == Type.Planet ? 1:100);
+		radius = value * (type == Type.Planet ? 1:Settings.EARTH_RADIUS_TO_SUN);
 		float dia = (radius * 2);
 		if(type == Type.DwarfStar)
 			if(radius < 40)
@@ -265,7 +269,7 @@ public class Body : MonoBehaviour {
 				//found
 				float step = (value-lt)/(ct-lt);
 				starLight.color = Color.Lerp(Settings.Star.Dwarf.COLORS[i-1],Settings.Star.Dwarf.COLORS[i],step);
-				updateMass(Mathf.Lerp(Settings.Star.Dwarf.MASS[i-1],Settings.Star.Dwarf.MASS[i],step) * 333);
+				updateMass(Mathf.Lerp(Settings.Star.Dwarf.MASS[i-1],Settings.Star.Dwarf.MASS[i],step) * Settings.EARTH_MASS_TO_SUN);
 				classification = Settings.Star.Dwarf.CLASSIFICATION[i-1];
 				break;
 			}
@@ -281,7 +285,7 @@ public class Body : MonoBehaviour {
 		if(temperature <= 6000){
 			tempLightOffset = 1-((6000 - temperature)/(6000 - 2400)) * tempLightOffsetAmount;
 		}else{
-			tempLightOffset = 1-((temperature - 6000)/(40000 - 6000)) * tempLightOffsetAmount;
+			tempLightOffset = 1-((temperature - 6000)/(35000 - 6000)) * tempLightOffsetAmount;
 		}
 		starLightTransform.localPosition = new Vector3(0,radius/7 + (type == Type.DwarfStar ? tempLightOffset: 1),0);
 	}
