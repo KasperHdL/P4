@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 public class ButtonWithText : Button {
 	public Text text;
 	public bool isEditBtn = false;
+	public Color defaultColor;
 	public ButtonWithText editButton;
 	public TemperatureSlider temp;
 	public PlanetSwitcher planetSwitcher;
@@ -20,5 +21,12 @@ public class ButtonWithText : Button {
 				planetSwitcher.handleButton(index);
 		}
 		base.OnPointerClick(eventData);
+	}
+
+	public void highlight(bool isHighlight){
+		if(isHighlight)
+			targetGraphic.color = new Color(defaultColor.r-0.2f, defaultColor.g-0.2f, defaultColor.b-0.2f);
+		else
+			targetGraphic.color = defaultColor;
 	}
 }

@@ -47,7 +47,10 @@ public class PlanetSwitcher : MonoBehaviour {
 	}
 
 	public void handleButton(int i){
+		buttons[currentButtonIndex].highlight(false);
 		if(gs.bodies[i] != null){
+			currentButtonIndex = i;
+			buttons[currentButtonIndex].highlight(true);
 			camMov.setTarget(gs.bodies[i].transform);
 			controller.previousBody = gs.bodies[i];
 		} else
@@ -90,10 +93,12 @@ public class PlanetSwitcher : MonoBehaviour {
 		for(int i = 0;i<buttons.Count;i++){
 			if(gs.bodies[i].type == Body.Type.Planet){
 				buttons[i].text.text = "Planet";
-				buttons[i].targetGraphic.color = defaultButtonColor;
+				buttons[i].targetGraphic.color = gs.bodies[i].color;
+				buttons[i].defaultColor = gs.bodies[i].color;
 			}else{
 				buttons[i].text.text = "Dwarf Star";
 				buttons[i].targetGraphic.color = gs.bodies[i].starLight.color;
+				buttons[i].defaultColor = gs.bodies[i].starLight.color;
 			}
 		}
 
