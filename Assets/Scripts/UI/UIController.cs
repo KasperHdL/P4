@@ -68,6 +68,7 @@ public class UIController : MonoBehaviour {
 
 	public void editBody(Body body){
 		gs.uiHold = true;
+		updateSliderValues();
 		setBody(body);
 
 
@@ -89,7 +90,7 @@ public class UIController : MonoBehaviour {
 		updateType(body.type);
 		setState(State.PropState);
 
-		updateValues();
+		updateBodyValues();
 	}
 
 	public void setState(State s){
@@ -251,23 +252,33 @@ public class UIController : MonoBehaviour {
 		body.setType(type);
 		resetBodySoundValues(body);
 		updateActiveSliders(activeSliders);
-		updateValues();
+		updateBodyValues();
 	}
 
-	private void updateValues(Body body = null){
+	private void updateBodyValues(Body body = null){
 		updateMass((body == null ? massSlider.value : body.mass));
 		updateRadius((body == null ? radiusSlider.value : body.radius));
 		updateTemperature((body == null ? temperatureSlider.value : body.temperature));
 		if(body == null)
 			updateVelocity(velocity.value);
 		else
-			updateVelocity(body.velocities[(int)(Time.timeScale*10)]);
+			updateVelocity(body.velocities[0]);
+	}
+
+	private void updateSliderValues(){
+		if(body != null){
+			massSlider.value = body.mass;
+			radiusSlider.value = body.radius;
+			temperatureSlider.value = body.temperature;
+			velocity.setVelocity(body.velocities[0]);
+		}
 	}
 
 #region Slider Calls
 
 	public void updateVelocity(Vector2 value){updateVelocity(new Vector3(value.x,0,value.y));}
 	public void updateVelocity(Vector3 value){
+		value *= cam.transform.position.y/5000;
 		body.startVelocity = value;
 		body.construct();
 		//update Dots

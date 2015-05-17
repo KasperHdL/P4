@@ -22,9 +22,9 @@ public class InformationHandler : MonoBehaviour {
 		if(body != null){
 			setText();
 			if(body.type == Body.Type.Planet)
-				rt.sizeDelta = new Vector2(boxWidth, 56.5f);
+				rt.sizeDelta = new Vector2(boxWidth, 55f);
 			else
-				rt.sizeDelta = new Vector2(boxWidth, 77.25f);
+				rt.sizeDelta = new Vector2(boxWidth, 90f);
 		}
 	}
 
@@ -32,35 +32,37 @@ public class InformationHandler : MonoBehaviour {
 		if(body != null){
 			if(body.type == Body.Type.DwarfStar){
 				text.text =
-				"<color=lightblue>Type: </color>"			+
-				"<color=lightblue>\nClass: </color>"		+
-				"<color=lightblue>\nTemperature: </color>"	+
-				"<color=lightblue>\nRadius: </color>"		+
-				"<color=lightblue>\nMass: </color>"			+
-				"<color=lightblue>\nMass: </color>"
+				"Type: </color>"			+
+				"\nClass: </color>"		+
+				"\nTemperature: </color>"	+
+				"\nRadius: </color>"		+
+				"\nRadius: </color>"		+
+				"\nMass: </color>"			+
+				"\nMass: </color>"
 				;
 
 				infoText.text =
-						body.type.ToString() 						+
+						"Dwarf Star" 						+
 				"\n" + 	body.classification							+
 				"\n" + 	body.temperature.ToString("F0") 			+ " kelvin" +
+				"\n" + 	(body.radius/Settings.EARTH_RADIUS_TO_SUN).ToString("F3") 			+ " suns" +
 				"\n" + 	body.radius.ToString("F0") 					+ " earths" +
-				"\n" + 	body.mass.ToString("F1") 					+ " suns" 	+
-				"\n" + 	(body.mass*333060.402).ToString("F0")		+ " earths"
+				"\n" + 	(body.mass/Settings.EARTH_MASS_TO_SUN).ToString("F3") 			+ " suns" 	+
+				"\n" + 	body.mass.ToString("F0")					+ " earths"
 				;
 			} else{
 				text.text =
-				"<color=lightblue>Type: </color>" 			+
-				"<color=lightblue>\nRadius: </color>" 		+
-				"<color=lightblue>\nMass: </color>"			+
-				"<color=lightblue>\nMass: </color>"
+				"Type: </color>" 			+
+				"\nRadius: </color>" 		+
+				"\nRadius: </color>" 		+
+				"\nMass: </color>"
 				;
 
 				infoText.text =
-						body.type.ToString() 						+
-				"\n" + 	body.radius 								+ " earths" +
-				"\n" + 	(body.mass*0.0000030024584).ToString("F6") 	+ " suns"	+
-				"\n" + 	body.mass									+ " earths"
+						"Planet" 						+
+				"\n" + 	(body.radius/Settings.EARTH_RADIUS_TO_SUN).ToString("F3") 								+ " suns" +
+				"\n" + 	body.radius.ToString("F1") 								+ " earths" +
+				"\n" + 	body.mass.ToString("F1")									+ " earths"
 				;
 			}
 

@@ -12,6 +12,10 @@ public struct Settings {
 	public static readonly float 		RESET_VOLUME			= 1;
 	public static readonly float 		RESET_PITCH				= 1;
 
+	//divide with this
+	public static readonly float 		EARTH_RADIUS_TO_SUN 	= 109;
+	public static readonly float 		EARTH_MASS_TO_SUN 		= 333060f;
+
 #endregion
 
 	public struct Planet{
@@ -88,16 +92,6 @@ public struct Settings {
 				60f
 			};
 
-			public static readonly float[] LUMI = {
-				0.05f,
-				0.08f,
-				0.6f,
-				1.5f,
-				5f,
-				25f,
-				30000f,
-				100000f
-			};
 		}
 	}
 

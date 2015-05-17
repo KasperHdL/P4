@@ -7,6 +7,9 @@ public class VectorUI : MonoBehaviour{
 
 	public Vector2 value;
 
+	private Transform camera;
+	private CameraMovement cameraMovement;
+
 	private bool mouseDown = false;
 
 	public UIController controller;
@@ -15,10 +18,16 @@ public class VectorUI : MonoBehaviour{
 	public RectTransform head;
 
 	void Start(){
-
+		camera = Camera.main.transform;
+		cameraMovement = camera.GetComponent<CameraMovement>();
 	}
 
 	void Update () {
+		if(Input.mouseScrollDelta.y != 0 && camera.position.y > 50 && camera.position.y <90050){
+
+			updateVelocity(value * (1-(-Input.mouseScrollDelta.y * cameraMovement.scrollSpeed)/5000));
+			//controller.updateVelocity(value);
+		}
         if (Input.GetMouseButton(0)){
 			Vector2 input = Input.mousePosition;
 
@@ -44,6 +53,12 @@ public class VectorUI : MonoBehaviour{
 			controller.updateVelocity(value);
 			mouseDown = false;
 		}
+	}
+
+	public void setVelocity(Vector2 vel){
+
+		updateVelocity(vel/(camera.position.y/5000));
+
 	}
 
 	public void updateVelocity(Vector2 vel){
