@@ -272,7 +272,6 @@ public class UIController : MonoBehaviour {
 			}break;
 		}
 		body.setType(type);
-		Debug.Log(body.type);
 		resetBodySoundValues(body);
 		updateActiveSliders(activeSliders);
 		updateSliderValues(body);
