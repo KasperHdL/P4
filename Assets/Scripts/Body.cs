@@ -124,8 +124,6 @@ public class Body : MonoBehaviour {
 		}
 		smallBox.GetComponent<TextMesh>().color = color;
 
-		baseVolume = Settings.BASE_VOLUME;
-
 	}
 
 
@@ -146,10 +144,12 @@ public class Body : MonoBehaviour {
 		//		SOUND
 		if(type == Body.Type.Planet){
 			setSoundClip(planetSounds);
+			baseVolume = Settings.Planet.BASE_VOLUME;
 			if(sound.isPlaying)
 				sound.Stop();
 		} else{
 			setSoundClip(starSounds);
+			baseVolume = Settings.Star.Dwarf.BASE_VOLUME;
 			if(sound.isPlaying)
 				sound.Stop();
 		}
