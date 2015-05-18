@@ -7,7 +7,7 @@ public struct Settings {
 	public static readonly int 			BODY_POSITION_LENGTH 	= 1000;
 	public static readonly int 			DOT_OFFSET 				= 1;
 	public static readonly float 		GRAVITATIONAL_CONSTANT 	= 0.3769f;
-	public static readonly float 		BASE_VOLUME 			= 0.80f;
+	public static readonly float 		BASE_VOLUME 			= 0.20f;
 	public static readonly float 		MAX_DISTORTION			= 60000;
 	public static readonly float 		RESET_VOLUME			= 1;
 	public static readonly float 		RESET_PITCH				= 1;
