@@ -177,7 +177,7 @@ public class UIController : MonoBehaviour {
 				gs.uiHold = false;
 
 	        	for(int i = 0; i < gs.bodies.Count; i++)
-	        		if(gs.bodies[i] != body)
+	        		if(gs.bodies[i] != previousBody)
 	        			gs.bodies[i].sound.enabled = true;
 	        		else
 	        			gs.bodies[i].sound.enabled = false;
