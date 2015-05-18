@@ -92,6 +92,8 @@ public class GravitySystem : MonoBehaviour {
 		for(int i = 0;i<bodies.Count;i++)
 			bodies[i].disableDots();
 
+		Body.showingDots = true;
+
 		while(!reset && f<Settings.BODY_POSITION_LENGTH + frameShifts){
 			for(int i = 0;i<bodies.Count;i++){
 				Vector3 acc = Vector3.zero;
@@ -123,7 +125,6 @@ public class GravitySystem : MonoBehaviour {
 				yield return null;
 		}
 
-		Body.showingDots = true;
 
 		if(reset){
 			reset = false;

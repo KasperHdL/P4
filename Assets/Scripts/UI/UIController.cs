@@ -83,8 +83,9 @@ public class UIController : MonoBehaviour {
 
 	public void editBody(Body body){
 		gs.uiHold = true;
-		updateSliderValues();
+		updateSliderValues(body);
 		setBody(body);
+		//updateSliderValues();
 	}
 
 	public void newBody(Body body){
@@ -103,7 +104,6 @@ public class UIController : MonoBehaviour {
 		updateType(body.type);
 		setState(State.PropState);
 
-		updateBodyValues();
 	}
 
 	public void setState(State s){
@@ -276,17 +276,16 @@ public class UIController : MonoBehaviour {
 		updateBodyValues();
 	}
 
-	private void updateBodyValues(Body body = null){
-		updateMass((body == null ? massSlider.value : body.mass));
-		updateRadius((body == null ? radiusSlider.value : body.radius));
-		updateTemperature((body == null ? temperatureSlider.value : body.temperature));
-		if(body == null)
-			updateVelocity(velocity.value);
-		else
-			updateVelocity(body.velocities[0]);
+	private void updateBodyValues(){
+		updateMass(body.mass);
+		updateRadius(body.radius);
+		updateTemperature(body.temperature);
+		updateVelocity(body.velocities[0]);
 	}
 
-	private void updateSliderValues(){
+	private void updateSliderValues(Body body = null){
+		if(body == null)
+			body = this.body;
 		if(body != null){
 			massSlider.value = body.mass;
 			radiusSlider.value = body.radius;
