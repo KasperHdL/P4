@@ -21,6 +21,8 @@ public class UIController : MonoBehaviour {
 
 	public InformationHandler informationHandler;
 
+	public Button resetButton;
+
 	public RadiusSlider radiusSlider;
 	public MassSlider massSlider;
 	public DensitySlider densitySlider;
@@ -98,6 +100,8 @@ public class UIController : MonoBehaviour {
 			case State.PropState:{
 				updateActiveSliders(activeSliders);
 
+				resetButton.gameObject.SetActive(false);
+
 				velocity.gameObject.SetActive(false);
 				timeSlider.gameObject.SetActive(false);
 
@@ -131,6 +135,7 @@ public class UIController : MonoBehaviour {
 			}break;
 			case State.VeloState:{
 				updateActiveSliders(ActiveSliders.None);
+				resetButton.gameObject.SetActive(false);
 
 				velocity.gameObject.SetActive(true);
 				timeSlider.gameObject.SetActive(false);
@@ -154,6 +159,7 @@ public class UIController : MonoBehaviour {
 			case State.SimState:{
 
 				updateActiveSliders(ActiveSliders.None);
+				resetButton.gameObject.SetActive(true);
 				typeSelector.SetActive(false);
 				timeSlider.gameObject.SetActive(true);
 
