@@ -73,6 +73,9 @@ public class UIController : MonoBehaviour {
 		int i = gs.bodies.IndexOf(body);
 
 		gs.bodies.RemoveAt(i);
+		for(int j = body.dots.Length-1; j >= 0; j--)
+			Destroy(body.dots[(body.dots.Length-1)-j].gameObject);
+
 		Destroy(body.gameObject);
 
 		planetSwitcher.deleteButton(i);
