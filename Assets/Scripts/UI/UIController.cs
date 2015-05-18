@@ -83,6 +83,7 @@ public class UIController : MonoBehaviour {
 
 	public void editBody(Body body){
 		gs.uiHold = true;
+		this.body = null;
 		updateSliderValues(body);
 		setBody(body);
 		//updateSliderValues();
@@ -271,33 +272,40 @@ public class UIController : MonoBehaviour {
 			}break;
 		}
 		body.setType(type);
+		Debug.Log(body.type);
 		resetBodySoundValues(body);
 		updateActiveSliders(activeSliders);
+		updateSliderValues(body);
 		updateBodyValues();
 	}
 
 	private void updateBodyValues(){
-		updateMass(body.mass);
-		updateRadius(body.radius);
-		updateTemperature(body.temperature);
-		updateVelocity(body.velocities[0]);
+		updateMass(massSlider.value);
+		updateRadius(radiusSlider.value);
+		updateTemperature(temperatureSlider.value);
+		updateVelocity(velocity.value);
 	}
 
-	private void updateSliderValues(Body body = null){
-		if(body == null)
-			body = this.body;
-		if(body != null){
-			massSlider.value = body.mass;
-			radiusSlider.value = body.radius;
+	private void updateSliderValues(Body body){
+		massSlider.value = body.mass;
+
+		if(body.type == Body.Type.DwarfStar){
+			radiusSlider.value = body.radius/Settings.EARTH_RADIUS_TO_SUN;
 			temperatureSlider.value = body.temperature;
-			velocity.setVelocity(body.velocities[0]);
-		}
+		}else
+			radiusSlider.value = body.radius;
+
+		velocity.setVelocity(body.velocities[0]);
+
 	}
 
 #region Slider Calls
 
 	public void updateVelocity(Vector2 value){updateVelocity(new Vector3(value.x,0,value.y));}
 	public void updateVelocity(Vector3 value){
+		if(body == null){
+			return;
+		}
 		value *= cam.transform.position.y/10000;
 		body.startVelocity = value;
 		body.construct();
@@ -306,15 +314,24 @@ public class UIController : MonoBehaviour {
 	}
 
 	public void updateMass(double value){
+		if(body == null){
+			return;
+		}
 		body.updateMass(value);
 		gs.calcFuturePositions();
 	}
 
 	public void updateRadius(float value){
+		if(body == null){
+			return;
+		}
 		body.updateRadius(value);
 	}
 
 	public void updateTemperature(float value){
+		if(body == null){
+			return;
+		}
 		body.updateTemperature(value);
 		gs.calcFuturePositions();
 	}
