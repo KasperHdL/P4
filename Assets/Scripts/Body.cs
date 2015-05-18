@@ -80,6 +80,10 @@ public class Body : MonoBehaviour {
 
 	public void Update(){
 		//check if too small
+		if(showingDots && Input.mouseScrollDelta.y != 0){
+			for(int i = 0;i<dots.Length;i++)
+				dots[i].localScale = new Vector3(camera.position.y/100,camera.position.y/100,camera.position.y/100);
+		}
 		if(type == Type.Planet && camera.position.y/radius > 200){
 			smallBox.gameObject.SetActive(true);
 			float scale = (camera.position.y/radius)/100;
@@ -201,7 +205,7 @@ public class Body : MonoBehaviour {
 			int dotIndex = index/Settings.DOT_OFFSET;
 			Vector3 delta = positions[index] - uiController.previousBody.positions[index];
 			dots[dotIndex].position = delta + uiController.previousBody.positions[0];
-			dots[dotIndex].localScale = new Vector3(camera.position.y/50,camera.position.y/50,camera.position.y/50);
+			dots[dotIndex].localScale = new Vector3(camera.position.y/100,camera.position.y/100,camera.position.y/100);
 			dots[dotIndex].gameObject.SetActive(true);
 
 			if(type == Type.Planet)

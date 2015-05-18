@@ -25,8 +25,8 @@ public class CameraMovement : MonoBehaviour {
 
 		if(offset < 50 + (target == null ? 0 : body.radius))
 			offset = 50 + (target == null ? 0 : body.radius);
-		else if(offset > 90050)
-			offset = 90050;
+		else if(offset > 900050)
+			offset = 900050;
 
 
 		if(target == null){
