@@ -76,6 +76,12 @@ public class Body : MonoBehaviour {
 
 		}
 
+		if(randomColor){
+			color = new Color(Random.Range(.33f,1f),Random.Range(.33f,1f),Random.Range(.33f,1f));
+			GetComponent<Renderer>().material.color = color;
+		}
+		smallBox.GetComponent<TextMesh>().color = color;
+
 	}
 
 	public void Update(){
@@ -117,12 +123,6 @@ public class Body : MonoBehaviour {
 		this.velocities[0] = velocity;
 
 		transform.position = position;
-
-		if(randomColor){
-			color = new Color(Random.Range(.33f,1f),Random.Range(.33f,1f),Random.Range(.33f,1f));
-			GetComponent<Renderer>().material.color = color;
-		}
-		smallBox.GetComponent<TextMesh>().color = color;
 
 	}
 
