@@ -97,7 +97,8 @@ public class PlanetSwitcher : MonoBehaviour {
 		if(currentBodyCount <= maxButtonCount){
 			panelWidth = (buttonWidth+buttonSpace)*currentBodyCount + buttonSpace;
 			panelRT.sizeDelta = new Vector2(panelWidth, panelHeight);
-		}
+		}else
+			shiftButtons(true);
 		for(int j = 0;j<buttons.Count;j++){
 			ButtonWithText b = buttons[j];
 
@@ -129,18 +130,18 @@ public class PlanetSwitcher : MonoBehaviour {
 			nextButton.gameObject.SetActive(false);
 			previousButton.gameObject.SetActive(false);
 		} else {
-			nextButton.gameObject.SetActive(true);
+			previousButton.gameObject.SetActive(true);
 		}
 	}
 
-	public void shiftButtons(bool next){
+	public void shiftButtons(bool moveRight){
 		RectTransform bt;
 		for(int i = 0;i<buttons.Count;i++){
 			bt = buttons[i].transform as RectTransform;
-			if(next)
-				bt.anchoredPosition = new Vector2(bt.anchoredPosition.x - (buttonWidth+buttonSpace), bt.anchoredPosition.y);
-			else
+			if(moveRight)
 				bt.anchoredPosition = new Vector2(bt.anchoredPosition.x + (buttonWidth+buttonSpace), bt.anchoredPosition.y);
+			else
+				bt.anchoredPosition = new Vector2(bt.anchoredPosition.x - (buttonWidth+buttonSpace), bt.anchoredPosition.y);
 
 			if(buttons[i].transform.position.x + buttonWidth/2 >= transform.position.x + panelWidth/2)
 				buttons[i].gameObject.SetActive(false);
@@ -152,13 +153,13 @@ public class PlanetSwitcher : MonoBehaviour {
 
 
 		if(buttons[0].transform.position.x > transform.position.x - panelWidth/2)
-			previousButton.gameObject.SetActive(false);
-		else
-			previousButton.gameObject.SetActive(true);
-
-		if(buttons[buttons.Count-1].transform.position.x < transform.position.x + panelWidth/2)
 			nextButton.gameObject.SetActive(false);
 		else
 			nextButton.gameObject.SetActive(true);
+
+		if(buttons[buttons.Count-1].transform.position.x < transform.position.x + panelWidth/2)
+			previousButton.gameObject.SetActive(false);
+		else
+			previousButton.gameObject.SetActive(true);
 	}
 }
