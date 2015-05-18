@@ -57,7 +57,7 @@ public class Body : MonoBehaviour {
 
 	//lines
 	public static bool showingDots = false;
-	private Transform[] dots;
+	public Transform[] dots;
 
 	public bool randomColor = false;
 	public Color color;
