@@ -58,7 +58,7 @@ public class PlanetSwitcher : MonoBehaviour {
 			Debug.Log("No body found!");
 	}
 
-	public void handleEditButton(int i ){
+	public void handleEditButton(int i){
 		controller.editBody(gs.bodies[i]);
 	}
 
@@ -90,8 +90,30 @@ public class PlanetSwitcher : MonoBehaviour {
 		}
 	}
 
+	public void deleteButton(int i){
+		Destroy(buttons[i].gameObject);
+		buttons.RemoveAt(i);
+		currentBodyCount--;
+		if(currentBodyCount <= maxButtonCount){
+			panelWidth = (buttonWidth+buttonSpace)*currentBodyCount + buttonSpace;
+			panelRT.sizeDelta = new Vector2(panelWidth, panelHeight);
+		}
+		for(int j = 0;j<buttons.Count;j++){
+			ButtonWithText b = buttons[j];
+
+			b.index = j;
+			b.editButton.index = j;
+
+			RectTransform t = b.transform as RectTransform;
+			t.anchoredPosition = new Vector2((buttonWidth+buttonSpace)*(j+1) - buttonWidth/2,15);
+		}
+
+		updateButtons();
+
+	}
+
 	public void updateButtons(){
-		for(int i = 0;i<buttons.Count;i++){
+		for(int i = 0;i<gs.bodies.Count;i++){
 			if(gs.bodies[i].type == Body.Type.Planet){
 				buttons[i].text.text = "Planet";
 				buttons[i].targetGraphic.color = gs.bodies[i].color;

@@ -18,6 +18,7 @@ public class GravitySystem : MonoBehaviour {
 	public bool uiHold = false;
 
 	public int frameShifts = 0;
+	private float lastTimeScale = 0;
 
 
 	// Use this for initialization

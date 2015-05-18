@@ -22,6 +22,7 @@ public class UIController : MonoBehaviour {
 	public InformationHandler informationHandler;
 
 	public Button resetButton;
+	public Button deleteButton;
 
 	public RadiusSlider radiusSlider;
 	public MassSlider massSlider;
@@ -68,12 +69,22 @@ public class UIController : MonoBehaviour {
 
 #endregion
 
+	public void deleteBody(){
+		int i = gs.bodies.IndexOf(body);
+
+		gs.bodies.RemoveAt(i);
+		Destroy(body.gameObject);
+
+		planetSwitcher.deleteButton(i);
+		gs.calcFuturePositions();
+
+		setState(State.SimState);
+	}
+
 	public void editBody(Body body){
 		gs.uiHold = true;
 		updateSliderValues();
 		setBody(body);
-
-
 	}
 
 	public void newBody(Body body){
@@ -101,6 +112,7 @@ public class UIController : MonoBehaviour {
 				updateActiveSliders(activeSliders);
 
 				resetButton.gameObject.SetActive(false);
+				deleteButton.gameObject.SetActive(true);
 
 				velocity.gameObject.SetActive(false);
 				timeSlider.gameObject.SetActive(false);
@@ -130,12 +142,13 @@ public class UIController : MonoBehaviour {
 	        		else
 	        			gs.bodies[i].sound.enabled = true;
 
-				leftButtonText.text = "Cancel";
+				leftButtonText.text = "Exit";
 				rightButtonText.text = "Next";
 			}break;
 			case State.VeloState:{
 				updateActiveSliders(ActiveSliders.None);
 				resetButton.gameObject.SetActive(false);
+				deleteButton.gameObject.SetActive(false);
 
 				velocity.gameObject.SetActive(true);
 				timeSlider.gameObject.SetActive(false);
@@ -160,6 +173,8 @@ public class UIController : MonoBehaviour {
 
 				updateActiveSliders(ActiveSliders.None);
 				resetButton.gameObject.SetActive(true);
+				deleteButton.gameObject.SetActive(false);
+
 				typeSelector.SetActive(false);
 				timeSlider.gameObject.SetActive(true);
 
